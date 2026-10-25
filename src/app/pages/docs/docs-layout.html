@@ -1,0 +1,72 @@
+<div class="mx-auto flex max-w-7xl gap-10 px-4 sm:px-6">
+  <!-- Table of contents, as on Microsoft Learn -->
+  <aside class="hidden w-64 shrink-0 lg:block">
+    <nav class="sticky top-14 max-h-[calc(100dvh-3.5rem)] overflow-y-auto py-10" i18n-aria-label="@@docs.nav.label" aria-label="Docs">
+      <p class="mb-3 px-3 text-[13px] font-semibold text-subtle uppercase tracking-wide" i18n="@@docs.nav.heading">Documentation</p>
+      <ul class="space-y-0.5 text-[14.5px]">
+        @for (page of docs; track page.slug) {
+          <li>
+            <a
+              [routerLink]="['/docs', page.slug]"
+              routerLinkActive="!bg-surface !text-fg font-semibold shadow-card before:absolute before:inset-y-2 before:left-0 before:w-[3px] before:rounded-full before:bg-accent"
+              ariaCurrentWhenActive="page"
+              class="relative block rounded-ctl px-3 py-2 text-muted transition-colors hover:bg-surface-hover hover:text-fg"
+            >{{ page.title }}</a>
+          </li>
+        }
+      </ul>
+    </nav>
+  </aside>
+
+  <div class="min-w-0 flex-1 py-10 lg:py-14">
+    <!-- Table of contents on small screens -->
+    <details class="group mb-8 rounded-card border border-stroke bg-surface lg:hidden">
+      <summary class="flex cursor-pointer list-none items-center justify-between px-4 py-3 text-[14.5px] [&::-webkit-details-marker]:hidden">
+        <span><span class="text-muted" i18n="@@docs.nav.heading">Documentation</span> / <strong class="font-semibold">{{ current()?.title }}</strong></span>
+        <app-icon name="chevronDown" class="size-4 text-muted transition-transform group-open:rotate-180" />
+      </summary>
+      <ul class="border-t border-stroke p-2 text-[14.5px]">
+        @for (page of docs; track page.slug) {
+          <li>
+            <a
+              [routerLink]="['/docs', page.slug]"
+              routerLinkActive="!text-fg font-semibold bg-surface-hover"
+              class="block rounded-ctl px-3 py-2 text-muted hover:bg-surface-hover"
+            >{{ page.title }}</a>
+          </li>
+        }
+      </ul>
+    </details>
+
+    <article class="prose-doc max-w-3xl">
+      <router-outlet />
+    </article>
+
+    <nav class="mt-16 grid max-w-3xl gap-4 sm:grid-cols-2" i18n-aria-label="@@docs.pager.label" aria-label="More pages">
+      @if (previous(); as page) {
+        <a [routerLink]="['/docs', page.slug]" class="group rounded-card border border-stroke bg-surface p-4 transition-colors hover:bg-surface-hover">
+          <span class="flex items-center gap-1 text-[13px] text-muted">
+            <app-icon name="arrowLeft" class="size-4" />
+            <span i18n="@@docs.pager.previous">Previous</span>
+          </span>
+          <span class="mt-1 block font-semibold text-link">{{ page.title }}</span>
+        </a>
+      } @else {
+        <span></span>
+      }
+      @if (next(); as page) {
+        <a [routerLink]="['/docs', page.slug]" class="group rounded-card border border-stroke bg-surface p-4 text-right transition-colors hover:bg-surface-hover">
+          <span class="flex items-center justify-end gap-1 text-[13px] text-muted">
+            <span i18n="@@docs.pager.next">Next</span>
+            <app-icon name="arrowRight" class="size-4" />
+          </span>
+          <span class="mt-1 block font-semibold text-link">{{ page.title }}</span>
+        </a>
+      }
+    </nav>
+
+    <p class="mt-10 max-w-3xl border-t border-stroke pt-6 text-[14px] text-muted" i18n="@@docs.feedback">
+      Something missing or wrong? <a [href]="repoUrl + '/issues'" class="link">Open an issue on GitHub</a>.
+    </p>
+  </div>
+</div>
