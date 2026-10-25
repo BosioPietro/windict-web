@@ -54,7 +54,14 @@ npm run extract-i18n
 
 It writes the English messages to `src/locale/messages.json` and checks that
 `messages.it.json` translates each of them, with the same placeholders, and
-nothing that's no longer used.
+nothing that's no longer used. It also flags messages whose English changed
+since they were translated: `messages.it.json` keeps that English under
+`source`. Once their Italian is updated, record the new English with
+`node scripts/check-i18n.mjs --accept`.
+
+The card in the home page's hero isn't translated this way: what it shows on
+each language's page, a word from that language's dictionary, is in
+`src/app/pages/home/hero-demo.ts`.
 
 ## Content
 
