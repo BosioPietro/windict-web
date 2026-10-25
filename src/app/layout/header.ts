@@ -55,7 +55,13 @@ export class Header {
 
   /** The same page in another language: a separate build, so a full page load. */
   protected hrefIn(locale: string): string {
-    const path = this.url().split(/[?#]/)[0].replace(/\/$/, '');
+    // The router's URL can start with a language already: on the root 404
+    // page, whose base is /en/, or under ng serve, which serves one language
+    // at /. Without dropping it, every switch would add another.
+    const path = this.url()
+      .split(/[?#]/)[0]
+      .replace(/\/$/, '')
+      .replace(new RegExp(`^/(${this.languages.map((l) => l.code).join('|')})(?=/|$)`), '');
     return `/${locale}${path}/`;
   }
 
