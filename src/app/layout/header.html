@@ -1,3 +1,4 @@
+<div class="absolute inset-0 -z-10" [class.acrylic]="!menuOpen()" [class.bg-bg]="menuOpen()" aria-hidden="true"></div>
 <div class="mx-auto flex h-14 max-w-7xl items-center gap-6 px-4 sm:px-6">
   <a routerLink="/" class="flex items-center gap-2.5 font-display text-[17px] font-semibold" (click)="menuOpen.set(false)">
     <img src="windict.png" alt="" width="28" height="28" class="size-7" />
@@ -26,13 +27,13 @@
       <app-icon name="localLanguage" class="size-[18px]" />
       {{ otherName }}
     </a>
-    <a [href]="releasesUrl" class="btn-accent !px-4 !py-1.5 !text-[14px]">
+    <a [href]="releasesUrl" class="btn-accent !px-3.5 !py-1.5 !text-[14px]" [style.display]="menuOpen() ? 'none' : null">
       <app-icon name="download" class="size-4" />
       <span i18n="@@nav.download">Download</span>
     </a>
     <button
       type="button"
-      class="flex size-9 items-center justify-center rounded-ctl hover:bg-surface-hover md:hidden"
+      class="-mr-1.5 flex size-10 items-center justify-center rounded-ctl hover:bg-surface-hover md:hidden"
       [attr.aria-expanded]="menuOpen()"
       aria-controls="mobile-menu"
       i18n-aria-label="@@nav.menu"
@@ -45,18 +46,63 @@
 </div>
 
 @if (menuOpen()) {
-  <nav id="mobile-menu" class="border-t border-stroke px-4 py-3 md:hidden" i18n-aria-label="@@nav.label" aria-label="Main">
-    <ul class="flex flex-col text-[15px]" (click)="menuOpen.set(false)">
-      <li><a routerLink="/" fragment="features" class="block rounded-ctl px-3 py-2.5 hover:bg-surface-hover" i18n="@@nav.features">Features</a></li>
-      <li><a routerLink="/docs" class="block rounded-ctl px-3 py-2.5 hover:bg-surface-hover" i18n="@@nav.docs">Docs</a></li>
-      <li><a routerLink="/docs/shortcuts" class="block rounded-ctl px-3 py-2.5 hover:bg-surface-hover" i18n="@@nav.shortcuts">Shortcuts</a></li>
-      <li><a [href]="repoUrl" class="block rounded-ctl px-3 py-2.5 hover:bg-surface-hover">GitHub</a></li>
+  <!-- On small screens: a sheet over the page, with the docs' pages too -->
+  <nav
+    id="mobile-menu"
+    class="menu-sheet fixed inset-x-0 top-14 bottom-0 z-50 flex flex-col overflow-y-auto border-t border-stroke bg-bg md:hidden"
+    i18n-aria-label="@@nav.label"
+    aria-label="Main"
+  >
+    <ul class="px-4 pt-4 font-display text-[26px] font-semibold" (click)="menuOpen.set(false)">
       <li>
-        <a [href]="otherHref()" [attr.hreflang]="other" [attr.lang]="other" class="flex items-center gap-2 rounded-ctl px-3 py-2.5 hover:bg-surface-hover">
-          <app-icon name="localLanguage" class="size-[18px]" />
-          {{ otherName }}
+        <a routerLink="/" fragment="features" class="flex items-center justify-between border-b border-stroke py-4">
+          <span i18n="@@nav.features">Features</span>
+          <app-icon name="chevronRight" class="size-5 text-subtle" />
+        </a>
+      </li>
+      <li>
+        <a routerLink="/docs/shortcuts" class="flex items-center justify-between border-b border-stroke py-4">
+          <span i18n="@@nav.shortcuts">Shortcuts</span>
+          <app-icon name="chevronRight" class="size-5 text-subtle" />
+        </a>
+      </li>
+      <li>
+        <a [href]="repoUrl" class="flex items-center justify-between border-b border-stroke py-4">
+          GitHub
+          <app-icon name="open" class="size-5 text-subtle" />
         </a>
       </li>
     </ul>
+
+    <p class="mt-8 px-4 text-[13px] font-semibold tracking-wide text-subtle uppercase" i18n="@@nav.docs">Docs</p>
+    <ul class="mt-2 grid grid-cols-1 px-2 text-[16px] min-[420px]:grid-cols-2" (click)="menuOpen.set(false)">
+      @for (page of docs; track page.slug) {
+        <li>
+          <a
+            [routerLink]="['/docs', page.slug]"
+            routerLinkActive="!text-fg font-semibold"
+            class="block rounded-ctl px-2 py-2.5 text-muted active:bg-surface-hover"
+          >{{ page.title }}</a>
+        </li>
+      }
+    </ul>
+
+    <div class="mt-auto space-y-3 border-t border-stroke p-4">
+      <div class="grid grid-cols-2 rounded-card border border-stroke bg-surface p-1 text-[15px]">
+        @for (language of languages; track language.code) {
+          @if (language.code === locale) {
+            <span class="rounded-ctl bg-accent-soft py-2 text-center font-semibold" aria-current="true">{{ language.name }}</span>
+          } @else {
+            <a [href]="hrefIn(language.code)" [attr.hreflang]="language.code" [attr.lang]="language.code" class="rounded-ctl py-2 text-center text-muted">
+              {{ language.name }}
+            </a>
+          }
+        }
+      </div>
+      <a [href]="releasesUrl" class="btn-accent w-full !py-3 !text-base">
+        <app-icon name="download" class="size-5" />
+        <span i18n="@@home.hero.download">Download for Windows</span>
+      </a>
+    </div>
   </nav>
 }
