@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { Keys } from '../../shared/keys';
 import { Shot } from '../../shared/shot';
+import { Winget } from '../../shared/winget';
 import { RELEASES_URL, REPO_URL } from '../../site';
 
 /** What every docs page can use in its template. */
@@ -13,7 +14,7 @@ abstract class DocPage {
 const changeDetection = ChangeDetectionStrategy.OnPush;
 
 @Component({
-  imports: [RouterLink, Keys, Shot],
+  imports: [RouterLink, Keys, Shot, Winget],
   changeDetection,
   templateUrl: './getting-started.html',
 })

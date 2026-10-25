@@ -1,0 +1,229 @@
+/* The colors are WinDict's own (theme.rs): the card's acrylic tint and edge,
+   and its accent text, in light and dark. */
+:host {
+  display: block;
+  --card-tint: rgb(246 246 246 / 0.78);
+  --card-edge: rgb(0 0 0 / 0.1);
+  --card-ink: #1b1b1b;
+  --card-accent: #005fb8;
+  --card-fill: rgb(0 0 0 / 0.06);
+  --card-control: rgb(255 255 255 / 0.7);
+  --paper: #faf7f0;
+  --paper-bar: #f1ece1;
+  --paper-ink: #2b2620;
+  --pick: #005fb8;
+  --pick-ink: #fff;
+}
+
+@media (prefers-color-scheme: dark) {
+  :host {
+    --card-tint: rgb(32 32 32 / 0.74);
+    --card-edge: rgb(255 255 255 / 0.15);
+    --card-ink: #fff;
+    --card-accent: #99ebff;
+    --card-fill: rgb(255 255 255 / 0.09);
+    --card-control: rgb(255 255 255 / 0.06);
+    --paper: #1e1b17;
+    --paper-bar: #25211c;
+    --paper-ink: #e4dac8;
+    --pick: #99ebff;
+    --pick-ink: #000;
+  }
+}
+
+.scene {
+  height: 30rem;
+}
+@media (min-width: 640px) {
+  .scene {
+    height: 32rem;
+  }
+}
+
+/* Windows 11's Bloom, more or less. */
+.wallpaper {
+  background:
+    radial-gradient(90% 70% at 95% 105%, #0b4fe0 0 25%, transparent 60%),
+    radial-gradient(60% 55% at 100% 35%, #4b93ff 0, transparent 65%),
+    radial-gradient(55% 45% at 70% 75%, #8ab9ff, transparent 70%),
+    linear-gradient(160deg, #e3edf9, #aac8ee);
+}
+@media (prefers-color-scheme: dark) {
+  .wallpaper {
+    background:
+      radial-gradient(90% 70% at 95% 105%, #1d5cff 0 18%, transparent 60%),
+      radial-gradient(60% 55% at 100% 35%, #0f3cb8 0, transparent 65%),
+      radial-gradient(55% 45% at 70% 75%, #0a2a85, transparent 70%),
+      linear-gradient(160deg, #071433, #02060f);
+  }
+}
+
+.reader {
+  background: var(--paper);
+  color: var(--paper-ink);
+  box-shadow: 0 8px 32px rgb(0 0 0 / 0.18);
+}
+.reader > div:first-child {
+  background: var(--paper-bar);
+}
+.book {
+  font-family: Georgia, 'Iowan Old Style', 'Times New Roman', serif;
+  font-size: 15px;
+  line-height: 1.8;
+  hyphens: auto;
+  text-align: justify;
+}
+@media (min-width: 640px) {
+  .book {
+    font-size: 17px;
+  }
+}
+.selected {
+  background: var(--pick);
+  color: var(--pick-ink);
+}
+
+.card {
+  /* Until it's measured, roughly under the word. */
+  left: 12%;
+  top: 40%;
+  width: min(330px, calc(100% - 24px));
+  padding: 16px 18px 14px;
+  border-radius: 8px;
+  border: 1px solid var(--card-edge);
+  background: var(--card-tint);
+  backdrop-filter: blur(30px) saturate(1.5);
+  -webkit-backdrop-filter: blur(30px) saturate(1.5);
+  box-shadow:
+    0 2px 6px rgb(0 0 0 / 0.08),
+    0 16px 40px rgb(0 0 0 / 0.22);
+  color: var(--card-ink);
+  font-size: 14px;
+  line-height: 1.45;
+  opacity: 0;
+}
+.card.placed {
+  animation: rise 420ms 200ms cubic-bezier(0.1, 0.9, 0.2, 1) both;
+}
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.tool {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 4px;
+  color: var(--card-accent);
+}
+button.tool {
+  cursor: pointer;
+  transition: background-color 120ms;
+}
+button.tool:hover,
+.tool.on {
+  background: var(--card-fill);
+}
+
+/* Both sides stay in the card, one over the other, so it doesn't change size. */
+.side {
+  grid-area: 1 / 1;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(6px);
+  transition:
+    opacity 220ms,
+    transform 320ms cubic-bezier(0.1, 0.9, 0.2, 1),
+    visibility 0s 220ms;
+}
+.side.shown {
+  opacity: 1;
+  visibility: visible;
+  transform: none;
+  transition:
+    opacity 260ms 80ms,
+    transform 360ms 80ms cubic-bezier(0.1, 0.9, 0.2, 1);
+}
+
+.pos {
+  margin-bottom: 6px;
+  color: var(--card-accent);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.example {
+  display: block;
+  font-size: 13px;
+  font-style: italic;
+  opacity: 0.65;
+}
+.accent,
+.accent-link {
+  color: var(--card-accent);
+}
+.accent-link {
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.rule {
+  height: 1px;
+  background: var(--card-edge);
+}
+.picker {
+  display: flex;
+  flex: 1;
+  min-width: 0;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 8px;
+  border-radius: 4px;
+  border: 1px solid var(--card-edge);
+  background: var(--card-control);
+}
+
+.tab {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 7px 14px;
+  border-radius: 4px;
+  color: var(--muted);
+  font-size: 14px;
+  cursor: pointer;
+  transition:
+    background-color 150ms,
+    color 150ms;
+}
+.tab:hover {
+  background: var(--surface-hover);
+  color: var(--fg);
+}
+.tab.active {
+  background: var(--accent-soft);
+  color: var(--fg);
+  font-weight: 600;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card.placed {
+    animation: none;
+    opacity: 1;
+  }
+  .side,
+  .side.shown {
+    transition: none;
+    transform: none;
+  }
+}

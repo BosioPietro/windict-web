@@ -4,7 +4,9 @@ import { Icon } from '../../shared/icon';
 import { IconName } from '../../shared/icons';
 import { Keys } from '../../shared/keys';
 import { Shot } from '../../shared/shot';
+import { Winget } from '../../shared/winget';
 import { RELEASES_URL, REPO_URL } from '../../site';
+import { HeroDemo } from './hero-demo';
 
 interface Feature {
   icon: IconName;
@@ -15,7 +17,7 @@ interface Feature {
 @Component({
   selector: 'app-home',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [RouterLink, Icon, Keys, Shot],
+  imports: [RouterLink, Icon, Keys, Shot, Winget, HeroDemo],
   templateUrl: './home.html',
 })
 export class Home {
@@ -24,11 +26,11 @@ export class Home {
 
   protected readonly stats = [
     {
-      value: $localize`:@@home.stat.memory.value:3 MB`,
+      value: $localize`:@@home.stat.memory.value:4 MB`,
       label: $localize`:@@home.stat.memory.label:of memory while idle`,
     },
     {
-      value: $localize`:@@home.stat.words.value:150,000`,
+      value: $localize`:@@home.stat.words.value:150,000+`,
       label: $localize`:@@home.stat.words.label:English words and phrases, offline`,
     },
     { value: '22', label: $localize`:@@home.stat.languages.label:languages to translate between` },
@@ -101,6 +103,10 @@ export class Home {
     {
       q: $localize`:@@home.faq.languages.q:Which languages does it have?`,
       a: $localize`:@@home.faq.languages.a:Definitions in English and Italian, translations between 22 languages, and the app itself in English and Italian.`,
+    },
+    {
+      q: $localize`:@@home.faq.windows.q:Which versions of Windows does it run on?`,
+      a: $localize`:@@home.faq.windows.a:Windows 10 and 11. Older versions might work, but they aren't tested.`,
     },
     {
       q: $localize`:@@home.faq.portable.q:Do I have to install it?`,

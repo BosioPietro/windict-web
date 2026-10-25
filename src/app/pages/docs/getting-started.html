@@ -1,5 +1,6 @@
 <h1 i18n="@@docs.start.title">Getting started</h1>
 <p class="lead" i18n="@@docs.start.lead">Install WinDict, or run it without installing, and look up your first word.</p>
+<p i18n="@@docs.start.requirements">WinDict runs on <strong>Windows 10 and 11</strong>. Older versions might work, but they aren't tested.</p>
 
 <h2 i18n="@@docs.start.setup.title">Install with the setup (recommended)</h2>
 <ol>
@@ -8,6 +9,11 @@
   <li i18n="@@docs.start.setup.3">Choose <strong>Open WinDict</strong>. A short introduction goes through the shortcuts, each with an example card.</li>
 </ol>
 <p i18n="@@docs.start.setup.why">Only the installed copy can <a routerLink="/docs/above-start">show the card above the Start menu</a>, and it updates without asking for permission.</p>
+
+<h2 i18n="@@docs.start.winget.title">Install with WinGet</h2>
+<p i18n="@@docs.start.winget.text">WinGet installs the same setup, from a terminal:</p>
+<app-winget class="not-prose my-5 max-w-lg" />
+<p i18n="@@docs.start.winget.upgrade">To update it the same way, use <code>winget upgrade BosioPietro.WinDict</code>, or <strong>Update app</strong> in WinDict's tray menu.</p>
 
 <h2 i18n="@@docs.start.portable.title">Run it without installing</h2>
 <p i18n="@@docs.start.portable.text">Download <code>WinDict-&lt;version&gt;.exe</code> instead and run it from anywhere: it's the whole app in a single executable. Its settings are kept in the same place as the installed copy's.</p>

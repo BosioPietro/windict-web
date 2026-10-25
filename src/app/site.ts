@@ -4,6 +4,7 @@ export const SITE_URL = 'https://windict.bosio.zip';
 export const REPO_URL = 'https://github.com/BosioPietro/WinDict';
 export const RELEASES_URL = `${REPO_URL}/releases/latest`;
 export const ISSUES_URL = `${REPO_URL}/issues`;
+export const WINGET_ID = 'BosioPietro.WinDict';
 
 export const LOCALES = ['en', 'it'] as const;
 export type Locale = (typeof LOCALES)[number];
