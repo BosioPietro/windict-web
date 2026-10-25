@@ -2,7 +2,7 @@
 <section class="relative overflow-hidden">
   <div class="bloom pointer-events-none absolute inset-0" aria-hidden="true"></div>
   <div
-    class="relative mx-auto grid min-h-[calc(100svh-3.5rem)] max-w-7xl grid-cols-1 content-center items-center gap-5 px-4 py-5 sm:gap-12 sm:px-6 sm:py-16 lg:min-h-0 lg:grid-cols-[1fr_1.1fr] lg:gap-14 lg:py-24 xl:py-28"
+    class="relative mx-auto grid min-h-[calc(100svh-3.5rem)] max-w-7xl grid-cols-1 content-center items-center gap-5 px-4 py-5 sm:gap-12 sm:px-6 sm:py-16 lg:min-h-0 lg:grid-cols-[1fr_1.1fr] lg:gap-14 lg:py-28 xl:py-32"
   >
     <div class="min-w-0 max-w-xl">
       <h1
@@ -230,9 +230,16 @@
 <!-- Tray + install -->
 <section class="bg-bg-alt">
   <div class="mx-auto max-w-7xl px-4 py-20 sm:px-6 sm:py-28">
-    <div class="grid grid-cols-1 items-center gap-12 lg:grid-cols-2 lg:gap-24">
-      <div class="overflow-hidden rounded-window border border-stroke shadow-float">
-        <app-shot name="tray" i18n-alt="@@home.tray.shotAlt" alt="WinDict's icon among the hidden icons of the Windows taskbar" />
+    <div class="grid grid-cols-1 items-center gap-12 lg:grid-cols-[1.1fr_1fr] lg:gap-16">
+      <!-- Cropped to the corner with the clock, so the icons are big enough to see and the picture stands as tall as the steps. -->
+      <div class="aspect-[6/5] overflow-hidden rounded-window border border-stroke shadow-float">
+        <app-shot
+          name="tray"
+          class="h-full [&_img]:h-full [&_img]:object-cover [&_img]:object-right-bottom"
+          sizes="(min-width: 1024px) 60vw, 150vw"
+          i18n-alt="@@home.tray.shotAlt"
+          alt="WinDict's icon among the hidden icons of the Windows taskbar"
+        />
       </div>
       <div>
         <p class="eyebrow" i18n="@@home.tray.eyebrow">Get started</p>
@@ -280,17 +287,28 @@
   <h2 class="font-display text-[2.1rem] leading-tight font-semibold tracking-tight sm:text-center sm:text-5xl" i18n="@@home.faq.title">
     Questions and answers
   </h2>
-  <div class="mt-10 divide-y divide-stroke overflow-hidden rounded-window border border-stroke bg-surface">
+  <div class="mt-10 space-y-3">
     @for (faq of faqs; track $index) {
-      <details class="group">
-        <summary
-          class="flex cursor-pointer list-none items-center justify-between gap-4 px-5 py-4 font-semibold hover:bg-surface-hover sm:px-6 [&::-webkit-details-marker]:hidden"
-        >
-          {{ faq.q }}
-          <app-icon name="chevronDown" class="size-4 shrink-0 text-muted transition-transform group-open:rotate-180" />
-        </summary>
-        <p class="px-5 pb-5 text-muted sm:px-6">{{ faq.a }}</p>
-      </details>
+      <div class="faq" [class.open]="open().has($index)">
+        <h3>
+          <button
+            type="button"
+            class="faq-question"
+            [id]="'faq-q-' + $index"
+            [attr.aria-expanded]="open().has($index)"
+            [attr.aria-controls]="'faq-a-' + $index"
+            (click)="toggle($index)"
+          >
+            <span>{{ faq.q }}</span>
+            <span class="faq-sign" aria-hidden="true"></span>
+          </button>
+        </h3>
+        <div class="faq-answer" role="region" [id]="'faq-a-' + $index" [attr.aria-labelledby]="'faq-q-' + $index" [inert]="!open().has($index)">
+          <div class="min-h-0 overflow-hidden">
+            <p class="px-5 pb-5 text-muted sm:px-6">{{ faq.a }}</p>
+          </div>
+        </div>
+      </div>
     }
   </div>
 </section>
