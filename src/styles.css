@@ -266,8 +266,36 @@
   }
   /* The soft blue Bloom light behind the hero. */
   .bloom {
+    /* Eased falloffs: a straight fade from color to nothing shows rings. */
     background:
-      radial-gradient(60% 55% at 70% 20%, var(--glow-1), transparent 70%),
-      radial-gradient(45% 45% at 15% 35%, var(--glow-2), transparent 70%);
+      radial-gradient(
+        60% 55% at 70% 20%,
+        var(--glow-1),
+        color-mix(in srgb, var(--glow-1) 70%, transparent) 25%,
+        color-mix(in srgb, var(--glow-1) 35%, transparent) 45%,
+        color-mix(in srgb, var(--glow-1) 12%, transparent) 60%,
+        transparent 72%
+      ),
+      radial-gradient(
+        45% 45% at 15% 35%,
+        var(--glow-2),
+        color-mix(in srgb, var(--glow-2) 70%, transparent) 25%,
+        color-mix(in srgb, var(--glow-2) 35%, transparent) 45%,
+        color-mix(in srgb, var(--glow-2) 12%, transparent) 60%,
+        transparent 72%
+      );
+  }
+  /* A faint grain over the glow dithers its few shades of a dark color,
+     which a screen would otherwise show as bands. Masked to the glow, so the
+     rest of the section keeps its exact color. */
+  .bloom::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    opacity: 0.05;
+    mask-image:
+      radial-gradient(70% 70% at 70% 20%, #000, transparent 80%),
+      radial-gradient(55% 60% at 15% 35%, #000, transparent 80%);
   }
 }
