@@ -46,7 +46,7 @@ interface Demo {
   translation: string;
   terms: Term[];
   tabs: { define: string; translate: string };
-  tips: { speak: string; translate: string; pin: string; swap: string };
+  tips: { speak: string; translate: string; back: string; pin: string; swap: string };
 }
 
 /**
@@ -58,11 +58,10 @@ const DEMOS: Record<string, Demo> = {
   en: {
     label: 'WinDict defining and translating “serene”, selected in a book',
     window: 'The Crossing — Chapter 2',
-    before:
-      'By the time the ferry cleared the harbour, the wind had dropped. The water lay flat and ',
+    before: 'The sea lay flat and ',
     word: 'serene',
     after:
-      ' under a sky that had finally stopped threatening rain, and for the first time in days Mara let herself look back at the town.',
+      ' under a sky that had finally stopped threatening rain. By the time the ferry cleared the harbour the wind had dropped, and for the first time in days Mara let herself look back at the town.',
     next: 'It looked smaller than she remembered: a row of white houses, the bell tower, the long grey arm of the pier. Somewhere in it her brother was still asleep, and would not know she had gone until the evening.',
     heading: 'Serene',
     pos: 'Adjective',
@@ -85,6 +84,7 @@ const DEMOS: Record<string, Demo> = {
     tips: {
       speak: 'Listen',
       translate: 'Translate (Ctrl+T)',
+      back: 'Back (Backspace)',
       pin: 'Pin window',
       swap: 'Swap languages',
     },
@@ -92,10 +92,10 @@ const DEMOS: Record<string, Demo> = {
   it: {
     label: 'WinDict che definisce e traduce “brezza”, selezionata in un libro',
     window: 'Il lungomare — Capitolo 3',
-    before: 'Sul lungomare la sera era tiepida, e dal porto una ',
+    before: 'Quella sera una ',
     word: 'brezza',
     after:
-      ' leggera portava l’odore del sale e delle reti stese ad asciugare, mentre le prime luci si accendevano lungo la riva.',
+      ' leggera portava dal porto l’odore del sale e delle reti stese ad asciugare. Sul lungomare l’aria era tiepida, e le prime luci si accendevano lungo la riva.',
     next: 'Giulia si fermò davanti al bar della piazza, dove i pescatori discutevano ancora del tempo di domani. Nessuno fece caso a lei, e per un momento le sembrò di non essere mai partita.',
     heading: 'Brezza',
     pos: 'Sostantivo',
@@ -121,6 +121,7 @@ const DEMOS: Record<string, Demo> = {
     tips: {
       speak: 'Ascolta',
       translate: 'Traduci (Ctrl+T)',
+      back: 'Indietro (Backspace)',
       pin: 'Fissa finestra',
       swap: 'Inverti le lingue',
     },
@@ -178,10 +179,6 @@ export class HeroDemo {
   protected show(mode: Mode) {
     clearInterval(this.timer);
     this.mode.set(mode);
-  }
-
-  protected toggle() {
-    this.show(this.mode() === 'define' ? 'translate' : 'define');
   }
 
   protected pause(paused: boolean) {

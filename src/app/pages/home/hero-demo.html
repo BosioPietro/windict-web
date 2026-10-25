@@ -53,24 +53,27 @@
     [style.left.px]="place()?.left"
     [style.top.px]="place()?.top"
   >
-    <div class="mb-1 flex items-start justify-between gap-3">
-      <div class="flex items-center gap-2">
-        <span class="text-[22px] leading-tight font-semibold">{{ demo.heading }}</span>
-        <span class="tool !size-6 opacity-80" [title]="demo.tips.speak"><app-icon name="speaker" class="size-3.5" /></span>
+    <!-- As in WinDict: on the translation, a back button before the word, and
+         neither the speaker nor the translate button. -->
+    <div class="mb-1 flex items-center justify-between gap-3">
+      <div class="flex min-w-0 items-center gap-1.5">
+        @if (mode() === 'translate') {
+          <button type="button" class="tool back -ml-1.5" [title]="demo.tips.back" [attr.aria-label]="demo.tips.back" (click)="show('define')">
+            <app-icon name="arrowLeft" class="size-4" />
+          </button>
+        }
+        <span class="heading truncate font-semibold">{{ demo.heading }}</span>
+        @if (mode() === 'define') {
+          <span class="tool secondary !size-6" [title]="demo.tips.speak"><app-icon name="speaker" class="size-3.5" /></span>
+        }
       </div>
       <div class="flex shrink-0 items-center gap-0.5">
-        <button
-          type="button"
-          class="tool"
-          [class.on]="mode() === 'translate'"
-          [title]="demo.tips.translate"
-          [attr.aria-label]="demo.tips.translate"
-          [attr.aria-pressed]="mode() === 'translate'"
-          (click)="toggle()"
-        >
-          <app-icon name="translate" class="size-4" />
-        </button>
-        <span class="tool" [title]="demo.tips.pin"><app-icon name="pin" class="size-4" /></span>
+        @if (mode() === 'define') {
+          <button type="button" class="tool" [title]="demo.tips.translate" [attr.aria-label]="demo.tips.translate" (click)="show('translate')">
+            <app-icon name="translate" class="size-4" />
+          </button>
+        }
+        <span class="tool secondary" [title]="demo.tips.pin"><app-icon name="pin" class="size-4" /></span>
       </div>
     </div>
 
@@ -78,7 +81,7 @@
       <!-- The definition -->
       <div class="side" [class.shown]="mode() === 'define'" [attr.aria-hidden]="mode() !== 'define'">
         <p class="pos">{{ demo.pos }}</p>
-        <ol class="space-y-2">
+        <ol class="senses space-y-2">
           @for (sense of demo.senses; track $index) {
             <li class="flex gap-3">
               <span class="w-2 shrink-0 text-[12px] leading-[1.6] opacity-55">{{ $index + 1 }}</span>
@@ -121,7 +124,7 @@
         <p class="text-[19px] font-semibold">{{ demo.translation }}</p>
         <div class="rule my-2.5"></div>
         <p class="pos">{{ demo.pos }}</p>
-        <ul class="space-y-1">
+        <ul class="terms space-y-1">
           @for (term of demo.terms; track term.text) {
             <li class="flex items-baseline gap-2.5">
               <span>{{ term.text }}</span>
@@ -136,8 +139,8 @@
 </div>
 
 <!-- Which side shows, and the keys that turn it -->
-<div class="mt-4 flex justify-center">
-  <div class="grid w-full grid-cols-2 rounded-card border border-stroke bg-surface p-1 shadow-card sm:inline-grid sm:w-auto" role="tablist">
+<div class="tabs mt-4 flex justify-center sm:mt-6">
+  <div class="grid w-full grid-cols-2 gap-1 rounded-card border border-stroke bg-surface p-1 shadow-card sm:inline-grid sm:w-auto" role="tablist">
     <button
       type="button"
       role="tab"
