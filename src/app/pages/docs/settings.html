@@ -1,0 +1,67 @@
+<h1 i18n="@@docs.settings.title">Settings</h1>
+<p class="lead" i18n="@@docs.settings.lead">Open the tray menu and choose <strong>Settings…</strong>. Changes apply right away.</p>
+
+<h2 id="general" i18n="@@docs.settings.general.title">General</h2>
+<table>
+  <tbody>
+    <tr><td><strong i18n="@@docs.settings.autostart">Start with Windows</strong></td><td i18n="@@docs.settings.autostart.text">Runs WinDict when you sign in. Also in the tray menu.</td></tr>
+    <tr><td><strong i18n="@@docs.settings.aboveStart">Show above Start</strong></td><td i18n="@@docs.settings.aboveStart.text">Opens the card on top of Start and Search. Only in the installed copy: see <a routerLink="/docs/above-start">Above the Start menu</a>.</td></tr>
+    <tr><td><strong i18n="@@docs.settings.updates">Check for updates</strong></td><td i18n="@@docs.settings.updates.text">Once a day. When there's a new version, the tray icon shows a dot and its menu has <strong>Update app</strong>.</td></tr>
+    <tr><td><strong i18n="@@docs.settings.language">Language</strong></td><td i18n="@@docs.settings.language.text">The language WinDict is shown in: English or Italiano. At first, the language of Windows, if WinDict has it.</td></tr>
+    <tr><td><strong i18n="@@docs.settings.shortcuts">Shortcuts</strong></td><td i18n="@@docs.settings.shortcuts.text">The keys that look up and translate, <app-keys keys="Alt+D" /> and <app-keys keys="Alt+T" /> at first. Click one and press the new keys; <app-keys keys="Esc" /> keeps the old ones.</td></tr>
+  </tbody>
+</table>
+
+<h2 id="card" i18n="@@docs.settings.card.title">Card</h2>
+<table>
+  <tbody>
+    <tr><td><strong i18n="@@docs.settings.theme">Theme</strong></td><td i18n="@@docs.settings.theme.text">System, Light or Dark. With System, the card follows Windows, and always takes its accent color.</td></tr>
+    <tr><td><strong i18n="@@docs.settings.textSize">Text size</strong></td><td i18n="@@docs.settings.textSize.text">From 80% to 200%. Also <app-keys keys="Ctrl++" />, <app-keys keys="Ctrl+-" /> or Ctrl and the mouse wheel on the card.</td></tr>
+    <tr><td><strong i18n="@@docs.settings.definitions">Definitions</strong></td><td i18n="@@docs.settings.definitions.text">Senses shown per part of speech, from 1 to 10. 4 at first.</td></tr>
+    <tr><td><strong i18n="@@docs.settings.synonyms">Synonyms</strong></td><td i18n="@@docs.settings.synonyms.text">Similar words under each part of speech, from 0, which hides them, to 12. 6 at first.</td></tr>
+    <tr><td><strong i18n="@@docs.settings.examples">Examples</strong></td><td i18n="@@docs.settings.examples.text">Sentences showing each sense in use.</td></tr>
+    <tr><td><strong i18n="@@docs.settings.animations">Animations</strong></td><td i18n="@@docs.settings.animations.text">At first as Windows has them, under Accessibility → Visual effects. Turn on or off to override it.</td></tr>
+  </tbody>
+</table>
+
+<h2 id="lookup" i18n="@@docs.settings.lookup.title">Lookup</h2>
+<table>
+  <tbody>
+    <tr><td><strong i18n="@@docs.settings.online">Online dictionary</strong></td><td i18n="@@docs.settings.online.text">For pronunciations, and words the built-in dictionaries lack. Translations need it on.</td></tr>
+    <tr><td><strong i18n="@@docs.settings.languages">Languages</strong></td><td i18n="@@docs.settings.languages.text">The dictionaries words are looked up in. English is built in; choosing Italiano downloads its dictionary, once.</td></tr>
+  </tbody>
+</table>
+<h3 i18n="@@docs.settings.reading.title">Read selections</h3>
+<p i18n="@@docs.settings.reading.text">How WinDict reads what's selected:</p>
+<ul>
+  <li i18n="@@docs.settings.reading.direct"><strong>Direct only</strong>, the default: reads the selection directly, through UI Automation. It opens faster, but misses selections in apps that can't be read that way. Switch to Automatic if words go missing.</li>
+  <li i18n="@@docs.settings.reading.automatic"><strong>Automatic</strong>: reads the selection directly, and copies it in apps where that isn't possible, putting back what was on the clipboard. Works in every app.</li>
+  <li i18n="@@docs.settings.reading.clipboard"><strong>Clipboard only</strong>: always copies the selection, which is slower. Try it if an app gives the wrong text.</li>
+</ul>
+
+<h2 id="translation" i18n="@@docs.settings.translation.title">Translation</h2>
+<table>
+  <tbody>
+    <tr><td><strong i18n="@@docs.settings.defaults">Default languages</strong></td><td i18n="@@docs.settings.defaults.text">Translated from and into when the language can't be told: English into Italiano at first.</td></tr>
+    <tr><td><strong i18n="@@docs.settings.email">MyMemory email</strong></td><td i18n="@@docs.settings.email.text">Raises MyMemory's daily limit on free translations. It's sent only to MyMemory, with the text translated.</td></tr>
+  </tbody>
+</table>
+
+<h2 id="file" i18n="@@docs.settings.file.title">The settings file</h2>
+<p i18n="@@docs.settings.file.text">The settings are stored in <code>%APPDATA%\WinDict\config.json</code>. To edit the file by hand, use <strong>Open config.json</strong> at the bottom of the settings window, then <strong>Reload settings</strong> in the tray menu.</p>
+<pre><code>{{ '{' }}
+  "hotkey": "Alt+D",
+  "translate_hotkey": "Alt+T",
+  "theme": "system",
+  "max_definitions": 4,
+  "max_synonyms": 6,
+  "show_examples": true,
+  "zoom": 100,
+  "selection": "direct",
+  "online_lookup": true,
+  "languages": ["en"],
+  "translate_from": "en",
+  "translate_to": "it",
+  "check_updates": true
+{{ '}' }}</code></pre>
+<p i18n="@@docs.settings.file.keys">Shortcuts are written as in <code>"Ctrl+Alt+D"</code> or <code>"Win+Shift+F1"</code>: one key, with at least one of Ctrl, Alt, Shift or Win.</p>
