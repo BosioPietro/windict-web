@@ -1,137 +1,153 @@
 <!-- Hero -->
 <section class="relative overflow-hidden">
   <div class="bloom pointer-events-none absolute inset-0" aria-hidden="true"></div>
-  <div class="relative mx-auto grid max-w-7xl items-center gap-12 px-4 pt-16 pb-20 sm:px-6 lg:grid-cols-[1fr_1.15fr] lg:pt-24 lg:pb-28">
-    <div class="max-w-xl">
-      <div class="mb-6 flex items-center gap-3">
-        <img src="windict.png" alt="" width="56" height="56" class="size-14 drop-shadow-md" />
-        <span class="eyebrow" i18n="@@home.hero.eyebrow">Free and open source · For Windows</span>
-      </div>
-      <h1 class="font-display text-[2.6rem] leading-[1.08] font-semibold tracking-tight sm:text-6xl" i18n="@@home.hero.title">
-        Every word, explained right where you read it.
-      </h1>
-      <p class="mt-6 text-lg text-muted sm:text-xl" i18n="@@home.hero.lead">
-        Select a word in any app and press <app-keys keys="Alt+D" />. WinDict opens its definition in a card next to the
-        selection, and gets out of the way when you're done.
+  <div
+    class="relative mx-auto grid max-w-7xl grid-cols-1 items-center gap-12 px-4 pt-12 pb-16 sm:px-6 sm:pt-20 sm:pb-24 lg:grid-cols-[1fr_1.1fr] lg:gap-14 lg:pt-24 lg:pb-28"
+  >
+    <div class="min-w-0 max-w-xl">
+      <h1
+        class="font-display text-[2.6rem] leading-[1.05] font-semibold tracking-tight text-balance sm:text-6xl lg:text-[3.6rem] xl:text-[3.9rem]"
+        i18n="@@home.hero.title"
+      >Any word, explained in place.</h1>
+      <p class="mt-5 text-[17px] leading-relaxed text-muted sm:mt-6 sm:text-xl" i18n="@@home.hero.lead">
+        Select a word in any app and press <app-keys keys="Alt+D" />: its definition, or its translation, opens right beside
+        it.
       </p>
-      <div class="mt-9 flex flex-wrap items-center gap-3">
-        <a [href]="releasesUrl" class="btn-accent !px-6 !py-3 !text-base">
+      <div class="mt-8 flex flex-col gap-3 sm:mt-10 sm:flex-row sm:items-center">
+        <a [href]="releasesUrl" class="btn-accent !py-3 !text-base sm:!px-6">
           <app-icon name="download" class="size-5" />
           <span i18n="@@home.hero.download">Download for Windows</span>
         </a>
-        <a routerLink="/docs/getting-started" class="btn-standard !px-6 !py-3 !text-base">
+        <a routerLink="/docs/getting-started" class="btn-standard !py-3 !text-base sm:!px-6">
           <span i18n="@@home.hero.learn">Get started</span>
           <app-icon name="arrowRight" class="size-[18px]" />
         </a>
       </div>
-      <p class="mt-4 text-[13px] text-subtle" i18n="@@home.hero.note">Free · MIT licensed · No account needed</p>
+      <app-winget class="mt-4 hidden max-w-md sm:block" />
+      <p class="mt-5 text-center text-[13px] text-subtle sm:text-left" i18n="@@home.hero.note">Free and open source · Windows 10 and 11</p>
     </div>
 
-    <div class="relative">
-      <div class="overflow-hidden rounded-window border border-stroke shadow-float">
-        <app-shot name="lookup" [eager]="true" i18n-alt="@@home.hero.shotAlt" alt="WinDict's card showing the definition of “gleam”, next to the word selected in an e-book" />
-      </div>
-    </div>
+    <app-hero-demo class="min-w-0" />
   </div>
 </section>
 
 <!-- Stats -->
 <section class="border-y border-stroke bg-surface">
-  <dl class="mx-auto grid max-w-7xl grid-cols-2 gap-y-8 px-4 py-10 sm:px-6 lg:grid-cols-4">
+  <!-- The gaps between the stats, over the stroke color, draw the lines between them. -->
+  <dl class="mx-auto grid max-w-7xl grid-cols-2 gap-px bg-stroke lg:grid-cols-4">
     @for (stat of stats; track $index) {
-      <div class="flex flex-col-reverse items-center text-center">
-        <dt class="mt-1 text-[14px] text-muted">{{ stat.label }}</dt>
-        <dd class="font-display text-3xl font-semibold tracking-tight sm:text-4xl">{{ stat.value }}</dd>
+      <div class="flex flex-col-reverse items-center justify-end bg-surface px-2 py-7 text-center sm:py-10">
+        <dt class="mt-1 text-[13px] text-muted sm:text-[14px]">{{ stat.label }}</dt>
+        <dd class="font-display text-[1.9rem] font-semibold tracking-tight sm:text-4xl">{{ stat.value }}</dd>
       </div>
     }
   </dl>
 </section>
 
 <!-- Look up -->
-<section id="features" class="mx-auto max-w-7xl scroll-mt-20 px-4 py-24 sm:px-6">
-  <div class="grid items-center gap-12 lg:grid-cols-2 lg:gap-20">
-    <div>
+<section id="features" class="mx-auto max-w-7xl scroll-mt-20 px-4 py-20 sm:px-6 sm:py-28 lg:py-32">
+  <div class="grid grid-cols-1 items-center gap-12 lg:grid-cols-2 lg:gap-24">
+    <div class="max-w-xl">
       <p class="eyebrow" i18n="@@home.lookup.eyebrow">Look up</p>
-      <h2 class="mt-3 font-display text-4xl font-semibold tracking-tight sm:text-[2.75rem] sm:leading-tight" i18n="@@home.lookup.title">
-        Definitions in place, in any app
+      <h2 class="mt-3 font-display text-[2.1rem] leading-tight font-semibold tracking-tight sm:text-5xl" i18n="@@home.lookup.title">
+        Definitions, in any app
       </h2>
-      <p class="mt-5 text-lg text-muted" i18n="@@home.lookup.text">
-        Browsers, PDFs, e-mail, code editors: select a word or a short phrase, press <app-keys keys="Alt+D" />, and the card opens
-        right under it. <app-keys keys="Esc" /> or a click elsewhere closes it.
+      <p class="mt-5 text-[17px] leading-relaxed text-muted sm:mt-6 sm:text-lg" i18n="@@home.lookup.text">
+        Browsers, PDFs, e-mail, code editors: the card opens right under the word, and <app-keys keys="Esc" /> or a click
+        elsewhere closes it.
       </p>
-      <ul class="mt-8 space-y-4">
-        <li class="flex gap-3">
-          <app-icon name="book" class="mt-0.5 size-6 text-accent" />
-          <span i18n="@@home.lookup.point1"><strong class="font-semibold">About 150,000 English words and phrases built in</strong>, from Open English WordNet. No connection needed.</span>
-        </li>
-        <li class="flex gap-3">
-          <app-icon name="list" class="mt-0.5 size-6 text-accent" />
-          <span i18n="@@home.lookup.point2"><strong class="font-semibold">Senses grouped by part of speech</strong>, each with an example sentence, and similar and opposite words a click away.</span>
-        </li>
-        <li class="flex gap-3">
-          <app-icon name="globe" class="mt-0.5 size-6 text-accent" />
-          <span i18n="@@home.lookup.point3"><strong class="font-semibold">Italian too</strong>, with about 75,000 words from Wikizionario, and the online dictionary for words neither has.</span>
-        </li>
-      </ul>
-      <a routerLink="/docs/looking-up-words" class="link mt-8 inline-flex items-center gap-1.5 font-semibold">
+      <a routerLink="/docs/looking-up-words" class="link mt-7 inline-flex items-center gap-1.5 font-semibold">
         <span i18n="@@home.lookup.more">More about looking up words</span>
         <app-icon name="chevronRight" class="size-4" />
       </a>
     </div>
-    <div class="mx-auto w-full max-w-lg overflow-hidden rounded-window border border-stroke shadow-float">
-      <app-shot name="lookup-card" i18n-alt="@@home.lookup.shotAlt" alt="The definition of “gleam”: its senses as a verb and as a noun, with examples and similar words" />
+    <div class="mx-auto w-full max-w-md overflow-hidden rounded-window border border-stroke shadow-float">
+      <app-shot
+        name="lookup-card"
+        sizes="(min-width: 1024px) 448px, 100vw"
+        i18n-alt="@@home.lookup.shotAlt"
+        alt="The definition of “gleam”: its senses as a verb and as a noun, with examples and similar words"
+      />
     </div>
   </div>
+  <ul class="mt-16 grid gap-10 border-t border-stroke pt-12 sm:mt-20 md:grid-cols-3 md:gap-12">
+    <li>
+      <app-icon name="book" class="size-7 text-accent" />
+      <h3 class="mt-4 text-[17px] font-semibold" i18n="@@home.lookup.point1.title">Offline, and instant</h3>
+      <p class="mt-2 text-muted" i18n="@@home.lookup.point1">Over 150,000 English words and phrases from Open English WordNet are built in, so no connection is needed.</p>
+    </li>
+    <li>
+      <app-icon name="list" class="size-7 text-accent" />
+      <h3 class="mt-4 text-[17px] font-semibold" i18n="@@home.lookup.point2.title">Every sense, with examples</h3>
+      <p class="mt-2 text-muted" i18n="@@home.lookup.point2">Senses are grouped by part of speech, with example sentences and similar and opposite words a click away.</p>
+    </li>
+    <li>
+      <app-icon name="globe" class="size-7 text-accent" />
+      <h3 class="mt-4 text-[17px] font-semibold" i18n="@@home.lookup.point3.title">In Italian too</h3>
+      <p class="mt-2 text-muted" i18n="@@home.lookup.point3">About 67,000 Italian words from Wikizionario, and an online dictionary for the words neither has.</p>
+    </li>
+  </ul>
 </section>
 
 <!-- Translate -->
 <section class="bg-bg-alt">
-  <div class="mx-auto max-w-7xl px-4 py-24 sm:px-6">
-    <div class="grid items-center gap-12 lg:grid-cols-2 lg:gap-20">
-      <div class="lg:order-2">
+  <div class="mx-auto max-w-7xl px-4 py-20 sm:px-6 sm:py-28 lg:py-32">
+    <div class="grid grid-cols-1 items-center gap-12 lg:grid-cols-2 lg:gap-24">
+      <div class="max-w-xl lg:order-2">
         <p class="eyebrow" i18n="@@home.translate.eyebrow">Translate</p>
-        <h2 class="mt-3 font-display text-4xl font-semibold tracking-tight sm:text-[2.75rem] sm:leading-tight" i18n="@@home.translate.title">
+        <h2 class="mt-3 font-display text-[2.1rem] leading-tight font-semibold tracking-tight sm:text-5xl" i18n="@@home.translate.title">
           Translate as you read
         </h2>
-        <p class="mt-5 text-lg text-muted" i18n="@@home.translate.text">
-          Select a word, a phrase or a whole passage of up to 500 characters and press <app-keys keys="Alt+T" />: the card opens on its
-          translation. On a definition, <app-keys keys="Ctrl+T" /> translates the word.
+        <p class="mt-5 text-[17px] leading-relaxed text-muted sm:mt-6 sm:text-lg" i18n="@@home.translate.text">
+          Select a word, a phrase or a whole passage and press <app-keys keys="Alt+T" />. On a definition,
+          <app-keys keys="Ctrl+T" /> translates the word.
         </p>
-        <ul class="mt-8 space-y-4">
-          <li class="flex gap-3">
-            <app-icon name="translate" class="mt-0.5 size-6 text-accent" />
-            <span i18n="@@home.translate.point1"><strong class="font-semibold">22 languages</strong>, from English and Italian to Japanese, Korean and Chinese.</span>
-          </li>
-          <li class="flex gap-3">
-            <app-icon name="sparkle" class="mt-0.5 size-6 text-accent" />
-            <span i18n="@@home.translate.point2"><strong class="font-semibold">Languages picked for you.</strong> WinDict tells the language from its words, and the card lets you pick or swap them.</span>
-          </li>
-        </ul>
-        <a routerLink="/docs/translating" class="link mt-8 inline-flex items-center gap-1.5 font-semibold">
+        <a routerLink="/docs/translating" class="link mt-7 inline-flex items-center gap-1.5 font-semibold">
           <span i18n="@@home.translate.more">More about translating</span>
           <app-icon name="chevronRight" class="size-4" />
         </a>
       </div>
       <div class="overflow-hidden rounded-window border border-stroke shadow-float lg:order-1">
-        <app-shot name="translate" i18n-alt="@@home.translate.shotAlt" alt="“I'll keep you in the loop”, selected in an e-mail, translated into Italian in WinDict's card" />
+        <app-shot
+          name="translate"
+          i18n-alt="@@home.translate.shotAlt"
+          alt="“I'll keep you in the loop”, selected in an e-mail, translated into Italian in WinDict's card"
+        />
       </div>
     </div>
+    <ul class="mt-16 grid gap-10 border-t border-stroke pt-12 sm:mt-20 md:grid-cols-3 md:gap-12">
+      <li>
+        <app-icon name="translate" class="size-7 text-accent" />
+        <h3 class="mt-4 text-[17px] font-semibold" i18n="@@home.translate.point1.title">22 languages</h3>
+        <p class="mt-2 text-muted" i18n="@@home.translate.point1">From English and Italian to Japanese, Korean and Chinese.</p>
+      </li>
+      <li>
+        <app-icon name="sparkle" class="mt-0 size-7 text-accent" />
+        <h3 class="mt-4 text-[17px] font-semibold" i18n="@@home.translate.point2.title">Languages picked for you</h3>
+        <p class="mt-2 text-muted" i18n="@@home.translate.point2">WinDict tells the language from its words, and you can pick or swap them on the card.</p>
+      </li>
+      <li>
+        <app-icon name="list" class="size-7 text-accent" />
+        <h3 class="mt-4 text-[17px] font-semibold" i18n="@@home.translate.point3.title">Whole passages</h3>
+        <p class="mt-2 text-muted" i18n="@@home.translate.point3">Up to 500 characters at once, or type the text into a box when it can't be selected.</p>
+      </li>
+    </ul>
   </div>
 </section>
 
 <!-- Above Start -->
-<section class="mx-auto max-w-7xl px-4 py-24 sm:px-6">
-  <div class="grid items-center gap-12 lg:grid-cols-2 lg:gap-20">
-    <div>
+<section class="mx-auto max-w-7xl px-4 py-20 sm:px-6 sm:py-28 lg:py-32">
+  <div class="grid grid-cols-1 items-center gap-12 lg:grid-cols-2 lg:gap-24">
+    <div class="max-w-xl">
       <p class="eyebrow" i18n="@@home.start.eyebrow">Above Start</p>
-      <h2 class="mt-3 font-display text-4xl font-semibold tracking-tight sm:text-[2.75rem] sm:leading-tight" i18n="@@home.start.title">
+      <h2 class="mt-3 font-display text-[2.1rem] leading-tight font-semibold tracking-tight sm:text-5xl" i18n="@@home.start.title">
         Right on top of Start and Search
       </h2>
-      <p class="mt-5 text-lg text-muted" i18n="@@home.start.text">
+      <p class="mt-5 text-[17px] leading-relaxed text-muted sm:mt-6 sm:text-lg" i18n="@@home.start.text">
         Windows keeps Start and Search above every other window. Installed with its setup, WinDict can show the card on top of them
         too, so you can look up a word without leaving the Start menu.
       </p>
-      <a routerLink="/docs/above-start" class="link mt-8 inline-flex items-center gap-1.5 font-semibold">
+      <a routerLink="/docs/above-start" class="link mt-7 inline-flex items-center gap-1.5 font-semibold">
         <span i18n="@@home.start.more">How it works</span>
         <app-icon name="chevronRight" class="size-4" />
       </a>
@@ -144,23 +160,29 @@
 
 <!-- Feature grid -->
 <section class="bg-bg-alt">
-  <div class="mx-auto max-w-7xl px-4 py-24 sm:px-6">
-    <div class="mx-auto max-w-2xl text-center">
-      <h2 class="font-display text-4xl font-semibold tracking-tight sm:text-[2.75rem] sm:leading-tight" i18n="@@home.grid.title">
+  <div class="mx-auto max-w-7xl px-4 py-20 sm:px-6 sm:py-28">
+    <div class="max-w-2xl sm:mx-auto sm:text-center">
+      <h2 class="font-display text-[2.1rem] leading-tight font-semibold tracking-tight sm:text-5xl" i18n="@@home.grid.title">
         Small, with everything you need
       </h2>
-      <p class="mt-4 text-lg text-muted" i18n="@@home.grid.text">
+      <p class="mt-4 text-[17px] text-muted sm:text-lg" i18n="@@home.grid.text">
         Written in Rust against the native Windows APIs, WinDict feels like part of Windows and costs next to nothing while it waits.
       </p>
     </div>
-    <ul class="mt-14 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+    <ul
+      class="mt-10 divide-y divide-stroke overflow-hidden rounded-window border border-stroke bg-surface sm:mt-14 sm:grid sm:grid-cols-2 sm:gap-4 sm:divide-y-0 sm:overflow-visible sm:rounded-none sm:border-0 sm:bg-transparent lg:grid-cols-4"
+    >
       @for (feature of features; track feature.icon) {
-        <li class="rounded-card border border-stroke bg-surface p-6 shadow-card transition-colors hover:bg-surface-hover">
-          <div class="flex size-11 items-center justify-center rounded-card bg-accent-soft text-accent">
-            <app-icon [name]="feature.icon" class="size-6" />
+        <li
+          class="flex gap-4 p-5 sm:block sm:rounded-card sm:border sm:border-stroke sm:bg-surface sm:p-6 sm:shadow-card sm:transition-colors sm:hover:bg-surface-hover"
+        >
+          <div class="flex size-10 shrink-0 items-center justify-center rounded-card bg-accent-soft text-accent sm:size-11">
+            <app-icon [name]="feature.icon" class="size-[22px] sm:size-6" />
           </div>
-          <h3 class="mt-5 text-[17px] font-semibold">{{ feature.title }}</h3>
-          <p class="mt-2 text-[14.5px] text-muted">{{ feature.text }}</p>
+          <div>
+            <h3 class="text-[16px] font-semibold sm:mt-5 sm:text-[17px]">{{ feature.title }}</h3>
+            <p class="mt-1 text-[14.5px] text-muted sm:mt-2">{{ feature.text }}</p>
+          </div>
         </li>
       }
     </ul>
@@ -168,24 +190,36 @@
 </section>
 
 <!-- Shortcuts -->
-<section class="mx-auto max-w-7xl px-4 py-24 sm:px-6">
-  <div class="mx-auto max-w-2xl text-center">
-    <h2 class="font-display text-4xl font-semibold tracking-tight sm:text-[2.75rem] sm:leading-tight" i18n="@@home.keys.title">Two shortcuts to remember</h2>
-    <p class="mt-4 text-lg text-muted" i18n="@@home.keys.text">Both can be changed in the settings. Everything else works from the keyboard too.</p>
+<section class="mx-auto max-w-7xl px-4 py-20 sm:px-6 sm:py-28">
+  <div class="max-w-2xl sm:mx-auto sm:text-center">
+    <h2 class="font-display text-[2.1rem] leading-tight font-semibold tracking-tight sm:text-5xl" i18n="@@home.keys.title">
+      Two shortcuts to remember
+    </h2>
+    <p class="mt-4 text-[17px] text-muted sm:text-lg" i18n="@@home.keys.text">
+      Both can be changed in the settings. Everything else works from the keyboard too.
+    </p>
   </div>
-  <div class="mx-auto mt-12 grid max-w-4xl gap-4 md:grid-cols-2">
-    <div class="rounded-window border border-stroke bg-surface p-8 text-center shadow-card">
-      <app-keys keys="Alt+D" class="justify-center text-3xl" />
-      <h3 class="mt-5 text-lg font-semibold" i18n="@@home.keys.lookup.title">Look up</h3>
-      <p class="mt-1 text-muted" i18n="@@home.keys.lookup.text">The selected word's definition, or a box to type one into.</p>
+  <div class="mx-auto mt-10 grid max-w-4xl gap-4 sm:mt-14 md:grid-cols-2">
+    <div class="flex items-center gap-5 rounded-window border border-stroke bg-surface p-6 shadow-card md:block md:p-8 md:text-center">
+      <app-keys keys="Alt+D" class="shrink-0 text-2xl md:justify-center md:text-3xl" />
+      <div>
+        <h3 class="text-lg font-semibold md:mt-5" i18n="@@home.keys.lookup.title">Look up</h3>
+        <p class="mt-1 text-[14.5px] text-muted md:text-[15px]" i18n="@@home.keys.lookup.text">
+          The selected word's definition, or a box to type one into.
+        </p>
+      </div>
     </div>
-    <div class="rounded-window border border-stroke bg-surface p-8 text-center shadow-card">
-      <app-keys keys="Alt+T" class="justify-center text-3xl" />
-      <h3 class="mt-5 text-lg font-semibold" i18n="@@home.keys.translate.title">Translate</h3>
-      <p class="mt-1 text-muted" i18n="@@home.keys.translate.text">The selected text's translation, or a box to type text into.</p>
+    <div class="flex items-center gap-5 rounded-window border border-stroke bg-surface p-6 shadow-card md:block md:p-8 md:text-center">
+      <app-keys keys="Alt+T" class="shrink-0 text-2xl md:justify-center md:text-3xl" />
+      <div>
+        <h3 class="text-lg font-semibold md:mt-5" i18n="@@home.keys.translate.title">Translate</h3>
+        <p class="mt-1 text-[14.5px] text-muted md:text-[15px]" i18n="@@home.keys.translate.text">
+          The selected text's translation, or a box to type text into.
+        </p>
+      </div>
     </div>
   </div>
-  <p class="mt-8 text-center">
+  <p class="mt-8 sm:text-center">
     <a routerLink="/docs/shortcuts" class="link inline-flex items-center gap-1.5 font-semibold">
       <span i18n="@@home.keys.more">See every shortcut</span>
       <app-icon name="chevronRight" class="size-4" />
@@ -195,22 +229,23 @@
 
 <!-- Tray + install -->
 <section class="bg-bg-alt">
-  <div class="mx-auto max-w-7xl px-4 py-24 sm:px-6">
-    <div class="grid items-center gap-12 lg:grid-cols-2 lg:gap-20">
+  <div class="mx-auto max-w-7xl px-4 py-20 sm:px-6 sm:py-28">
+    <div class="grid grid-cols-1 items-center gap-12 lg:grid-cols-2 lg:gap-24">
       <div class="overflow-hidden rounded-window border border-stroke shadow-float">
         <app-shot name="tray" i18n-alt="@@home.tray.shotAlt" alt="WinDict's icon among the hidden icons of the Windows taskbar" />
       </div>
       <div>
         <p class="eyebrow" i18n="@@home.tray.eyebrow">Get started</p>
-        <h2 class="mt-3 font-display text-4xl font-semibold tracking-tight sm:text-[2.75rem] sm:leading-tight" i18n="@@home.tray.title">
+        <h2 class="mt-3 font-display text-[2.1rem] leading-tight font-semibold tracking-tight sm:text-5xl" i18n="@@home.tray.title">
           Up and running in a minute
         </h2>
-        <ol class="mt-8 space-y-6">
+        <ol class="mt-8 space-y-7">
           <li class="flex gap-4">
             <span class="flex size-8 shrink-0 items-center justify-center rounded-full bg-accent font-semibold text-on-accent">1</span>
-            <div>
+            <div class="min-w-0 flex-1">
               <h3 class="font-semibold" i18n="@@home.tray.step1.title">Download the setup</h3>
-              <p class="mt-1 text-muted" i18n="@@home.tray.step1.text">Get <code class="rounded-ctl bg-code px-1.5 py-0.5 font-mono text-[0.88em]">WinDict-&lt;version&gt;-setup.exe</code> from the latest release on GitHub.</p>
+              <p class="mt-1 text-muted" i18n="@@home.tray.step1.text">From the latest release on GitHub, or with WinGet:</p>
+              <app-winget class="mt-3" />
             </div>
           </li>
           <li class="flex gap-4">
@@ -228,7 +263,7 @@
             </div>
           </li>
         </ol>
-        <div class="mt-10 flex flex-wrap gap-3">
+        <div class="mt-10 flex flex-col gap-3 sm:flex-row">
           <a [href]="releasesUrl" class="btn-accent">
             <app-icon name="download" class="size-5" />
             <span i18n="@@home.hero.download">Download for Windows</span>
@@ -241,16 +276,20 @@
 </section>
 
 <!-- FAQ -->
-<section class="mx-auto max-w-3xl px-4 py-24 sm:px-6">
-  <h2 class="text-center font-display text-4xl font-semibold tracking-tight" i18n="@@home.faq.title">Questions and answers</h2>
+<section class="mx-auto max-w-3xl px-4 py-20 sm:px-6 sm:py-28">
+  <h2 class="font-display text-[2.1rem] leading-tight font-semibold tracking-tight sm:text-center sm:text-5xl" i18n="@@home.faq.title">
+    Questions and answers
+  </h2>
   <div class="mt-10 divide-y divide-stroke overflow-hidden rounded-window border border-stroke bg-surface">
     @for (faq of faqs; track $index) {
       <details class="group">
-        <summary class="flex cursor-pointer list-none items-center justify-between gap-4 px-6 py-4 font-semibold hover:bg-surface-hover [&::-webkit-details-marker]:hidden">
+        <summary
+          class="flex cursor-pointer list-none items-center justify-between gap-4 px-5 py-4 font-semibold hover:bg-surface-hover sm:px-6 [&::-webkit-details-marker]:hidden"
+        >
           {{ faq.q }}
-          <app-icon name="chevronDown" class="size-4 text-muted transition-transform group-open:rotate-180" />
+          <app-icon name="chevronDown" class="size-4 shrink-0 text-muted transition-transform group-open:rotate-180" />
         </summary>
-        <p class="px-6 pb-5 text-muted">{{ faq.a }}</p>
+        <p class="px-5 pb-5 text-muted sm:px-6">{{ faq.a }}</p>
       </details>
     }
   </div>
@@ -259,16 +298,18 @@
 <!-- Closing call to action -->
 <section class="relative overflow-hidden border-t border-stroke">
   <div class="bloom pointer-events-none absolute inset-0 opacity-80" aria-hidden="true"></div>
-  <div class="relative mx-auto max-w-3xl px-4 py-24 text-center sm:px-6">
-    <img src="windict.png" alt="" width="72" height="72" class="mx-auto size-18 drop-shadow-md" loading="lazy" />
-    <h2 class="mt-6 font-display text-4xl font-semibold tracking-tight sm:text-5xl" i18n="@@home.cta.title">Read without leaving the page</h2>
-    <p class="mt-4 text-lg text-muted" i18n="@@home.cta.text">WinDict is free, open source, and about 3 MB of memory while it waits.</p>
-    <div class="mt-9 flex flex-wrap justify-center gap-3">
-      <a [href]="releasesUrl" class="btn-accent !px-6 !py-3 !text-base">
+  <div class="relative mx-auto max-w-3xl px-4 py-20 text-center sm:px-6 sm:py-28">
+    <img src="windict.png" alt="" width="72" height="72" class="mx-auto size-16 drop-shadow-md sm:size-18" loading="lazy" />
+    <h2 class="mt-6 font-display text-[2.1rem] leading-tight font-semibold tracking-tight sm:text-5xl" i18n="@@home.cta.title">
+      Read without leaving the page
+    </h2>
+    <p class="mt-4 text-[17px] text-muted sm:text-lg" i18n="@@home.cta.text">WinDict is free, open source, and about 4 MB of memory while it waits.</p>
+    <div class="mt-9 flex flex-col justify-center gap-3 sm:flex-row">
+      <a [href]="releasesUrl" class="btn-accent !py-3 !text-base sm:!px-6">
         <app-icon name="download" class="size-5" />
         <span i18n="@@home.hero.download">Download for Windows</span>
       </a>
-      <a [href]="repoUrl" class="btn-standard !px-6 !py-3 !text-base">
+      <a [href]="repoUrl" class="btn-standard !py-3 !text-base sm:!px-6">
         <app-icon name="code" class="size-5" />
         <span i18n="@@home.cta.source">View the source</span>
       </a>
