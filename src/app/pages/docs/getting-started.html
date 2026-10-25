@@ -1,0 +1,41 @@
+<h1 i18n="@@docs.start.title">Getting started</h1>
+<p class="lead" i18n="@@docs.start.lead">Install WinDict, or run it without installing, and look up your first word.</p>
+
+<h2 i18n="@@docs.start.setup.title">Install with the setup (recommended)</h2>
+<ol>
+  <li i18n="@@docs.start.setup.1">Download <code>WinDict-&lt;version&gt;-setup.exe</code> from the <a [href]="releasesUrl">latest release</a> on GitHub.</li>
+  <li i18n="@@docs.start.setup.2">Run it, then choose <strong>Install</strong>. It installs WinDict for everyone on the PC, in <code>C:\Program Files\WinDict</code>, and adds it to Start and to Settings → Apps, where it can be uninstalled.</li>
+  <li i18n="@@docs.start.setup.3">Choose <strong>Open WinDict</strong>. A short introduction goes through the shortcuts, each with an example card.</li>
+</ol>
+<p i18n="@@docs.start.setup.why">Only the installed copy can <a routerLink="/docs/above-start">show the card above the Start menu</a>, and it updates without asking for permission.</p>
+
+<h2 i18n="@@docs.start.portable.title">Run it without installing</h2>
+<p i18n="@@docs.start.portable.text">Download <code>WinDict-&lt;version&gt;.exe</code> instead and run it from anywhere: it's the whole app in a single executable. Its settings are kept in the same place as the installed copy's.</p>
+
+<details>
+  <summary i18n="@@docs.start.smartscreen.title">Windows says it protected your PC</summary>
+  <p i18n="@@docs.start.smartscreen.text">WinDict isn't commercially signed, so the first time you run it, Windows SmartScreen may ask for confirmation. Choose <strong>More info</strong>, then <strong>Run anyway</strong>.</p>
+</details>
+
+<h2 i18n="@@docs.start.first.title">Your first lookup</h2>
+<p i18n="@@docs.start.first.text">Select a word in any app and press <app-keys keys="Alt+D" />. Its definition opens in a card next to the selection. <app-keys keys="Esc" /> or a click elsewhere closes it.</p>
+<figure>
+  <app-shot name="lookup" sizes="(min-width: 1024px) 768px, 100vw" i18n-alt="@@home.hero.shotAlt" alt="WinDict's card showing the definition of “gleam”, next to the word selected in an e-book" />
+</figure>
+<p i18n="@@docs.start.first.translate">To translate instead, select a word, a phrase or a passage and press <app-keys keys="Alt+T" />.</p>
+
+<h2 i18n="@@docs.start.tray.title">In the notification area</h2>
+<p i18n="@@docs.start.tray.text">While it runs, WinDict waits in the notification area, by the clock. Click its icon for its menu:</p>
+<ul>
+  <li i18n="@@docs.start.tray.autostart"><strong>Start with Windows</strong>, to run it when you sign in;</li>
+  <li i18n="@@docs.start.tray.settings"><strong>Settings…</strong>, which opens <a routerLink="/docs/settings">the settings</a>;</li>
+  <li i18n="@@docs.start.tray.reload"><strong>Reload settings</strong>, after editing <code>config.json</code> by hand;</li>
+  <li i18n="@@docs.start.tray.update"><strong>Update app</strong>, when there's a new version: the icon shows a dot then;</li>
+  <li i18n="@@docs.start.tray.quit"><strong>Quit</strong>.</li>
+</ul>
+<figure>
+  <app-shot name="tray" sizes="(min-width: 1024px) 768px, 100vw" i18n-alt="@@home.tray.shotAlt" alt="WinDict's icon among the hidden icons of the Windows taskbar" />
+</figure>
+
+<h2 i18n="@@docs.start.uninstall.title">Uninstalling</h2>
+<p i18n="@@docs.start.uninstall.text">Uninstall the installed copy from Settings → Apps, like any other app. The copy that isn't installed is just its executable: quit it from the tray and delete it. Settings stay in <code>%APPDATA%\WinDict</code>, and downloaded dictionaries in <code>%LOCALAPPDATA%\WinDict</code>, should you want to remove them too.</p>
