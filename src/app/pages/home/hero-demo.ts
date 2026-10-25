@@ -145,6 +145,8 @@ const TURN_MS = 5000;
 })
 export class HeroDemo {
   protected readonly demo = DEMOS[inject(LOCALE_ID).slice(0, 2)] ?? DEMOS['en'];
+  /** The word, a letter at a time, as the selection reaches each. */
+  protected readonly letters = [...this.demo.word];
   protected readonly mode = signal<Mode>('define');
   /** Where the card is, under the word; until measured, about there. */
   protected readonly place = signal<{ left: number; top: number } | null>(null);
