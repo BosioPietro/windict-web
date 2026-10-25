@@ -1,0 +1,116 @@
+/* The questions and answers: each a card of its own, opening smoothly, with a
+   plus that turns into a minus. */
+.faq {
+  border: 1px solid var(--stroke);
+  border-radius: 12px;
+  background: var(--surface);
+  transition:
+    background-color 150ms,
+    border-color 200ms,
+    box-shadow 300ms;
+}
+.faq:hover {
+  background: var(--surface-hover);
+}
+.faq.open {
+  border-color: var(--stroke-strong);
+  background: var(--surface);
+  box-shadow:
+    inset 3px 0 0 var(--accent),
+    var(--shadow);
+}
+
+.faq-question {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1rem 1.25rem;
+  border-radius: inherit;
+  font-size: 16px;
+  font-weight: 600;
+  text-align: left;
+  cursor: pointer;
+}
+.faq-question:focus-visible {
+  outline-offset: -2px;
+  border-radius: 12px;
+}
+@media (min-width: 640px) {
+  .faq-question {
+    padding: 1.15rem 1.5rem;
+  }
+}
+
+.faq-sign {
+  position: relative;
+  flex-shrink: 0;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--code-bg);
+  color: var(--muted);
+  transition:
+    background-color 200ms,
+    color 200ms,
+    transform 350ms cubic-bezier(0.2, 0, 0, 1);
+}
+.faq-sign::before,
+.faq-sign::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  width: 11px;
+  height: 1.5px;
+  border-radius: 1px;
+  background: currentColor;
+  transition: transform 350ms cubic-bezier(0.2, 0, 0, 1);
+}
+.faq-sign::after {
+  transform: rotate(90deg);
+}
+.faq-question:hover .faq-sign {
+  color: var(--fg);
+}
+.open .faq-sign {
+  background: var(--accent-soft);
+  color: var(--accent);
+  transform: rotate(180deg);
+}
+.open .faq-sign::after {
+  transform: rotate(180deg);
+}
+
+/* The answer's row grows from nothing to its height. */
+.faq-answer {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 320ms cubic-bezier(0.2, 0, 0, 1);
+}
+.faq-answer p {
+  opacity: 0;
+  transform: translateY(-6px);
+  transition:
+    opacity 200ms,
+    transform 320ms cubic-bezier(0.2, 0, 0, 1);
+}
+.open .faq-answer {
+  grid-template-rows: 1fr;
+}
+.open .faq-answer p {
+  opacity: 1;
+  transform: none;
+  transition-delay: 60ms;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .faq-answer,
+  .faq-answer p,
+  .faq-sign,
+  .faq-sign::before,
+  .faq-sign::after {
+    transition: none;
+  }
+}

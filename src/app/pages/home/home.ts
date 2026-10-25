@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { Icon } from '../../shared/icon';
 import { IconName } from '../../shared/icons';
@@ -19,6 +19,7 @@ interface Feature {
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [RouterLink, Icon, Keys, Shot, Winget, HeroDemo],
   templateUrl: './home.html',
+  styleUrl: './home.css',
 })
 export class Home {
   protected readonly releasesUrl = RELEASES_URL;
@@ -82,6 +83,17 @@ export class Home {
       text: $localize`:@@home.feature.update.text:Once a day WinDict checks for a new version. When there is one, the tray icon shows a dot and the update is one click away.`,
     },
   ];
+
+  /** The questions whose answers are open. */
+  protected readonly open = signal(new Set<number>());
+
+  protected toggle(index: number) {
+    this.open.update((open) => {
+      const next = new Set(open);
+      if (!next.delete(index)) next.add(index);
+      return next;
+    });
+  }
 
   protected readonly faqs = [
     {

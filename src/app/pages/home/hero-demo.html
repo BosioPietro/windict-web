@@ -20,6 +20,8 @@
 <div
   #scene
   class="scene relative overflow-hidden rounded-window border border-stroke shadow-float"
+  [class.live]="place()"
+  [style.--letters]="demo.word.length"
   role="group"
   [attr.aria-label]="demo.label"
   (mouseenter)="pause(true)"
@@ -40,7 +42,9 @@
       </span>
     </div>
     <div class="book px-5 pt-3 sm:px-8 sm:pt-5">
-      <p>{{ demo.before }}<span #word class="selected">{{ demo.word }}</span>{{ demo.after }}</p>
+      <p>{{ demo.before }}<span #word class="word"
+        >@for (letter of letters; track $index) {<span class="letter" [style.--i]="$index">{{ letter }}</span>}</span
+      >{{ demo.after }}</p>
       <p class="mt-4 indent-6">{{ demo.next }}</p>
     </div>
   </div>
