@@ -20,18 +20,22 @@
 
   <div class="min-w-0 flex-1 py-10 lg:py-14">
     <!-- Table of contents on small screens -->
-    <details class="group mb-8 rounded-card border border-stroke bg-surface lg:hidden">
-      <summary class="flex cursor-pointer list-none items-center justify-between px-4 py-3 text-[14.5px] [&::-webkit-details-marker]:hidden">
+    <details
+      #toc
+      class="group sticky top-14 z-30 -mx-4 -mt-10 mb-8 border-b border-stroke bg-bg/90 backdrop-blur-xl sm:-mx-6 lg:hidden"
+    >
+      <summary class="flex cursor-pointer list-none items-center justify-between px-4 py-3 text-[14.5px] sm:px-6 [&::-webkit-details-marker]:hidden">
         <span><span class="text-muted" i18n="@@docs.nav.heading">Documentation</span> / <strong class="font-semibold">{{ current()?.title }}</strong></span>
         <app-icon name="chevronDown" class="size-4 text-muted transition-transform group-open:rotate-180" />
       </summary>
-      <ul class="border-t border-stroke p-2 text-[14.5px]">
+      <ul class="max-h-[60dvh] overflow-y-auto border-t border-stroke px-2 py-2 text-[15px] sm:px-4">
         @for (page of docs; track page.slug) {
           <li>
             <a
               [routerLink]="['/docs', page.slug]"
               routerLinkActive="!text-fg font-semibold bg-surface-hover"
-              class="block rounded-ctl px-3 py-2 text-muted hover:bg-surface-hover"
+              class="block rounded-ctl px-3 py-2.5 text-muted hover:bg-surface-hover"
+              (click)="toc.open = false"
             >{{ page.title }}</a>
           </li>
         }
