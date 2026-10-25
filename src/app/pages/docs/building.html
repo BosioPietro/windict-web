@@ -1,0 +1,23 @@
+<h1 i18n="@@docs.build.title">Building from source</h1>
+<p class="lead" i18n="@@docs.build.lead">WinDict is written in Rust, against the native Windows APIs. Building it needs Windows and a Rust toolchain, 1.88 or newer.</p>
+
+<pre><code>git clone {{ repoUrl }}.git
+cd WinDict
+cargo build --release        # target\release\windict.exe
+cargo test                   # unit tests, including the bundled dictionary
+cargo clippy --all-targets -- -D warnings</code></pre>
+
+<h2 i18n="@@docs.build.setup.title">Building the setup</h2>
+<p i18n="@@docs.build.setup.text">The installer is built with <a href="https://jrsoftware.org/isinfo.php">Inno Setup</a> from both builds, the usual one and the one that can have UI access, put in <code>dist</code>:</p>
+<pre><code>mkdir dist
+cargo build --release
+copy target\release\windict.exe dist\WinDict.exe
+cargo build --release --features uiaccess
+copy target\release\windict.exe dist\WinDict-uiaccess.exe
+iscc /DVersion=0.27.0 installer\windict.iss   # dist\WinDict-v0.27.0-inno.exe</code></pre>
+<p i18n="@@docs.build.setup.wrap">The setup that's published carries that installer and runs it silently, from a window of its own or, given Inno Setup's switches as WinGet and “Update app” give them, without one. It's built with the installer's absolute path in <code>WINDICT_SETUP</code>:</p>
+<pre><code>$env:WINDICT_SETUP = (Resolve-Path dist\WinDict-v0.27.0-inno.exe).Path
+cargo build --release --features setup --bin windict-setup   # target\release\windict-setup.exe</code></pre>
+
+<h2 i18n="@@docs.build.contribute.title">Contributing</h2>
+<p i18n="@@docs.build.contribute.text">Bug reports and ideas are welcome as <a [href]="repoUrl + '/issues'">issues on GitHub</a>.</p>

@@ -1,0 +1,30 @@
+<h1 i18n="@@docs.dicts.title">Dictionaries and network use</h1>
+<p class="lead" i18n="@@docs.dicts.lead">Where definitions and translations come from, and what WinDict sends over the network.</p>
+
+<h2 i18n="@@docs.dicts.sources.title">The dictionaries</h2>
+<ul>
+  <li i18n="@@docs.dicts.english"><strong>English</strong> comes from Open English WordNet, about 150,000 words and phrases, which is built into the executable. Lookups in it don't use the network and take under a millisecond.</li>
+  <li i18n="@@docs.dicts.italian"><strong>Italian</strong> comes from Wikizionario, about 75,000 words. It's downloaded once, about 8 MB, when it's chosen under <strong>Languages</strong> in the settings, and kept in <code>%LOCALAPPDATA%\WinDict\dicts</code>.</li>
+  <li i18n="@@docs.dicts.online">The <strong>online dictionary</strong> is used for pronunciations and for words the built-in ones don't have: Wiktionary, through dictionaryapi.dev, and Wikizionario for Italian.</li>
+</ul>
+<p i18n="@@docs.dicts.order">With both languages chosen, a word is looked up in them in the order they're listed, English first.</p>
+
+<h2 i18n="@@docs.dicts.network.title">What goes over the network</h2>
+<ul>
+  <li i18n="@@docs.dicts.network.lookup">A word you look up, to the online dictionary, only when the built-in one doesn't have it or for its pronunciation. Turn off <strong>Online dictionary</strong> in the settings to never send one.</li>
+  <li i18n="@@docs.dicts.network.translate">Text you translate, to Google Translate or MyMemory, only when you ask for a translation.</li>
+  <li i18n="@@docs.dicts.network.update">Once a day, a request to GitHub for the latest version. Turn off <strong>Check for updates</strong> to stop it.</li>
+</ul>
+<p i18n="@@docs.dicts.network.cache">Answers are kept for a while, so asking again doesn't go over the network a second time.</p>
+
+<h2 i18n="@@docs.dicts.memory.title">Memory</h2>
+<p i18n="@@docs.dicts.memory.text">WinDict uses about 3 MB of memory while idle and around 20 MB while a card is open. The dictionaries are read in place: Windows only loads the few parts a lookup touches.</p>
+
+<h2 id="credits" i18n="@@docs.dicts.credits.title">Credits</h2>
+<ul>
+  <li i18n="@@docs.dicts.credits.wordnet">English definitions: <a href="https://en-word.net/">Open English WordNet</a> (CC BY 4.0, derived from Princeton WordNet).</li>
+  <li i18n="@@docs.dicts.credits.wiktionary">Online English lookups: <a href="https://www.wiktionary.org/">Wiktionary</a>, through <a href="https://dictionaryapi.dev">dictionaryapi.dev</a>, falling back to Wiktionary directly.</li>
+  <li i18n="@@docs.dicts.credits.wikizionario">Italian dictionary and online lookups: <a href="https://it.wiktionary.org/">Wikizionario</a>, through <a href="https://kaikki.org/itwiktionary/">wiktextract</a>, falling back to Wikizionario's own API (CC BY-SA 4.0).</li>
+  <li i18n="@@docs.dicts.credits.translate">Translations: Google Translate's public web endpoint, which is unofficial and may change, falling back to <a href="https://mymemory.translated.net/">MyMemory</a>.</li>
+</ul>
+<p i18n="@@docs.dicts.credits.license">WinDict is <a [href]="repoUrl + '/blob/main/LICENSE'">MIT licensed</a>.</p>
