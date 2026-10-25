@@ -1,0 +1,62 @@
+<div class="mx-auto flex h-14 max-w-7xl items-center gap-6 px-4 sm:px-6">
+  <a routerLink="/" class="flex items-center gap-2.5 font-display text-[17px] font-semibold" (click)="menuOpen.set(false)">
+    <img src="windict.png" alt="" width="28" height="28" class="size-7" />
+    WinDict
+  </a>
+
+  <nav class="hidden items-center gap-1 text-[14px] md:flex" i18n-aria-label="@@nav.label" aria-label="Main">
+    <a routerLink="/" fragment="features" class="rounded-ctl px-3 py-1.5 text-muted transition-colors hover:bg-surface-hover hover:text-fg" i18n="@@nav.features">Features</a>
+    <a
+      routerLink="/docs"
+      routerLinkActive="!text-fg font-semibold"
+      class="rounded-ctl px-3 py-1.5 text-muted transition-colors hover:bg-surface-hover hover:text-fg"
+      i18n="@@nav.docs"
+    >Docs</a>
+    <a routerLink="/docs/shortcuts" class="rounded-ctl px-3 py-1.5 text-muted transition-colors hover:bg-surface-hover hover:text-fg" i18n="@@nav.shortcuts">Shortcuts</a>
+    <a [href]="repoUrl" class="rounded-ctl px-3 py-1.5 text-muted transition-colors hover:bg-surface-hover hover:text-fg">GitHub</a>
+  </nav>
+
+  <div class="ml-auto flex items-center gap-2">
+    <a
+      [href]="otherHref()"
+      [attr.hreflang]="other"
+      [attr.lang]="other"
+      class="hidden items-center gap-1.5 rounded-ctl px-3 py-1.5 text-[14px] text-muted transition-colors hover:bg-surface-hover hover:text-fg sm:flex"
+    >
+      <app-icon name="localLanguage" class="size-[18px]" />
+      {{ otherName }}
+    </a>
+    <a [href]="releasesUrl" class="btn-accent !px-4 !py-1.5 !text-[14px]">
+      <app-icon name="download" class="size-4" />
+      <span i18n="@@nav.download">Download</span>
+    </a>
+    <button
+      type="button"
+      class="flex size-9 items-center justify-center rounded-ctl hover:bg-surface-hover md:hidden"
+      [attr.aria-expanded]="menuOpen()"
+      aria-controls="mobile-menu"
+      i18n-aria-label="@@nav.menu"
+      aria-label="Menu"
+      (click)="menuOpen.set(!menuOpen())"
+    >
+      <app-icon [name]="menuOpen() ? 'dismiss' : 'navigation'" class="size-5" />
+    </button>
+  </div>
+</div>
+
+@if (menuOpen()) {
+  <nav id="mobile-menu" class="border-t border-stroke px-4 py-3 md:hidden" i18n-aria-label="@@nav.label" aria-label="Main">
+    <ul class="flex flex-col text-[15px]" (click)="menuOpen.set(false)">
+      <li><a routerLink="/" fragment="features" class="block rounded-ctl px-3 py-2.5 hover:bg-surface-hover" i18n="@@nav.features">Features</a></li>
+      <li><a routerLink="/docs" class="block rounded-ctl px-3 py-2.5 hover:bg-surface-hover" i18n="@@nav.docs">Docs</a></li>
+      <li><a routerLink="/docs/shortcuts" class="block rounded-ctl px-3 py-2.5 hover:bg-surface-hover" i18n="@@nav.shortcuts">Shortcuts</a></li>
+      <li><a [href]="repoUrl" class="block rounded-ctl px-3 py-2.5 hover:bg-surface-hover">GitHub</a></li>
+      <li>
+        <a [href]="otherHref()" [attr.hreflang]="other" [attr.lang]="other" class="flex items-center gap-2 rounded-ctl px-3 py-2.5 hover:bg-surface-hover">
+          <app-icon name="localLanguage" class="size-[18px]" />
+          {{ otherName }}
+        </a>
+      </li>
+    </ul>
+  </nav>
+}
