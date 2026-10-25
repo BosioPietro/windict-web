@@ -201,6 +201,45 @@
   .prose-doc td:first-child app-keys {
     @apply sm:flex-nowrap;
   }
+  /* On a phone, each row of a table is a block: the keys, or the setting,
+     over what they do. */
+  @media (width < 40rem) {
+    .prose-doc table,
+    .prose-doc tbody,
+    .prose-doc tr,
+    .prose-doc td {
+      display: block;
+      width: auto;
+    }
+    .prose-doc thead {
+      display: none;
+    }
+    .prose-doc tr {
+      @apply border-b border-stroke py-3;
+    }
+    .prose-doc td {
+      @apply border-0 p-0;
+    }
+    .prose-doc td:first-child {
+      @apply mb-1.5;
+    }
+    .prose-doc h1 {
+      @apply text-[2rem];
+    }
+    .prose-doc h2 {
+      @apply mt-10 text-[1.4rem];
+    }
+    .prose-doc pre {
+      @apply -mx-4 rounded-none border-x-0;
+    }
+    .prose-doc figure {
+      @apply -mx-4;
+    }
+  }
+  /* The command box carries its own look. */
+  .prose-doc app-winget code {
+    @apply bg-transparent p-0 text-[length:inherit];
+  }
   .prose-doc details {
     @apply my-5 rounded-card border border-stroke bg-surface px-4;
   }
