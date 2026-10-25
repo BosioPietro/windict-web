@@ -1,0 +1,234 @@
+@import 'tailwindcss';
+
+/* Fluent 2 tokens, as Windows 11 has them: Mica-like neutrals, and the
+   accent of Windows' default Bloom theme (AccentDark1 in light mode,
+   AccentLight2 in dark mode), the one WinDict falls back to. */
+:root {
+  --bg: #f3f3f3;
+  --bg-alt: #ebebeb;
+  --surface: #fbfbfb;
+  --surface-hover: #f6f6f6;
+  --layer: rgb(249 249 249 / 0.72);
+  --fg: #1b1b1b;
+  --muted: #5c5c5c;
+  --subtle: #8a8a8a;
+  --stroke: rgb(0 0 0 / 0.08);
+  --stroke-strong: rgb(0 0 0 / 0.16);
+  --accent: #005fb8;
+  --accent-hover: #1a6fc0;
+  --on-accent: #ffffff;
+  --accent-soft: rgb(0 95 184 / 0.09);
+  --link: #005fb8;
+  --code-bg: rgb(0 0 0 / 0.045);
+  --glow-1: rgb(0 120 212 / 0.22);
+  --glow-2: rgb(92 46 145 / 0.12);
+  --shadow: 0 2px 4px rgb(0 0 0 / 0.04), 0 8px 24px rgb(0 0 0 / 0.08);
+  --shadow-lg: 0 8px 16px rgb(0 0 0 / 0.08), 0 32px 64px rgb(0 0 0 / 0.14);
+  color-scheme: light;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #1c1c1c;
+    --bg-alt: #202020;
+    --surface: #2b2b2b;
+    --surface-hover: #323232;
+    --layer: rgb(32 32 32 / 0.72);
+    --fg: #ffffff;
+    --muted: #c5c5c5;
+    --subtle: #9a9a9a;
+    --stroke: rgb(255 255 255 / 0.08);
+    --stroke-strong: rgb(255 255 255 / 0.16);
+    --accent: #60cdff;
+    --accent-hover: #5ab9e6;
+    --on-accent: #000000;
+    --accent-soft: rgb(96 205 255 / 0.1);
+    --link: #60cdff;
+    --code-bg: rgb(255 255 255 / 0.06);
+    --glow-1: rgb(0 120 212 / 0.35);
+    --glow-2: rgb(118 67 196 / 0.22);
+    --shadow: 0 2px 4px rgb(0 0 0 / 0.2), 0 8px 24px rgb(0 0 0 / 0.3);
+    --shadow-lg: 0 8px 16px rgb(0 0 0 / 0.3), 0 32px 64px rgb(0 0 0 / 0.5);
+    color-scheme: dark;
+  }
+}
+
+@theme inline {
+  --font-sans:
+    'Segoe UI Variable Text', 'Segoe UI', system-ui, -apple-system, 'Helvetica Neue', Arial,
+    sans-serif;
+  --font-display:
+    'Segoe UI Variable Display', 'Segoe UI', system-ui, -apple-system, 'Helvetica Neue', Arial,
+    sans-serif;
+  --font-mono: 'Cascadia Code', 'Cascadia Mono', Consolas, ui-monospace, monospace;
+
+  --color-bg: var(--bg);
+  --color-bg-alt: var(--bg-alt);
+  --color-surface: var(--surface);
+  --color-surface-hover: var(--surface-hover);
+  --color-layer: var(--layer);
+  --color-fg: var(--fg);
+  --color-muted: var(--muted);
+  --color-subtle: var(--subtle);
+  --color-stroke: var(--stroke);
+  --color-stroke-strong: var(--stroke-strong);
+  --color-accent: var(--accent);
+  --color-accent-hover: var(--accent-hover);
+  --color-on-accent: var(--on-accent);
+  --color-accent-soft: var(--accent-soft);
+  --color-link: var(--link);
+  --color-code: var(--code-bg);
+
+  --shadow-card: var(--shadow);
+  --shadow-float: var(--shadow-lg);
+
+  --radius-ctl: 4px;
+  --radius-card: 8px;
+  --radius-window: 12px;
+}
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+    scroll-padding-top: 5rem;
+  }
+  body {
+    @apply bg-bg font-sans text-fg antialiased;
+    font-size: 15px;
+    line-height: 1.55;
+  }
+  ::selection {
+    background: #005fb8;
+    color: #fff;
+  }
+  :focus-visible {
+    outline: 2px solid var(--fg);
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    html {
+      scroll-behavior: smooth;
+    }
+  }
+}
+
+/* Fluent buttons: accent and standard. */
+@utility btn {
+  @apply inline-flex items-center justify-center gap-2 rounded-ctl px-5 py-2.5 text-[15px] font-semibold transition-colors select-none;
+}
+@utility btn-accent {
+  @apply btn bg-accent text-on-accent hover:bg-accent-hover;
+  box-shadow: inset 0 -1px 0 rgb(0 0 0 / 0.2);
+}
+@utility btn-standard {
+  @apply btn border border-stroke bg-surface text-fg hover:bg-surface-hover;
+  box-shadow: inset 0 -1px 0 var(--stroke);
+}
+@utility link {
+  @apply text-link underline-offset-2 hover:underline;
+}
+
+@layer components {
+  /* A key, as the card draws its hints. */
+  .kbd {
+    @apply inline-flex min-w-[1.9em] items-center justify-center rounded-ctl border border-stroke-strong bg-surface px-1.5 font-sans text-[0.85em] font-semibold whitespace-nowrap text-fg;
+    line-height: 1.7;
+    box-shadow: inset 0 -1.5px 0 var(--stroke-strong);
+  }
+
+  .eyebrow {
+    @apply text-[13px] font-semibold tracking-wide text-accent uppercase;
+  }
+
+  /* Text written for reading, in the docs. */
+  .prose-doc {
+    @apply text-[15.5px] text-fg;
+    line-height: 1.7;
+  }
+  .prose-doc h1 {
+    @apply mb-3 font-display text-[2.4rem] leading-tight font-semibold tracking-tight;
+  }
+  .prose-doc .lead {
+    @apply mb-8 text-lg text-muted;
+  }
+  .prose-doc h2 {
+    @apply mt-12 mb-3 font-display text-[1.6rem] font-semibold tracking-tight;
+  }
+  .prose-doc h3 {
+    @apply mt-8 mb-2 font-display text-lg font-semibold;
+  }
+  .prose-doc p {
+    @apply my-4;
+  }
+  .prose-doc ul {
+    @apply my-4 list-disc space-y-1.5 pl-6;
+  }
+  .prose-doc ol {
+    @apply my-4 list-decimal space-y-1.5 pl-6;
+  }
+  .prose-doc li::marker {
+    @apply text-subtle;
+  }
+  .prose-doc a:not(.btn) {
+    @apply link;
+  }
+  .prose-doc strong {
+    @apply font-semibold;
+  }
+  .prose-doc code {
+    @apply rounded-ctl bg-code px-1.5 py-0.5 font-mono text-[0.86em];
+  }
+  .prose-doc pre {
+    @apply my-5 overflow-x-auto rounded-card border border-stroke bg-surface p-4 font-mono text-[13.5px] leading-relaxed;
+  }
+  .prose-doc pre code {
+    @apply bg-transparent p-0 text-[length:inherit];
+  }
+  .prose-doc table {
+    @apply my-5 w-full border-collapse text-left text-[14.5px];
+  }
+  .prose-doc th {
+    @apply border-b border-stroke-strong py-2 pr-4 font-semibold;
+  }
+  .prose-doc td {
+    @apply border-b border-stroke py-2.5 pr-4 align-top;
+  }
+  /* The keys, or the setting's name: as narrow as they go. */
+  .prose-doc td:first-child {
+    @apply w-px pr-6 sm:whitespace-nowrap;
+  }
+  .prose-doc td:first-child app-keys {
+    @apply sm:flex-nowrap;
+  }
+  .prose-doc details {
+    @apply my-5 rounded-card border border-stroke bg-surface px-4;
+  }
+  .prose-doc summary {
+    @apply cursor-pointer py-3 font-semibold;
+  }
+  .prose-doc details[open] {
+    @apply pb-1;
+  }
+  .prose-doc figure {
+    @apply my-8;
+  }
+  .prose-doc figcaption {
+    @apply mt-2 text-center text-sm text-muted;
+  }
+}
+
+@layer utilities {
+  /* The translucent backdrop of the header and other floating surfaces. */
+  .acrylic {
+    background: var(--layer);
+    backdrop-filter: blur(30px) saturate(1.6);
+    -webkit-backdrop-filter: blur(30px) saturate(1.6);
+  }
+  /* The soft blue Bloom light behind the hero. */
+  .bloom {
+    background:
+      radial-gradient(60% 55% at 70% 20%, var(--glow-1), transparent 70%),
+      radial-gradient(45% 45% at 15% 35%, var(--glow-2), transparent 70%);
+  }
+}
