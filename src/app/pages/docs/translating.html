@@ -1,0 +1,32 @@
+<h1 i18n="@@docs.translate.title">Translating</h1>
+<p class="lead" i18n="@@docs.translate.lead">Translate a word, a phrase or a whole passage without leaving what you're reading.</p>
+
+<figure>
+  <app-shot name="translate" sizes="(min-width: 1024px) 768px, 100vw" i18n-alt="@@home.translate.shotAlt" alt="“I'll keep you in the loop”, selected in an e-mail, translated into Italian in WinDict's card" />
+</figure>
+
+<h2 i18n="@@docs.translate.selection.title">Translating the selection</h2>
+<p i18n="@@docs.translate.selection.text">Select a word, a phrase or a whole passage, of up to 500 characters, and press <app-keys keys="Alt+T" />: the card opens on the translation. For a single word the dictionary has, <strong>Back</strong> shows its definition.</p>
+<p i18n="@@docs.translate.card.text">On a definition, the translate button at the top right of the card, or <app-keys keys="Ctrl+T" />, shows a translation of the word instead. Press it again to go back to the definition.</p>
+<p i18n="@@docs.translate.languages.text">The languages are at the top of the card. Click one to pick another, typing to filter the list, or the arrows between them to swap them.</p>
+
+<h2 i18n="@@docs.translate.typing.title">Typing the text to translate</h2>
+<p i18n="@@docs.translate.typing.text">With nothing selected, <app-keys keys="Alt+T" /> opens a box to type the text into, with the languages under it, as on the translation card. As you type, WinDict tells the language from its words, using the dictionaries you've chosen, and picks the languages:</p>
+<ul>
+  <li i18n="@@docs.translate.typing.two">with two dictionary languages, from the one you're typing in into the other;</li>
+  <li i18n="@@docs.translate.typing.defaults">otherwise, between the default languages in the settings, into the one you're not typing in;</li>
+  <li i18n="@@docs.translate.typing.unknown">when the language can't be told, the default way.</li>
+</ul>
+<p i18n="@@docs.translate.typing.pick">Click a language to pick another one, or the arrows to swap them; from then on they stay as you set them. Press <app-keys keys="Enter" /> to translate; Back on the translation brings the box back as you left it.</p>
+
+<h2 i18n="@@docs.translate.list.title">Languages</h2>
+<p i18n="@@docs.translate.list.text">WinDict translates between these 22 languages:</p>
+<ul class="!list-none !pl-0 grid grid-cols-2 gap-x-6 sm:grid-cols-3">
+  @for (language of languages; track language) {
+    <li>{{ language }}</li>
+  }
+</ul>
+
+<h2 i18n="@@docs.translate.services.title">Where translations come from</h2>
+<p i18n="@@docs.translate.services.text">Translations come from Google Translate's public web endpoint, falling back to <a href="https://mymemory.translated.net/">MyMemory</a> when it can't answer. They need the online dictionary to be on, in the settings, and are fetched only when you ask for one.</p>
+<p i18n="@@docs.translate.services.email">MyMemory has a daily limit on free translations. An e-mail address under <strong>Translation → MyMemory email</strong> in the settings raises it; it's sent only to MyMemory, with the text translated.</p>

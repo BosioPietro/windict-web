@@ -1,0 +1,42 @@
+<h1 i18n="@@docs.lookup.title">Looking up words</h1>
+<p class="lead" i18n="@@docs.lookup.lead">Select a word in any app and press <app-keys keys="Alt+D" />: its definition opens in a card next to the selection.</p>
+
+<figure>
+  <app-shot name="lookup-full" sizes="(min-width: 1024px) 768px, 100vw" i18n-alt="@@home.lookup.shotAlt" alt="The definition of “gleam”: its senses as a verb and as a noun, with examples and similar words" />
+</figure>
+
+<h2 i18n="@@docs.lookup.card.title">What the card shows</h2>
+<p i18n="@@docs.lookup.card.text">The card lists the word's senses under each part of speech it can be, each with an example sentence where the dictionary has one. You can select a word or a short phrase, of up to four words.</p>
+<ul>
+  <li i18n="@@docs.lookup.card.forms"><strong>Inflected forms</strong> are looked up by their base word, so selecting “ran” shows “run”, and the card says what it's the form of.</li>
+  <li i18n="@@docs.lookup.card.similar"><strong>Similar words</strong> and, where there are any, <strong>opposite</strong> ones (“good”: “bad”) are listed under each part of speech. Clicking one opens its definition in the same card.</li>
+  <li i18n="@@docs.lookup.card.back">To go back, use the arrow next to the word, <app-keys keys="Backspace" />, <app-keys keys="Alt+←" /> or the mouse's back button.</li>
+  <li i18n="@@docs.lookup.card.spelling">When a word isn't in the dictionary, the card suggests the closest one it has: “Did you mean…?”</li>
+</ul>
+
+<h2 i18n="@@docs.lookup.speak.title">Hearing a word</h2>
+<p i18n="@@docs.lookup.speak.text">The speaker button after the word says it out loud, in the word's own language, with a voice Windows has for it. It shows only when there's one: voices for more languages can be added in Windows Settings, under Time &amp; language → Speech.</p>
+
+<h2 i18n="@@docs.lookup.type.title">Typing a word</h2>
+<p i18n="@@docs.lookup.type.text">With nothing selected, <app-keys keys="Alt+D" /> opens a box to type a word into instead, for text that can't be selected, such as in an image, a protected PDF or a game.</p>
+<ul>
+  <li i18n="@@docs.lookup.type.suggest">As you type, up to five suggestions from the offline dictionary appear under the box. Pick one with <app-keys keys="↑ / ↓" /> or <app-keys keys="Tab" />, or click it.</li>
+  <li i18n="@@docs.lookup.type.enter"><app-keys keys="Enter" /> looks up what's in the box. When the offline dictionary has nothing like it, Enter searches online.</li>
+  <li i18n="@@docs.lookup.type.esc"><app-keys keys="Esc" /> closes the box.</li>
+</ul>
+<figure>
+  <app-shot name="start" sizes="(min-width: 1024px) 768px, 100vw" i18n-alt="@@home.start.shotAlt" alt="WinDict's “Look up a word” box open above the Windows Start menu" />
+</figure>
+
+<h2 i18n="@@docs.lookup.pin.title">Pinning a card</h2>
+<p i18n="@@docs.lookup.pin.text">The pin button at the top right of the card keeps it open. A pinned card stays above every other window until you close it, and you can drag it wherever you like. New lookups open cards of their own, so you can keep several pinned side by side.</p>
+<p i18n="@@docs.lookup.pin.close">Once you've clicked a pinned card, it takes the keyboard like any window: <app-keys keys="Esc" /> or <app-keys keys="Ctrl+W" /> closes it, and the card's other keys work as usual. The pin button unpins it again.</p>
+
+<h2 i18n="@@docs.lookup.copy.title">Copying</h2>
+<p i18n="@@docs.lookup.copy.text"><app-keys keys="Ctrl+C" /> on a card copies the word, or the translation when it shows one. With a similar word picked with <app-keys keys="Tab" />, it copies that word instead.</p>
+
+<h2 i18n="@@docs.lookup.size.title">Text size</h2>
+<p i18n="@@docs.lookup.size.text">To make the card's text larger or smaller, press <app-keys keys="Ctrl++" /> or <app-keys keys="Ctrl+-" />, or hold <app-keys keys="Ctrl" /> and turn the mouse wheel over the card. <app-keys keys="Ctrl+0" /> goes back to the usual size. The size goes from 80% to 200%, is kept, and is also under <strong>Text size</strong> in the settings. The settings window follows the same size, and the same keys work there.</p>
+
+<h2 i18n="@@docs.lookup.reading.title">How WinDict reads the selection</h2>
+<p i18n="@@docs.lookup.reading.text">WinDict reads the selection through UI Automation, the way screen readers do, so nothing is copied and the clipboard isn't touched. Some apps don't share their text that way: for those, choose <strong>Automatic</strong> under <strong>Read selections</strong> in the settings, and WinDict copies the selection there instead, then puts back what was on the clipboard. See <a routerLink="/docs/settings" fragment="lookup">Settings</a>.</p>
