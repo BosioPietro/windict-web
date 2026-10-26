@@ -20,6 +20,7 @@ export const DOCS: DocPage[] = [
   { slug: 'looking-up-words', title: $localize`:@@docs.nav.lookingUp:Looking up words` },
   { slug: 'translating', title: $localize`:@@docs.nav.translating:Translating` },
   { slug: 'shortcuts', title: $localize`:@@docs.nav.shortcuts:Keyboard shortcuts` },
+  { slug: 'command-line', title: $localize`:@@docs.nav.commandLine:On the command line` },
   { slug: 'above-start', title: $localize`:@@docs.nav.aboveStart:Above the Start menu` },
   { slug: 'settings', title: $localize`:@@docs.nav.settings:Settings` },
   { slug: 'dictionaries', title: $localize`:@@docs.nav.dictionaries:Dictionaries and network use` },

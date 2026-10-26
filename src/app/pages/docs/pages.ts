@@ -55,6 +55,9 @@ export class Translating extends DocPage {
 @Component({ imports: [Keys], templateUrl: './shortcuts.html' })
 export class Shortcuts extends DocPage {}
 
+@Component({ imports: [RouterLink, Keys], templateUrl: './command-line.html' })
+export class CommandLine extends DocPage {}
+
 @Component({ imports: [RouterLink, Shot], templateUrl: './above-start.html' })
 export class AboveStart extends DocPage {}
 

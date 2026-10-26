@@ -52,6 +52,14 @@ export const routes: Routes = [
           ),
         },
         {
+          path: 'command-line',
+          component: m.CommandLine,
+          ...docs(
+            $localize`:@@docs.nav.commandLine:On the command line`,
+            $localize`:@@desc.cli:Look up and translate words from a Windows terminal with wd, WinDict's command line: its commands, options and exit codes.`,
+          ),
+        },
+        {
           path: 'above-start',
           component: m.AboveStart,
           ...docs(

@@ -3,15 +3,16 @@
 
 <pre><code>git clone {{ repoUrl }}.git
 cd WinDict
-cargo build --release        # target\release\windict.exe
+cargo build --release        # target\release\windict.exe and wd.exe
 cargo test                   # unit tests, including the bundled dictionary
 cargo clippy --all-targets -- -D warnings</code></pre>
 
 <h2 i18n="@@docs.build.setup.title">Building the setup</h2>
-<p i18n="@@docs.build.setup.text">The installer is built with <a href="https://jrsoftware.org/isinfo.php">Inno Setup</a> from both builds, the usual one and the one that can have UI access, put in <code>dist</code>:</p>
+<p i18n="@@docs.build.setup.text">The installer is built with <a href="https://jrsoftware.org/isinfo.php">Inno Setup</a> from both builds of WinDict, the usual one and the one that can have UI access, and <code>wd</code>, put in <code>dist</code>:</p>
 <pre><code>mkdir dist
 cargo build --release
 copy target\release\windict.exe dist\WinDict.exe
+copy target\release\wd.exe dist\wd.exe
 cargo build --release --features uiaccess
 copy target\release\windict.exe dist\WinDict-uiaccess.exe
 iscc /DVersion=0.27.0 installer\windict.iss   # dist\WinDict-v0.27.0-inno.exe</code></pre>

@@ -1,0 +1,63 @@
+<h1 i18n="@@docs.cli.title">On the command line</h1>
+<p class="lead" i18n="@@docs.cli.lead">Look up and translate words in a terminal with <code>wd</code>, which prints what the card would show.</p>
+<p i18n="@@docs.cli.install">The setup puts <code>wd</code> on the PATH, so it can be run from any folder in PowerShell, the Command Prompt or Windows Terminal. A terminal that was already open needs opening again to find it. It comes only with the installed copy, not with the one that runs without installing.</p>
+
+<pre><code>wd serendipity                   # or: wd define serendipity
+wd translate good morning        # or: wd t good morning
+wd t buongiorno --to German
+Get-Clipboard | wd t</code></pre>
+
+<h2 id="define" i18n="@@docs.cli.define.title">Looking up</h2>
+<p i18n="@@docs.cli.define.text"><code>wd define</code>, or <code>wd d</code>, looks up a word or a short phrase, in the built-in dictionaries and then online, as <app-keys keys="Alt+D" /> does. It's also what <code>wd</code> does with a word and no command. When the word isn't found, it says what it was likely a typo of.</p>
+<table>
+  <thead>
+    <tr><th i18n="@@docs.cli.col.option">Option</th><th i18n="@@docs.cli.col.action">What it does</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><code>-l</code>, <code>--lang &lt;language&gt;</code></td><td i18n="@@docs.cli.define.lang">Only in this language, given as a code like <code>it</code> or a name like <code>Italiano</code>. Its dictionary is used if it's been downloaded, whether it's in the settings or not.</td></tr>
+    <tr><td><code>-n</code>, <code>--senses &lt;n&gt;</code></td><td i18n="@@docs.cli.define.senses">Senses per part of speech</td></tr>
+    <tr><td><code>-s</code>, <code>--synonyms &lt;n&gt;</code></td><td i18n="@@docs.cli.define.synonyms">Similar words per part of speech, 0 for none</td></tr>
+    <tr><td><code>--examples</code>, <code>--no-examples</code></td><td i18n="@@docs.cli.define.examples">Shows the example sentences, or leaves them out</td></tr>
+  </tbody>
+</table>
+
+<h2 id="translate" i18n="@@docs.cli.translate.title">Translating</h2>
+<p i18n="@@docs.cli.translate.text"><code>wd translate</code>, or <code>wd t</code>, translates a word, a phrase or a passage, as <app-keys keys="Alt+T" /> does, and tells which way it went. Translations need the internet, so they need the online dictionary on, or <code>--online</code>.</p>
+<table>
+  <thead>
+    <tr><th i18n="@@docs.cli.col.option">Option</th><th i18n="@@docs.cli.col.action">What it does</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><code>-f</code>, <code>--from &lt;language&gt;</code></td><td i18n="@@docs.cli.translate.from">The language it's in, given as a code like <code>en</code> or a name like <code>English</code></td></tr>
+    <tr><td><code>-t</code>, <code>--to &lt;language&gt;</code></td><td i18n="@@docs.cli.translate.to">The language to translate it into</td></tr>
+  </tbody>
+</table>
+<p i18n="@@docs.cli.translate.guess">Without them, it picks the way as the shortcut does, and says so when it had to guess. Given only <code>--to</code>, it translates from the language the text seems to be in, or from the other default language if it's that one already.</p>
+
+<h2 id="both" i18n="@@docs.cli.both.title">For both</h2>
+<table>
+  <thead>
+    <tr><th i18n="@@docs.cli.col.option">Option</th><th i18n="@@docs.cli.col.action">What it does</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><code>--online</code></td><td i18n="@@docs.cli.both.online">Uses the online dictionaries and translators</td></tr>
+    <tr><td><code>--offline</code></td><td i18n="@@docs.cli.both.offline">Uses only the dictionaries on this PC</td></tr>
+    <tr><td><code>-h</code>, <code>--help</code></td><td i18n="@@docs.cli.both.help">Lists the commands and options, as <code>wd help</code> does</td></tr>
+    <tr><td><code>-V</code>, <code>--version</code></td><td i18n="@@docs.cli.both.version">Shows the version</td></tr>
+  </tbody>
+</table>
+<p i18n="@@docs.cli.both.settings">What isn't given goes by <a routerLink="/docs/settings">WinDict's settings</a>: its dictionaries, its default languages, what the card shows and the online dictionary. <code>wd</code> reads them, but never changes them.</p>
+
+<h2 id="scripts" i18n="@@docs.cli.scripts.title">In scripts</h2>
+<p i18n="@@docs.cli.scripts.pipe">With no text after the command, <code>wd</code> reads it from what's piped in. Text starting with a dash goes after <code>--</code>, as in <code>wd t -- -5 degrees</code>.</p>
+<p i18n="@@docs.cli.scripts.output">In a console, answers are styled and wrapped to the window. Piped or redirected, they're plain lines; set <code>NO_COLOR</code> to have them plain in a console too. What went wrong is written to the error stream, not with the answer.</p>
+<table>
+  <thead>
+    <tr><th i18n="@@docs.cli.col.code">Exit code</th><th i18n="@@docs.cli.col.meaning">Meaning</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><code>0</code></td><td i18n="@@docs.cli.scripts.ok">An answer was printed</td></tr>
+    <tr><td><code>1</code></td><td i18n="@@docs.cli.scripts.none">No answer: the word wasn't found, or the lookup or translation failed</td></tr>
+    <tr><td><code>2</code></td><td i18n="@@docs.cli.scripts.usage">The command couldn't be made sense of, like an unknown option or nothing to look up</td></tr>
+  </tbody>
+</table>
