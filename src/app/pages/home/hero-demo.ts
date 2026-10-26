@@ -2,7 +2,6 @@ import {
   Component,
   DestroyRef,
   ElementRef,
-  LOCALE_ID,
   afterNextRender,
   computed,
   inject,
@@ -12,6 +11,7 @@ import {
 import { NgTemplateOutlet } from '@angular/common';
 import { Icon } from '../../shared/icon';
 import { Keys } from '../../shared/keys';
+import { LANGUAGE } from '../../shared/language';
 
 type Mode = 'define' | 'translate';
 
@@ -165,7 +165,7 @@ interface Point {
   styleUrl: './hero-demo.css',
 })
 export class HeroDemo {
-  protected readonly demo = DEMOS[inject(LOCALE_ID).slice(0, 2)] ?? DEMOS['en'];
+  protected readonly demo = DEMOS[inject(LANGUAGE)] ?? DEMOS['en'];
   /** Each word a letter at a time, so a drag can select it as it goes. */
   protected readonly letters = [[...this.demo.word], [...this.demo.foreign]];
   protected readonly mode = signal<Mode>('define');
