@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { Icon } from '../../shared/icon';
 import { IconName } from '../../shared/icons';
@@ -16,7 +16,6 @@ interface Feature {
 
 @Component({
   selector: 'app-home',
-  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [RouterLink, Icon, Keys, Shot, Winget, HeroDemo],
   templateUrl: './home.html',
   styleUrl: './home.css',

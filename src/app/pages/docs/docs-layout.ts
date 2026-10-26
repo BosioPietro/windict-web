@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
+import { Component, computed, inject } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { NavigationEnd, Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { filter, map } from 'rxjs';
@@ -8,7 +8,6 @@ import { DOCS, REPO_URL } from '../../site';
 /** The docs: their table of contents on the side, the page, and links to the pages around it. */
 @Component({
   selector: 'app-docs-layout',
-  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [RouterOutlet, RouterLink, RouterLinkActive, Icon],
   templateUrl: './docs-layout.html',
 })

@@ -1,5 +1,4 @@
 import {
-  ChangeDetectionStrategy,
   Component,
   DestroyRef,
   ElementRef,
@@ -161,7 +160,6 @@ interface Point {
  */
 @Component({
   selector: 'app-hero-demo',
-  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [NgTemplateOutlet, Icon, Keys],
   templateUrl: './hero-demo.html',
   styleUrl: './hero-demo.css',

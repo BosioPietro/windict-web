@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { Keys } from '../../shared/keys';
 import { Shot } from '../../shared/shot';
@@ -11,23 +11,19 @@ abstract class DocPage {
   protected readonly repoUrl = REPO_URL;
 }
 
-const changeDetection = ChangeDetectionStrategy.OnPush;
-
 @Component({
   imports: [RouterLink, Keys, Shot, Winget],
-  changeDetection,
   templateUrl: './getting-started.html',
 })
 export class GettingStarted extends DocPage {}
 
 @Component({
   imports: [RouterLink, Keys, Shot],
-  changeDetection,
   templateUrl: './looking-up-words.html',
 })
 export class LookingUpWords extends DocPage {}
 
-@Component({ imports: [Keys, Shot], changeDetection, templateUrl: './translating.html' })
+@Component({ imports: [Keys, Shot], templateUrl: './translating.html' })
 export class Translating extends DocPage {
   /** As the card lists them, each in itself (translate.rs). */
   protected readonly languages = [
@@ -56,17 +52,17 @@ export class Translating extends DocPage {
   ];
 }
 
-@Component({ imports: [Keys], changeDetection, templateUrl: './shortcuts.html' })
+@Component({ imports: [Keys], templateUrl: './shortcuts.html' })
 export class Shortcuts extends DocPage {}
 
-@Component({ imports: [RouterLink, Shot], changeDetection, templateUrl: './above-start.html' })
+@Component({ imports: [RouterLink, Shot], templateUrl: './above-start.html' })
 export class AboveStart extends DocPage {}
 
-@Component({ imports: [RouterLink, Keys], changeDetection, templateUrl: './settings.html' })
+@Component({ imports: [RouterLink, Keys], templateUrl: './settings.html' })
 export class Settings extends DocPage {}
 
-@Component({ imports: [], changeDetection, templateUrl: './dictionaries.html' })
+@Component({ templateUrl: './dictionaries.html' })
 export class Dictionaries extends DocPage {}
 
-@Component({ imports: [], changeDetection, templateUrl: './building.html' })
+@Component({ templateUrl: './building.html' })
 export class Building extends DocPage {}

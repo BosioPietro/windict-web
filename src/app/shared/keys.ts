@@ -1,9 +1,8 @@
-import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
+import { Component, computed, input } from '@angular/core';
 
 /** A shortcut as keycaps: "Ctrl+T" is Ctrl, then T. A "/" separates alternatives. */
 @Component({
   selector: 'app-keys',
-  changeDetection: ChangeDetectionStrategy.OnPush,
   host: { class: 'inline-flex flex-wrap items-center gap-x-1.5 gap-y-1 align-baseline' },
   template: `
     @for (combo of combos(); track $index; let last = $last) {

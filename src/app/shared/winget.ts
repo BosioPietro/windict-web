@@ -1,11 +1,10 @@
-import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { WINGET_ID } from '../site';
 import { Icon } from './icon';
 
 /** The command that installs WinDict with WinGet, and a button that copies it. */
 @Component({
   selector: 'app-winget',
-  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [Icon],
   host: { class: 'block' },
   template: `
