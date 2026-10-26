@@ -15,9 +15,6 @@
 .faq.open {
   border-color: var(--stroke-strong);
   background: var(--surface);
-  box-shadow:
-    inset 3px 0 0 var(--accent),
-    var(--shadow);
 }
 
 .faq-question {
