@@ -8,10 +8,14 @@
           <li>
             <a
               [routerLink]="['/docs', page.slug]"
-              routerLinkActive="bg-surface! text-fg! font-semibold shadow-card before:absolute before:inset-y-2 before:left-0 before:w-0.75 before:rounded-full before:bg-accent"
+              routerLinkActive="bg-surface! text-fg! font-semibold shadow-card"
               ariaCurrentWhenActive="page"
-              class="relative block rounded-ctl px-3 py-2 text-muted transition-colors hover:bg-surface-hover hover:text-fg"
-            >{{ page.title }}</a>
+              class="group relative block rounded-ctl px-3 py-2 text-muted transition-colors hover:bg-surface-hover hover:text-fg"
+            >
+              <!-- One at a time, so it slides from page to page (styles.css) -->
+              <span class="absolute inset-y-2 left-0 hidden w-0.75 rounded-full bg-accent [view-transition-name:docs-marker] group-aria-[current=page]:block"></span>
+              {{ page.title }}
+            </a>
           </li>
         }
       </ul>
@@ -42,32 +46,35 @@
       </ul>
     </details>
 
-    <article class="prose-doc max-w-3xl">
-      <router-outlet />
-    </article>
+    <!-- The page and its pager, which change together (styles.css) -->
+    <div class="[view-transition-name:docs-page]">
+      <article class="prose-doc max-w-3xl">
+        <router-outlet />
+      </article>
 
-    <nav class="mt-16 grid max-w-3xl gap-4 sm:grid-cols-2" i18n-aria-label="@@docs.pager.label" aria-label="More pages">
-      @if (previous(); as page) {
-        <a [routerLink]="['/docs', page.slug]" class="group rounded-card border border-stroke bg-surface p-4 transition-colors hover:bg-surface-hover">
-          <span class="flex items-center gap-1 text-[13px] text-muted">
-            <app-icon name="arrowLeft" class="size-4" />
-            <span i18n="@@docs.pager.previous">Previous</span>
-          </span>
-          <span class="mt-1 block font-semibold text-link">{{ page.title }}</span>
-        </a>
-      } @else {
-        <span></span>
-      }
-      @if (next(); as page) {
-        <a [routerLink]="['/docs', page.slug]" class="group rounded-card border border-stroke bg-surface p-4 text-right transition-colors hover:bg-surface-hover">
-          <span class="flex items-center justify-end gap-1 text-[13px] text-muted">
-            <span i18n="@@docs.pager.next">Next</span>
-            <app-icon name="arrowRight" class="size-4" />
-          </span>
-          <span class="mt-1 block font-semibold text-link">{{ page.title }}</span>
-        </a>
-      }
-    </nav>
+      <nav class="mt-16 grid max-w-3xl gap-4 sm:grid-cols-2" i18n-aria-label="@@docs.pager.label" aria-label="More pages">
+        @if (previous(); as page) {
+          <a [routerLink]="['/docs', page.slug]" class="group rounded-card border border-stroke bg-surface p-4 transition-colors hover:bg-surface-hover">
+            <span class="flex items-center gap-1 text-[13px] text-muted">
+              <app-icon name="arrowLeft" class="size-4" />
+              <span i18n="@@docs.pager.previous">Previous</span>
+            </span>
+            <span class="mt-1 block font-semibold text-link">{{ page.title }}</span>
+          </a>
+        } @else {
+          <span></span>
+        }
+        @if (next(); as page) {
+          <a [routerLink]="['/docs', page.slug]" class="group rounded-card border border-stroke bg-surface p-4 text-right transition-colors hover:bg-surface-hover">
+            <span class="flex items-center justify-end gap-1 text-[13px] text-muted">
+              <span i18n="@@docs.pager.next">Next</span>
+              <app-icon name="arrowRight" class="size-4" />
+            </span>
+            <span class="mt-1 block font-semibold text-link">{{ page.title }}</span>
+          </a>
+        }
+      </nav>
+    </div>
 
     <p class="mt-10 max-w-3xl border-t border-stroke pt-6 text-[14px] text-muted" i18n="@@docs.feedback">
       Something missing or wrong? <a [href]="repoUrl + '/issues'" class="link">Open an issue on GitHub</a>.
