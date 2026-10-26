@@ -19,16 +19,16 @@
         translation, opens right beside it.
       </p>
       <div class="mt-5 flex gap-3 sm:mt-10">
-        <a [href]="releasesUrl" class="btn-accent flex-1 !py-3 !text-base sm:flex-none sm:!px-6">
+        <a [href]="releasesUrl" class="btn-accent flex-1 py-3! text-base! sm:flex-none sm:px-6!">
           <app-icon name="download" class="size-5" />
           <span i18n="@@home.hero.download">Download for Windows</span>
         </a>
         <a
           routerLink="/docs/getting-started"
-          class="btn-standard !hidden !py-3 !text-base sm:!inline-flex sm:!px-6"
+          class="btn-standard hidden! py-3! text-base! sm:inline-flex! sm:px-6!"
         >
           <span i18n="@@home.hero.learn">Get started</span>
-          <app-icon name="arrowRight" class="size-[18px]" />
+          <app-icon name="arrowRight" class="size-4.5" />
         </a>
       </div>
       <app-winget class="mt-4 hidden max-w-md sm:block" />
@@ -258,7 +258,7 @@
         <div
           class="flex size-10 shrink-0 items-center justify-center rounded-card bg-accent-soft text-accent sm:size-11"
         >
-          <app-icon [name]="feature.icon" class="size-[22px] sm:size-6" />
+          <app-icon [name]="feature.icon" class="size-5.5 sm:size-6" />
         </div>
         <div>
           <h3 class="text-[16px] font-semibold sm:mt-5 sm:text-[17px]">{{ feature.title }}</h3>
@@ -323,11 +323,11 @@
     >
       <!-- Cropped to the corner with the clock, so the icons are big enough to see; on wide screens it stretches to stand exactly as tall as the steps. -->
       <div
-        class="relative aspect-[6/5] overflow-hidden rounded-window border border-stroke shadow-float lg:aspect-auto"
+        class="relative aspect-6/5 overflow-hidden rounded-window border border-stroke shadow-float lg:aspect-auto"
       >
         <app-shot
           name="tray"
-          class="h-full lg:absolute lg:inset-0 [&_img]:h-full [&_img]:object-cover [&_img]:object-right-bottom"
+          class="h-full lg:absolute lg:inset-0 [&_img]:h-full [&_img]:object-cover [&_img]:object-bottom-right"
           sizes="(min-width: 1024px) 60vw, 150vw"
           i18n-alt="@@home.tray.shotAlt"
           alt="WinDict's icon among the hidden icons of the Windows taskbar"
@@ -460,11 +460,11 @@
       WinDict is free, open source, and about 4 MB of memory while it waits.
     </p>
     <div class="mt-9 flex flex-col justify-center gap-3 sm:flex-row">
-      <a [href]="releasesUrl" class="btn-accent !py-3 !text-base sm:!px-6">
+      <a [href]="releasesUrl" class="btn-accent py-3! text-base! sm:px-6!">
         <app-icon name="download" class="size-5" />
         <span i18n="@@home.hero.download">Download for Windows</span>
       </a>
-      <a [href]="repoUrl" class="btn-standard !py-3 !text-base sm:!px-6">
+      <a [href]="repoUrl" class="btn-standard py-3! text-base! sm:px-6!">
         <app-icon name="code" class="size-5" />
         <span i18n="@@home.cta.source">View the source</span>
       </a>

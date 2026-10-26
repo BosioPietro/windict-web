@@ -9,7 +9,7 @@
     <a routerLink="/" fragment="features" class="rounded-ctl px-3 py-1.5 text-muted transition-colors hover:bg-surface-hover hover:text-fg" i18n="@@nav.features">Features</a>
     <a
       routerLink="/docs"
-      routerLinkActive="!text-fg font-semibold"
+      routerLinkActive="text-fg! font-semibold"
       class="rounded-ctl px-3 py-1.5 text-muted transition-colors hover:bg-surface-hover hover:text-fg"
       i18n="@@nav.docs"
     >Docs</a>
@@ -24,10 +24,10 @@
       [attr.lang]="other"
       class="hidden items-center gap-1.5 rounded-ctl px-3 py-1.5 text-[14px] text-muted transition-colors hover:bg-surface-hover hover:text-fg sm:flex"
     >
-      <app-icon name="localLanguage" class="size-[18px]" />
+      <app-icon name="localLanguage" class="size-4.5" />
       {{ otherName }}
     </a>
-    <a [href]="releasesUrl" class="btn-accent !px-3.5 !py-1.5 !text-[14px]" [style.display]="menuOpen() ? 'none' : null">
+    <a [href]="releasesUrl" class="btn-accent px-3.5! py-1.5! text-[14px]!" [style.display]="menuOpen() ? 'none' : null">
       <app-icon name="download" class="size-4" />
       <span i18n="@@nav.download">Download</span>
     </a>
@@ -80,7 +80,7 @@
         <li>
           <a
             [routerLink]="['/docs', page.slug]"
-            routerLinkActive="!text-fg font-semibold"
+            routerLinkActive="text-fg! font-semibold"
             class="block rounded-ctl px-2 py-2.5 text-muted active:bg-surface-hover"
           >{{ page.title }}</a>
         </li>
@@ -99,7 +99,7 @@
           }
         }
       </div>
-      <a [href]="releasesUrl" class="btn-accent w-full !py-3 !text-base">
+      <a [href]="releasesUrl" class="btn-accent w-full py-3! text-base!">
         <app-icon name="download" class="size-5" />
         <span i18n="@@home.hero.download">Download for Windows</span>
       </a>
