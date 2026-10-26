@@ -4,8 +4,8 @@ import { ChangeDetectionStrategy, Component, computed, input } from '@angular/co
 const HEIGHTS = {
   lookup: 1024,
   'lookup-full': 1421,
-  'lookup-card': 1663,
-  translate: 923,
+  'lookup-card': 1200,
+  translate: 1200,
   start: 1102,
   tray: 972,
 } as const;
