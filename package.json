@@ -7,7 +7,8 @@
     "start:it": "ng serve --configuration development-it",
     "build": "ng build && node scripts/postbuild.mjs",
     "extract-i18n": "ng extract-i18n && node scripts/check-i18n.mjs",
-    "preview": "npx --yes serve@14.2.4 dist/windict-web/browser"
+    "preview": "bun run build && wrangler dev",
+    "deploy": "bun run build && wrangler deploy"
   },
   "private": true,
   "packageManager": "npm@11.19.1",
@@ -33,7 +34,8 @@
     "postcss": "^8.5.31",
     "prettier": "^3.8.1",
     "tailwindcss": "^4.3.3",
-    "typescript": "~6.0.2"
+    "typescript": "~6.0.2",
+    "wrangler": "^4.152.0"
   },
   "engines": {
     "node": ">=22.22.3"
