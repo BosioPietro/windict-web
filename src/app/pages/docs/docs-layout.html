@@ -8,7 +8,7 @@
           <li>
             <a
               [routerLink]="['/docs', page.slug]"
-              routerLinkActive="!bg-surface !text-fg font-semibold shadow-card before:absolute before:inset-y-2 before:left-0 before:w-[3px] before:rounded-full before:bg-accent"
+              routerLinkActive="bg-surface! text-fg! font-semibold shadow-card before:absolute before:inset-y-2 before:left-0 before:w-0.75 before:rounded-full before:bg-accent"
               ariaCurrentWhenActive="page"
               class="relative block rounded-ctl px-3 py-2 text-muted transition-colors hover:bg-surface-hover hover:text-fg"
             >{{ page.title }}</a>
@@ -33,7 +33,7 @@
           <li>
             <a
               [routerLink]="['/docs', page.slug]"
-              routerLinkActive="!text-fg font-semibold bg-surface-hover"
+              routerLinkActive="text-fg! font-semibold bg-surface-hover"
               class="block rounded-ctl px-3 py-2.5 text-muted hover:bg-surface-hover"
               (click)="toc.open = false"
             >{{ page.title }}</a>

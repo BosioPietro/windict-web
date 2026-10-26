@@ -11,7 +11,7 @@ import { Seo } from './seo';
   template: `
     <button
       type="button"
-      class="sr-only z-[60] rounded-ctl bg-accent px-4 py-2 text-on-accent focus:not-sr-only focus:fixed focus:top-2 focus:left-2"
+      class="sr-only z-60 rounded-ctl bg-accent px-4 py-2 text-on-accent focus:not-sr-only focus:fixed focus:top-2 focus:left-2"
       (click)="main.focus()"
       i18n="@@skip"
     >
