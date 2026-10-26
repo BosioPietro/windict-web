@@ -20,17 +20,39 @@ type Mode = 'define' | 'translate';
 const WORDS: Record<Mode, 0 | 1> = { define: 0, translate: 1 };
 
 /** How long the visitor has to take in the page before anything moves. */
-const START_MS = 1700;
+const START_MS = 1200;
 /** How long a card stays open before it's clicked away. */
-const HOLD_MS = 5500;
+const HOLD_MS = 3500;
 /** How long the drag takes over each letter of the foreign word. */
 const LETTER_MS = 70;
-const EASE = 'cubic-bezier(0.45, 0, 0.2, 1)';
 
 interface Point {
   x: number;
   y: number;
 }
+
+/** Eases in and out, smoothly: a minimum-jerk curve. */
+const steady = (t: number) => t * t * t * (10 - 15 * t + 6 * t * t);
+/** As a hand reaches for something: off quickly, then a long slowing in. */
+const reach = (t: number) => steady(1 - (1 - t) ** 1.6);
+/**
+ * As a hand drags across text: it gathers speed over the first quarter, holds
+ * it, and lets it go over the last third, each ramp a half cosine.
+ */
+const cruise = (t: number, up = 0.25, down = 0.35) => {
+  const wave = (u: number, of: number) => (of / Math.PI) * Math.sin((Math.PI * u) / of);
+  const at =
+    t < up
+      ? (t - wave(t, up)) / 2
+      : t <= 1 - down
+        ? up / 2 + (t - up)
+        : 1 - up / 2 - down + (t - 1 + down + wave(t - 1 + down, down)) / 2;
+  return at / (1 - (up + down) / 2);
+};
+/** `n`, give or take a share of it, so no two runs are quite the same. */
+const vary = (n: number, by = 0.15) => n * (1 - by + Math.random() * 2 * by);
+/** Anywhere up to `px` either way. */
+const jitter = (px: number) => (Math.random() * 2 - 1) * px;
 
 /**
  * WinDict's card, built in HTML, as someone reading an article would use it:
@@ -55,20 +77,26 @@ export class HeroDemo {
     this.defining() ? this.demo.heading : this.demo.foreign,
   );
   /** How many letters of which word are selected, and how wide they are. */
-  private readonly selection = signal<{ word: 0 | 1; count: number; width: number } | null>(null);
+  private readonly selection = signal<{
+    word: 0 | 1;
+    count: number;
+    width: number;
+    dragged: boolean;
+  } | null>(null);
   /** Each word's selected letters, and the size of the highlight under them. */
   protected readonly selected = computed(() => {
     const s = this.selection();
     return [0, 1].map((word) => {
-      const { count, width } = s?.word === word ? s : { count: 0, width: 0 };
-      return { count, size: `${width}px 100%` };
+      const { count, width, dragged } =
+        s?.word === word ? s : { count: 0, width: 0, dragged: false };
+      return { count, dragged: dragged && count > 0, size: `${width}px 100%` };
     });
   });
   protected readonly open = signal(false);
   /** Where the card is, under the word; until measured, about there. */
   protected readonly place = signal<{ left: number; top: number } | null>(null);
-  /** The pointer: where it is, and how it gets there. */
-  protected readonly pointer = signal({ x: 0, y: 0, ms: 0, ease: EASE, shown: false });
+  /** The pointer: where it is, and whether it's on the scene yet. */
+  protected readonly pointer = signal({ x: 0, y: 0, shown: false });
   protected readonly pointerTransform = computed(
     () => `translate(${this.pointer().x}px, ${this.pointer().y}px)`,
   );
@@ -116,8 +144,6 @@ export class HeroDemo {
     this.pointer.set({
       x: scene.clientWidth * 0.55,
       y: scene.clientHeight - 30,
-      ms: 0,
-      ease: EASE,
       shown: false,
     });
     if (!(await this.sleep(START_MS, live))) return;
@@ -134,10 +160,14 @@ export class HeroDemo {
   private async lookUp(live: () => boolean) {
     this.mode.set('define');
     const word = this.rect(0);
-    const middle = { x: word.left + word.width * 0.55, y: word.top + word.height / 2 };
-    if (!((await this.move(middle, 950, live)) && (await this.sleep(220, live)))) return false;
+    const middle = {
+      x: word.left + word.width * vary(0.55, 0.2),
+      y: word.top + word.height / 2 + jitter(2),
+    };
+    if (!((await this.move(middle, live)) && (await this.sleep(vary(220, 0.3), live))))
+      return false;
     this.click();
-    if (!(await this.sleep(110, live))) return false;
+    if (!(await this.sleep(vary(110, 0.25), live))) return false;
     this.click();
     this.select(0, this.letters[0].length);
     return this.press('Alt+D', live);
@@ -147,26 +177,31 @@ export class HeroDemo {
   private async translate(live: () => boolean) {
     this.mode.set('translate');
     const word = this.rect(1);
-    const y = word.top + word.height / 2;
-    if (!((await this.move({ x: word.left + 1, y }, 900, live)) && (await this.sleep(200, live))))
+    const y = word.top + word.height / 2 + jitter(2);
+    if (!(
+      (await this.move({ x: word.left + 1, y }, live)) && (await this.sleep(vary(260, 0.3), live))
+    ))
       return false;
     // A letter is selected once the pointer is past its middle, as in any text.
     const scene = this.scene().nativeElement.getBoundingClientRect();
-    const ms = this.letters[1].length * LETTER_MS;
-    const passed = [...this.foreign().nativeElement.querySelectorAll('.letter')].map((letter) => {
+    const middles = [...this.foreign().nativeElement.querySelectorAll('.letter')].map((letter) => {
       const r = letter.getBoundingClientRect();
-      return ((r.left + r.width / 2 - scene.left - word.left) / word.width) * ms;
+      return r.left + r.width / 2 - scene.left;
     });
     this.select(1, 0);
-    this.pointer.update((p) => ({ ...p, x: word.right, ms, ease: 'linear' }));
-    const start = performance.now();
-    for (const [i, at] of passed.entries()) {
-      if (!(await this.sleep(at - (performance.now() - start), live))) return false;
-      this.select(1, i + 1);
-    }
-    return (
-      (await this.sleep(ms - (performance.now() - start) + 150, live)) && this.press('Alt+T', live)
-    );
+    const step = ({ x }: Point) => {
+      const count = middles.filter((m) => m < x).length;
+      if (count !== this.selection()?.count) this.select(1, count, true);
+    };
+    // The drag gathers speed, keeps it across the word, wandering a little
+    // off the line, and slows to a stop just past it.
+    const end = { x: word.right + vary(3, 0.6), y: y + jitter(2) };
+    const dragged = await this.glide(end, vary(this.letters[1].length * LETTER_MS, 0.1), live, {
+      ease: cruise,
+      bow: 0.03,
+      step,
+    });
+    return dragged && (await this.sleep(150, live)) && this.press('Alt+T', live);
   }
 
   /** Presses the keys, opens the card, leaves it a while, then presses Esc. */
@@ -188,9 +223,50 @@ export class HeroDemo {
     return true;
   }
 
-  private move(to: Point, ms: number, live: () => boolean) {
-    this.pointer.update((p) => ({ ...p, ...to, ms, ease: EASE }));
-    return this.sleep(ms, live);
+  /**
+   * Moves the pointer as a hand would: the farther, the longer it takes, on a
+   * slight curve.
+   */
+  private move(to: Point, live: () => boolean) {
+    const { x, y } = this.pointer();
+    const distance = Math.hypot(to.x - x, to.y - y);
+    return this.glide(to, vary(Math.min(450 + distance * 1.3, 1000)), live);
+  }
+
+  /**
+   * Glides the pointer to `to` in `ms`, a frame at a time, along a curve that
+   * bows `bow` of the way out to one side, telling `step` each place it passes.
+   */
+  private glide(
+    to: Point,
+    ms: number,
+    live: () => boolean,
+    { ease = reach, bow = vary(0.12, 0.4), step = (_: Point) => {} } = {},
+  ) {
+    const from = this.pointer();
+    const side = Math.random() < 0.5 ? -1 : 1;
+    const bend = {
+      x: (from.x + to.x) / 2 - (to.y - from.y) * bow * side,
+      y: (from.y + to.y) / 2 + (to.x - from.x) * bow * side,
+    };
+    const start = performance.now();
+    return new Promise<boolean>((resolve) => {
+      const frame = (now: number) => {
+        if (!live()) return resolve(false);
+        const t = Math.min(1, (now - start) / ms);
+        const s = ease(t);
+        // A quadratic Bézier from where it is, through the bend, to `to`.
+        const at = {
+          x: (1 - s) ** 2 * from.x + 2 * (1 - s) * s * bend.x + s ** 2 * to.x,
+          y: (1 - s) ** 2 * from.y + 2 * (1 - s) * s * bend.y + s ** 2 * to.y,
+        };
+        this.pointer.update((p) => ({ ...p, ...at }));
+        step(at);
+        if (t < 1) requestAnimationFrame(frame);
+        else resolve(true);
+      };
+      requestAnimationFrame(frame);
+    });
   }
 
   private click() {
@@ -205,8 +281,13 @@ export class HeroDemo {
 
   /** Waits `ms`, not counting the time the visitor has the pointer on the scene. */
   private async hold(ms: number, live: () => boolean) {
-    for (let left = ms; left > 0; left -= this.paused ? 0 : 100) {
-      if (!(await this.sleep(100, live))) return false;
+    // Timed by the clock, not by counting ticks: a throttled timer, as in a
+    // tab in the background, would otherwise stretch it many times over.
+    for (let left = ms, last = performance.now(); left > 0;) {
+      if (!(await this.sleep(Math.min(left, 100), live))) return false;
+      const now = performance.now();
+      if (!this.paused) left -= now - last;
+      last = now;
     }
     return true;
   }
@@ -216,14 +297,14 @@ export class HeroDemo {
    * the whole word at once, not letter by letter, or each letter's would
    * cover the tail of the one before.
    */
-  private select(word: 0 | 1, count: number) {
+  private select(word: 0 | 1, count: number, dragged = false) {
     const letters = (word === 0 ? this.word() : this.foreign()).nativeElement.querySelectorAll(
       '.letter',
     );
     const width = count
       ? letters[count - 1].getBoundingClientRect().right - letters[0].getBoundingClientRect().left
       : 0;
-    this.selection.set({ word, count, width });
+    this.selection.set({ word, count, width, dragged });
   }
 
   /** A word's box, in the scene. */

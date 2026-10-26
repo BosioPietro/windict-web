@@ -116,6 +116,14 @@
 .letter.picked {
   color: var(--pick-ink);
 }
+/* As it's dragged, the selection eases from letter to letter, just a touch
+   past each. Cleared, it goes at once, as in any app. */
+.word.dragged {
+  transition: background-size 160ms cubic-bezier(0.25, 1.15, 0.5, 1);
+}
+.word.dragged .letter.picked {
+  transition: color 120ms;
+}
 
 /* Acrylic, as Windows draws it: a wide blur of what's under the card, then
    WinDict's tint, and over it a fine grain. The blur is the card's own, so
@@ -284,7 +292,6 @@
   width: 11px;
   height: 20px;
   opacity: 0;
-  transition-property: transform;
   pointer-events: none;
 }
 .pointer.shown {
