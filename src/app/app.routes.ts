@@ -89,6 +89,12 @@ export const routes: Routes = [
     path: '404',
     component: NotFound,
     title: $localize`:@@title.notFound:Page not found · WinDict`,
+    data: { noindex: true },
   },
-  { path: '**', component: NotFound, title: $localize`:@@title.notFound:Page not found · WinDict` },
+  {
+    path: '**',
+    component: NotFound,
+    title: $localize`:@@title.notFound:Page not found · WinDict`,
+    data: { noindex: true },
+  },
 ];

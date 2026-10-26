@@ -28,7 +28,10 @@ if (!LOCALES.every((l) => existsSync(join(out, l, 'index.html')))) {
   process.exit(1);
 }
 
-// Root: pick the language. Without JavaScript, English.
+// Root: pick the language. Without JavaScript, English. Its tags are for
+// link previews of the bare domain, which don't follow the redirect.
+const DESCRIPTION =
+  'WinDict is a free Windows app for looking up and translating words: select a word in any app, press Alt+D, and its definition opens right next to it.';
 writeFileSync(
   join(out, 'index.html'),
   `<!doctype html>
@@ -37,6 +40,14 @@ writeFileSync(
 <meta charset="utf-8">
 <title>WinDict</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="${DESCRIPTION}">
+<meta property="og:title" content="WinDict · Look up and translate any word on Windows">
+<meta property="og:description" content="${DESCRIPTION}">
+<meta property="og:url" content="${SITE}/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="WinDict">
+<meta property="og:image" content="${SITE}/en/og.jpg">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="canonical" href="${SITE}/en/">
 <link rel="alternate" hreflang="en" href="${SITE}/en/">
 <link rel="alternate" hreflang="it" href="${SITE}/it/">

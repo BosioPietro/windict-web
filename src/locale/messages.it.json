@@ -1,7 +1,7 @@
 {
   "locale": "it",
   "translations": {
-    "title.home": "WinDict · Cerca e traduci qualsiasi parola su Windows",
+    "title.home": "WinDict · Dizionario per Windows: cerca e traduci qualsiasi parola",
     "docs.nav.gettingStarted": "Per iniziare",
     "desc.start": "Come installare WinDict su Windows, o usarlo senza installarlo, e cercare la prima parola.",
     "docs.nav.lookingUp": "Cercare le parole",
@@ -326,7 +326,7 @@
     "notFound.text": "Questa pagina non è nel dizionario. Controlla come l’hai scritta?",
     "notFound.home": "Vai alla home page",
     "notFound.docs": "Leggi la documentazione",
-    "seo.description": "WinDict è un’app gratuita per Windows per cercare e tradurre parole: seleziona una parola in qualsiasi app, premi Alt+D, e la sua definizione si apre proprio lì accanto.",
+    "seo.description": "WinDict è un dizionario e traduttore gratuito per Windows: seleziona una parola in qualsiasi app, premi Alt+D e la sua definizione si apre proprio lì accanto, con sinonimi, contrari e pronuncia.",
     "docs.start.requirements": "WinDict funziona su {$START_TAG_STRONG}Windows 10 e 11{$CLOSE_TAG_STRONG}. Le versioni precedenti potrebbero funzionare, ma non sono testate.",
     "docs.start.winget.title": "Installarlo con WinGet",
     "docs.start.winget.text": "WinGet installa la stessa installazione, da un terminale:",
