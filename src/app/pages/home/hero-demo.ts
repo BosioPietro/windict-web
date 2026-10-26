@@ -49,17 +49,29 @@ export class HeroDemo {
   /** Each word a letter at a time, so a drag can select it as it goes. */
   protected readonly letters = [[...this.demo.word], [...this.demo.foreign]];
   protected readonly mode = signal<Mode>('define');
+  protected readonly defining = computed(() => this.mode() === 'define');
+  /** The card's title: the word defined, or the one translated. */
+  protected readonly heading = computed(() =>
+    this.defining() ? this.demo.heading : this.demo.foreign,
+  );
   /** How many letters of which word are selected, and how wide they are. */
   private readonly selection = signal<{ word: 0 | 1; count: number; width: number } | null>(null);
+  /** Each word's selected letters, and the size of the highlight under them. */
   protected readonly selected = computed(() => {
     const s = this.selection();
-    return [0, 1].map((word) => (s?.word === word ? s : { count: 0, width: 0 }));
+    return [0, 1].map((word) => {
+      const { count, width } = s?.word === word ? s : { count: 0, width: 0 };
+      return { count, size: `${width}px 100%` };
+    });
   });
   protected readonly open = signal(false);
   /** Where the card is, under the word; until measured, about there. */
   protected readonly place = signal<{ left: number; top: number } | null>(null);
   /** The pointer: where it is, and how it gets there. */
   protected readonly pointer = signal({ x: 0, y: 0, ms: 0, ease: EASE, shown: false });
+  protected readonly pointerTransform = computed(
+    () => `translate(${this.pointer().x}px, ${this.pointer().y}px)`,
+  );
   /** The last click, numbered so its ring plays again. */
   protected readonly clicks = signal<(Point & { n: number })[]>([]);
   /** The keys just pressed, shown for a moment. */
