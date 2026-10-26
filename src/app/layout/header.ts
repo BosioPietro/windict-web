@@ -1,9 +1,14 @@
-import { Component, DOCUMENT, LOCALE_ID, effect, inject, signal } from '@angular/core';
-import { toSignal } from '@angular/core/rxjs-interop';
-import { NavigationEnd, Router, RouterLink, RouterLinkActive } from '@angular/router';
-import { filter, map } from 'rxjs';
+import { Component, DOCUMENT, computed, effect, inject, signal } from '@angular/core';
+import { RouterLink, RouterLinkActive } from '@angular/router';
+import { currentUrl, pathOf } from '../shared/current-url';
 import { Icon } from '../shared/icon';
-import { DOCS, RELEASES_URL, REPO_URL } from '../site';
+import { LANGUAGE } from '../shared/language';
+import { DOCS, LOCALES, Locale, RELEASES_URL, REPO_URL } from '../site';
+
+const LANGUAGE_NAMES: Record<Locale, string> = { en: 'English', it: 'Italiano' };
+
+/** A language at the start of a path, which the switcher replaces rather than adds to. */
+const LANGUAGE_PREFIX = new RegExp(`^/(${LOCALES.join('|')})(?=/|$)`);
 
 @Component({
   selector: 'app-header',
@@ -21,42 +26,29 @@ export class Header {
   protected readonly docs = DOCS;
   protected readonly menuOpen = signal(false);
 
-  private readonly router = inject(Router);
-  protected readonly locale = inject(LOCALE_ID).slice(0, 2);
-  protected readonly other = this.locale === 'it' ? 'en' : 'it';
-  protected readonly otherName = this.locale === 'it' ? 'English' : 'Italiano';
-  protected readonly languages = [
-    { code: 'en', name: 'English' },
-    { code: 'it', name: 'Italiano' },
-  ];
+  protected readonly locale = inject(LANGUAGE);
+  protected readonly other: Locale = this.locale === 'it' ? 'en' : 'it';
+  protected readonly otherName = LANGUAGE_NAMES[this.other];
+  protected readonly languages = LOCALES.map((code) => ({ code, name: LANGUAGE_NAMES[code] }));
 
-  private readonly url = toSignal(
-    this.router.events.pipe(
-      filter((e) => e instanceof NavigationEnd),
-      map((e) => e.urlAfterRedirects),
-    ),
-    { initialValue: this.router.url },
-  );
+  private readonly url = currentUrl();
+
+  /**
+   * The same page in each language: a separate build, so a full page load.
+   *
+   * The router's URL can start with a language already: on the root 404
+   * page, whose base is /en/, or under ng serve, which serves one language
+   * at /. Without dropping it, every switch would add another.
+   */
+  protected readonly hrefs = computed(() => {
+    const path = pathOf(this.url()).replace(LANGUAGE_PREFIX, '');
+    return Object.fromEntries(LOCALES.map((l) => [l, `/${l}${path}/`])) as Record<Locale, string>;
+  });
+  protected readonly otherHref = computed(() => this.hrefs()[this.other]);
 
   constructor() {
     // The page under the menu doesn't scroll while it's open.
     const root = inject(DOCUMENT).documentElement;
     effect(() => root.classList.toggle('overflow-hidden', this.menuOpen()));
-  }
-
-  /** The same page in another language: a separate build, so a full page load. */
-  protected hrefIn(locale: string): string {
-    // The router's URL can start with a language already: on the root 404
-    // page, whose base is /en/, or under ng serve, which serves one language
-    // at /. Without dropping it, every switch would add another.
-    const path = this.url()
-      .split(/[?#]/)[0]
-      .replace(/\/$/, '')
-      .replace(new RegExp(`^/(${this.languages.map((l) => l.code).join('|')})(?=/|$)`), '');
-    return `/${locale}${path}/`;
-  }
-
-  protected otherHref(): string {
-    return this.hrefIn(this.other);
   }
 }

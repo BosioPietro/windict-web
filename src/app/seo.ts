@@ -1,28 +1,34 @@
-import { DOCUMENT, Injectable, LOCALE_ID, inject } from '@angular/core';
+import { DOCUMENT, Service, inject } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Meta, Title } from '@angular/platform-browser';
 import { ActivatedRouteSnapshot, NavigationEnd, Router } from '@angular/router';
 import { filter } from 'rxjs';
+import { pathOf } from './shared/current-url';
+import { LANGUAGE } from './shared/language';
 import { LOCALES, SITE_URL } from './site';
 
 const DEFAULT_DESCRIPTION = $localize`:@@seo.description:WinDict is a free Windows app for looking up and translating words: select a word in any app, press Alt+D, and its definition opens right next to it.`;
 
 /** Keeps the head in step with the page: description, canonical link, the other language's link, and Open Graph tags. */
-@Injectable({ providedIn: 'root' })
+@Service()
 export class Seo {
   private readonly document = inject(DOCUMENT);
   private readonly meta = inject(Meta);
   private readonly title = inject(Title);
-  private readonly locale = inject(LOCALE_ID).slice(0, 2);
+  private readonly locale = inject(LANGUAGE);
   private readonly router = inject(Router);
 
   constructor() {
     this.router.events
-      .pipe(filter((e) => e instanceof NavigationEnd))
+      .pipe(
+        filter((e) => e instanceof NavigationEnd),
+        takeUntilDestroyed(),
+      )
       .subscribe((e) => this.update(e.urlAfterRedirects, leafOf(this.router)));
   }
 
   private update(url: string, leaf: ActivatedRouteSnapshot) {
-    const path = url.split(/[?#]/)[0].replace(/\/$/, '');
+    const path = pathOf(url);
     const description: string = leaf.data['description'] ?? DEFAULT_DESCRIPTION;
     const canonical = `${SITE_URL}/${this.locale}${path}/`;
 

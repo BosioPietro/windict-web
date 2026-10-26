@@ -19,7 +19,7 @@
   <div>
     <h2 class="mb-3 font-semibold" i18n="@@footer.docs">Docs</h2>
     <ul class="space-y-2 text-muted">
-      @for (page of docs.slice(1, 6); track page.slug) {
+      @for (page of guides; track page.slug) {
         <li><a [routerLink]="['/docs', page.slug]" class="hover:text-fg hover:underline">{{ page.title }}</a></li>
       }
     </ul>

@@ -93,7 +93,7 @@
           @if (language.code === locale) {
             <span class="rounded-ctl bg-accent-soft py-2 text-center font-semibold" aria-current="true">{{ language.name }}</span>
           } @else {
-            <a [href]="hrefIn(language.code)" [attr.hreflang]="language.code" [attr.lang]="language.code" class="rounded-ctl py-2 text-center text-muted">
+            <a [href]="hrefs()[language.code]" [attr.hreflang]="language.code" [attr.lang]="language.code" class="rounded-ctl py-2 text-center text-muted">
               {{ language.name }}
             </a>
           }
