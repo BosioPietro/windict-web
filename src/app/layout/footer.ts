@@ -9,7 +9,8 @@ import { DOCS, ISSUES_URL, RELEASES_URL, REPO_URL } from '../site';
   templateUrl: './footer.html',
 })
 export class Footer {
-  protected readonly docs = DOCS;
+  /** The docs pages listed in the footer: all but the first and the last two. */
+  protected readonly guides = DOCS.slice(1, 6);
   protected readonly repoUrl = REPO_URL;
   protected readonly releasesUrl = RELEASES_URL;
   protected readonly issuesUrl = ISSUES_URL;
