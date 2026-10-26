@@ -17,10 +17,11 @@ import {
   writeFileSync,
 } from 'node:fs';
 import { join, relative, sep } from 'node:path';
+import { fileURLToPath } from 'node:url';
 
 const SITE = 'https://windict.bosio.zip';
 const LOCALES = ['en', 'it'];
-const out = new URL('../dist/windict-web/browser/', import.meta.url).pathname;
+const out = fileURLToPath(new URL('../dist/windict-web/browser/', import.meta.url));
 
 if (!LOCALES.every((l) => existsSync(join(out, l, 'index.html')))) {
   console.error(`postbuild: no prerendered pages in ${out}; run ng build first.`);
