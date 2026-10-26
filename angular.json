@@ -25,14 +25,10 @@
                 "input": "public"
               }
             ],
-            "styles": [
-              "src/styles.css"
-            ],
+            "styles": ["src/styles.css"],
             "server": "src/main.server.ts",
             "outputMode": "static",
-            "polyfills": [
-              "@angular/localize/init"
-            ],
+            "polyfills": ["@angular/localize/init"],
             "localize": true
           },
           "configurations": {
@@ -55,17 +51,13 @@
               "optimization": false,
               "extractLicenses": false,
               "sourceMap": true,
-              "localize": [
-                "en"
-              ]
+              "localize": ["en"]
             },
             "development-it": {
               "optimization": false,
               "extractLicenses": false,
               "sourceMap": true,
-              "localize": [
-                "it"
-              ]
+              "localize": ["it"]
             }
           },
           "defaultConfiguration": "production"

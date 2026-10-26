@@ -44,7 +44,8 @@ interface Demo {
  */
 export const DEMOS: Record<string, Demo> = {
   en: {
-    label: 'WinDict defining “serene” and translating “passeggiata”, both selected in a travel article',
+    label:
+      'WinDict defining “serene” and translating “passeggiata”, both selected in a travel article',
     page: 'Slow evenings on the Ligurian coast',
     site: 'postcards.example/liguria',
     before: 'At this hour the bay lies flat and ',
@@ -87,7 +88,8 @@ export const DEMOS: Record<string, Demo> = {
     word: 'brezza',
     between: ' gelida sale dal mare, i pub della città vecchia diventano ',
     foreign: 'cosy',
-    after: ' come il salotto di casa: legno scuro, il camino acceso e una pinta che nessuno ha fretta di finire.',
+    after:
+      ' come il salotto di casa: legno scuro, il camino acceso e una pinta che nessuno ha fretta di finire.',
     next: 'Di giorno, invece, vale la pena salire fino al castello e scendere a piedi lungo il Royal Mile, fermandosi nelle botteghe e nei vicoli che si aprono ai lati.',
     heading: 'Brezza',
     pos: 'Sostantivo',
