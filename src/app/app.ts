@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { Footer } from './layout/footer';
 import { Header } from './layout/header';
@@ -6,7 +6,6 @@ import { Seo } from './seo';
 
 @Component({
   selector: 'app-root',
-  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [RouterOutlet, Header, Footer],
   host: { class: 'flex min-h-dvh flex-col' },
   template: `
