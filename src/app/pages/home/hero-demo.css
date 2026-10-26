@@ -2,30 +2,32 @@
    and its accent text, in light and dark. */
 :host {
   display: block;
-  --card-tint: rgb(246 246 246 / 0.78);
+  --card-tint: rgb(246 246 246 / 0.77);
   --card-edge: rgb(0 0 0 / 0.1);
+  --card-shadow: rgb(0 0 0 / 0.22);
   --card-ink: #1b1b1b;
   --card-accent: #005fb8;
   --card-fill: rgb(0 0 0 / 0.06);
   --card-control: rgb(255 255 255 / 0.7);
-  --paper: #faf7f0;
-  --paper-bar: #f1ece1;
-  --paper-ink: #2b2620;
+  --page: #ffffff;
+  --page-bar: #eef1f5;
+  --page-ink: #242424;
   --pick: #005fb8;
   --pick-ink: #fff;
 }
 
 @media (prefers-color-scheme: dark) {
   :host {
-    --card-tint: rgb(32 32 32 / 0.74);
+    --card-tint: rgb(32 32 32 / 0.72);
     --card-edge: rgb(255 255 255 / 0.15);
+    --card-shadow: rgb(0 0 0 / 0.55);
     --card-ink: #fff;
     --card-accent: #99ebff;
     --card-fill: rgb(255 255 255 / 0.09);
     --card-control: rgb(255 255 255 / 0.06);
-    --paper: #1e1b17;
-    --paper-bar: #25211c;
-    --paper-ink: #e4dac8;
+    --page: #1f1f1f;
+    --page-bar: #2c2c2c;
+    --page-ink: #e3e3e3;
     --pick: #99ebff;
     --pick-ink: #000;
   }
@@ -34,23 +36,23 @@
 /* On a phone, as tall as the card under the word needs, and no taller: the
    hero has to fit on one screen. */
 .scene {
-  height: 23.5rem;
+  height: 24.5rem;
 }
 /* On a short phone the hero would fall off the screen: a shorter card, in
-   a shorter scene, and no tabs, as the card turns by itself. */
+   a shorter scene. */
 @media (max-width: 639px) and (max-height: 720px) {
   .scene {
     height: 21.25rem;
   }
-  .tabs,
   .senses > li:nth-child(n + 2),
-  .terms > li:nth-child(n + 3) {
+  .terms > li:nth-child(n + 2),
+  .translated-from {
     display: none;
   }
 }
 @media (min-width: 640px) {
   .scene {
-    height: 28rem;
+    height: 30rem;
   }
 }
 @media (min-width: 1024px) {
@@ -77,66 +79,113 @@
   }
 }
 
-.reader {
-  background: var(--paper);
-  color: var(--paper-ink);
+.browser {
+  background: var(--page);
+  color: var(--page-ink);
   box-shadow: 0 8px 32px rgb(0 0 0 / 0.18);
 }
-.reader > div:first-child {
-  background: var(--paper-bar);
+.titlebar {
+  background: var(--page-bar);
 }
-.book {
+/* The open tab is the page's own color, as is the toolbar under it. */
+.page-tab,
+.toolbar {
+  background: var(--page);
+}
+.address {
+  background: var(--page-bar);
+}
+.article {
   font-family: Georgia, 'Iowan Old Style', 'Times New Roman', serif;
   font-size: 14px;
   line-height: 1.75;
-  hyphens: auto;
-  text-align: justify;
 }
 @media (min-width: 640px) {
-  .book {
+  .article {
     font-size: 17px;
   }
 }
-/* First the word is selected, a letter at a time, as a drag would; then,
-   once Alt+D is pressed, the card opens under it. */
-.scene {
-  --select-at: 450ms;
-  --letter-ms: 75ms;
-  --card-at: calc(var(--select-at) + var(--letters) * var(--letter-ms) + 400ms);
+/* The selection, in the system's colors: under the word as far as it goes,
+   and the letters in it in their own color. A word doesn't break across
+   lines, so a drag across it stays on one. */
+.word {
+  white-space: nowrap;
+  background: linear-gradient(var(--pick), var(--pick)) no-repeat;
+  background-size: 0 100%;
 }
-.live .letter {
-  animation: pick 40ms calc(var(--select-at) + var(--i) * var(--letter-ms)) both;
-}
-@keyframes pick {
-  from {
-    background: transparent;
-  }
-  to {
-    background: var(--pick);
-    color: var(--pick-ink);
-  }
+.letter.picked {
+  color: var(--pick-ink);
 }
 
+/* Acrylic, as Windows draws it: a wide blur of what's under the card, then
+   WinDict's tint, and over it a fine grain. The blur is the card's own, so
+   it follows the card's corners. */
 .card {
   /* Until it's measured, roughly under the word. */
   left: 12%;
   top: 40%;
   width: min(330px, calc(100% - 24px));
   padding: 12px 14px 10px;
-  border-radius: 8px;
-  border: 1px solid var(--card-edge);
-  background: var(--card-tint);
-  backdrop-filter: blur(30px) saturate(1.5);
-  -webkit-backdrop-filter: blur(30px) saturate(1.5);
-  box-shadow:
-    0 2px 6px rgb(0 0 0 / 0.08),
-    0 16px 40px rgb(0 0 0 / 0.22);
+  isolation: isolate;
+  border-radius: 12px;
   color: var(--card-ink);
   font-size: 13px;
   line-height: 1.4;
-  opacity: 0;
 }
+.card::after {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  border-radius: inherit;
+  /* The grain, drawn faint, over the tint. */
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.1' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='3 0 0 0 -1 3 0 0 0 -1 3 0 0 0 -1 0 0 0 0 .045'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"), var(--card-tint);
+}
+
+/* As WinDict's card comes and goes: it fades in as it settles, and out as it
+   shrinks a little and drifts up. What's in it fades, and its blur thins
+   out, not the card itself, since a fading card would lose its blur. */
+.card {
+  visibility: hidden;
+  transform: translateY(-6px) scale(0.98);
+  transform-origin: top left;
+  box-shadow:
+    0 0 0 1px #0000,
+    0 6px 18px #0000;
+  backdrop-filter: blur(0) saturate(1);
+  transition:
+    transform 120ms cubic-bezier(0.7, 0, 1, 0.5),
+    box-shadow 120ms cubic-bezier(0.7, 0, 1, 0.5),
+    backdrop-filter 120ms cubic-bezier(0.7, 0, 1, 0.5),
+    visibility 0s 120ms;
+}
+.card > *,
+.card::after {
+  opacity: 0;
+  transition: opacity 120ms cubic-bezier(0.7, 0, 1, 0.5);
+}
+.card.open {
+  visibility: visible;
+  transform: none;
+  box-shadow:
+    0 0 0 1px var(--card-edge),
+    0 6px 18px var(--card-shadow);
+  backdrop-filter: blur(30px) saturate(1.6);
+  transition:
+    transform 340ms cubic-bezier(0.1, 0.9, 0.2, 1),
+    box-shadow 160ms cubic-bezier(0.1, 0.9, 0.2, 1),
+    backdrop-filter 160ms cubic-bezier(0.1, 0.9, 0.2, 1);
+}
+.card.open > *,
+.card.open::after {
+  opacity: 1;
+  transition: opacity 160ms cubic-bezier(0.1, 0.9, 0.2, 1);
+}
+/* The heading is cut off at its box, to end a long word in an ellipsis:
+   room under it for a g's tail, taken back so the row keeps its height. */
 .heading {
+  padding-bottom: 0.2em;
+  margin-bottom: -0.2em;
   font-size: 19px;
   line-height: 1.25;
 }
@@ -150,19 +199,6 @@
     font-size: 22px;
   }
 }
-.card.placed {
-  animation: rise 420ms var(--card-at) cubic-bezier(0.1, 0.9, 0.2, 1) both;
-}
-@keyframes rise {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-  to {
-    opacity: 1;
-    transform: none;
-  }
-}
 
 .tool {
   display: inline-flex;
@@ -173,20 +209,10 @@
   border-radius: 4px;
   color: var(--card-accent);
 }
-button.tool {
-  cursor: pointer;
-  transition: background-color 120ms;
-}
-button.tool:hover {
-  background: var(--card-fill);
-}
-/* The pin and the speaker are in the text's color, and so is the back arrow. */
+/* The pin and the speaker are in the text's color. */
 .tool.secondary {
   color: var(--card-ink);
   opacity: 0.7;
-}
-.tool.back {
-  color: var(--card-ink);
 }
 
 /* Both sides stay in the card, one over the other, so it doesn't change size. */
@@ -247,41 +273,91 @@ button.tool:hover {
   background: var(--card-control);
 }
 
-.tab {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  padding: 9px 16px;
-  border-radius: 4px;
-  color: var(--muted);
-  font-size: 14px;
-  cursor: pointer;
+/* The reader's I-beam pointer, which glides from word to word. */
+.pointer {
+  position: absolute;
+  top: -10px;
+  left: -5.5px;
+  z-index: 2;
+  width: 11px;
+  height: 20px;
+  opacity: 0;
+  transition-property: transform;
+  pointer-events: none;
+}
+.pointer.shown {
+  opacity: 1;
+  animation: appear 300ms both;
+}
+@keyframes appear {
+  from {
+    opacity: 0;
+  }
+}
+
+/* Where a click lands. */
+.ring {
+  position: absolute;
+  z-index: 1;
+  width: 26px;
+  height: 26px;
+  margin: -13px 0 0 -13px;
+  border-radius: 50%;
+  border: 2px solid var(--pick);
+  animation: ring 450ms cubic-bezier(0.1, 0.9, 0.2, 1) both;
+  pointer-events: none;
+}
+@keyframes ring {
+  from {
+    opacity: 0.8;
+    transform: scale(0.3);
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+/* The keys just pressed: at the bottom of the scene, or on a phone, where
+   the card takes most of it, at the top. */
+.pressed {
+  position: absolute;
+  bottom: 16px;
+  left: 50%;
+  z-index: 2;
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: 1px solid var(--stroke-strong);
+  background: var(--surface);
+  box-shadow: var(--shadow-lg);
+  font-size: 15px;
+  opacity: 0;
+  transform: translate(-50%, 8px);
   transition:
-    background-color 150ms,
-    color 150ms;
+    opacity 200ms,
+    transform 300ms cubic-bezier(0.1, 0.9, 0.2, 1);
+  pointer-events: none;
 }
-.tab:hover {
-  background: var(--surface-hover);
-  color: var(--fg);
+.pressed.shown {
+  opacity: 1;
+  transform: translate(-50%, 0);
 }
-.tab.active {
-  background: var(--accent-soft);
-  color: var(--fg);
-  font-weight: 600;
+@media (max-width: 639px) {
+  .pressed {
+    top: 6px;
+    bottom: auto;
+    left: auto;
+    right: 8px;
+    transform: translateY(-8px);
+  }
+  .pressed.shown {
+    transform: none;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .card.placed {
-    animation: none;
-    opacity: 1;
-  }
-  .letter,
-  .live .letter {
-    animation: none;
-    background: var(--pick);
-    color: var(--pick-ink);
-  }
+  .card,
+  .card > *,
+  .card::after,
   .side,
   .side.shown {
     transition: none;
