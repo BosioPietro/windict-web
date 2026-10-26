@@ -1,7 +1,6 @@
-import { Component, computed, inject } from '@angular/core';
-import { toSignal } from '@angular/core/rxjs-interop';
-import { NavigationEnd, Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
-import { filter, map } from 'rxjs';
+import { Component, computed } from '@angular/core';
+import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
+import { currentUrl, pathOf } from '../../shared/current-url';
 import { Icon } from '../../shared/icon';
 import { DOCS, DocPage, REPO_URL } from '../../site';
 
@@ -15,17 +14,10 @@ export class DocsLayout {
   protected readonly docs = DOCS;
   protected readonly repoUrl = REPO_URL;
 
-  private readonly router = inject(Router);
-  private readonly url = toSignal(
-    this.router.events.pipe(
-      filter((e) => e instanceof NavigationEnd),
-      map((e) => e.urlAfterRedirects),
-    ),
-    { initialValue: this.router.url },
-  );
+  private readonly url = currentUrl();
 
   private readonly index = computed(() => {
-    const slug = this.url().split(/[?#]/)[0].split('/').filter(Boolean).pop();
+    const slug = pathOf(this.url()).split('/').filter(Boolean).pop();
     return DOCS.findIndex((d) => d.slug === slug);
   });
   protected readonly current = computed((): DocPage | undefined => DOCS[this.index()]);
