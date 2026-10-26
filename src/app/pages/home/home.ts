@@ -83,17 +83,6 @@ export class Home {
     },
   ];
 
-  /** The questions whose answers are open. */
-  protected readonly open = signal(new Set<number>());
-
-  protected toggle(index: number) {
-    this.open.update((open) => {
-      const next = new Set(open);
-      if (!next.delete(index)) next.add(index);
-      return next;
-    });
-  }
-
   protected readonly faqs = [
     {
       q: $localize`:@@home.faq.free.q:Is WinDict free?`,
@@ -124,4 +113,15 @@ export class Home {
       a: $localize`:@@home.faq.portable.a:No. There's a single executable that runs from anywhere. Installing it with the setup adds it to Start and lets the card show above the Start menu.`,
     },
   ];
+
+  /** The questions whose answers are open. */
+  protected readonly open = signal(new Set<number>());
+
+  protected toggle(index: number) {
+    this.open.update((open) => {
+      const next = new Set(open);
+      if (!next.delete(index)) next.add(index);
+      return next;
+    });
+  }
 }
