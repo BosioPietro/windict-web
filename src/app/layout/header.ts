@@ -1,12 +1,4 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  DOCUMENT,
-  LOCALE_ID,
-  effect,
-  inject,
-  signal,
-} from '@angular/core';
+import { Component, DOCUMENT, LOCALE_ID, effect, inject, signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { NavigationEnd, Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { filter, map } from 'rxjs';
@@ -15,7 +7,6 @@ import { DOCS, RELEASES_URL, REPO_URL } from '../site';
 
 @Component({
   selector: 'app-header',
-  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [RouterLink, RouterLinkActive, Icon],
   host: {
     // Not acrylic itself: a backdrop filter would hold the menu's sheet inside it.
