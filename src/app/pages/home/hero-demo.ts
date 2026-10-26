@@ -113,7 +113,13 @@ export class HeroDemo {
     const live = () => run === this.run;
     // The pointer comes from the bottom of the page.
     const scene = this.scene().nativeElement;
-    this.pointer.set({ x: scene.clientWidth * 0.55, y: scene.clientHeight - 30, ms: 0, ease: EASE, shown: false });
+    this.pointer.set({
+      x: scene.clientWidth * 0.55,
+      y: scene.clientHeight - 30,
+      ms: 0,
+      ease: EASE,
+      shown: false,
+    });
     if (!(await this.sleep(START_MS, live))) return;
     this.pointer.update((p) => ({ ...p, shown: true }));
     while (
@@ -142,7 +148,8 @@ export class HeroDemo {
     this.mode.set('translate');
     const word = this.rect(1);
     const y = word.top + word.height / 2;
-    if (!((await this.move({ x: word.left + 1, y }, 900, live)) && (await this.sleep(200, live)))) return false;
+    if (!((await this.move({ x: word.left + 1, y }, 900, live)) && (await this.sleep(200, live))))
+      return false;
     // A letter is selected once the pointer is past its middle, as in any text.
     const scene = this.scene().nativeElement.getBoundingClientRect();
     const ms = this.letters[1].length * LETTER_MS;
@@ -157,7 +164,9 @@ export class HeroDemo {
       if (!(await this.sleep(at - (performance.now() - start), live))) return false;
       this.select(1, i + 1);
     }
-    return (await this.sleep(ms - (performance.now() - start) + 150, live)) && this.press('Alt+T', live);
+    return (
+      (await this.sleep(ms - (performance.now() - start) + 150, live)) && this.press('Alt+T', live)
+    );
   }
 
   /** Presses the keys, opens the card, leaves it a while, then presses Esc. */
@@ -208,8 +217,12 @@ export class HeroDemo {
    * cover the tail of the one before.
    */
   private select(word: 0 | 1, count: number) {
-    const letters = (word === 0 ? this.word() : this.foreign()).nativeElement.querySelectorAll('.letter');
-    const width = count ? letters[count - 1].getBoundingClientRect().right - letters[0].getBoundingClientRect().left : 0;
+    const letters = (word === 0 ? this.word() : this.foreign()).nativeElement.querySelectorAll(
+      '.letter',
+    );
+    const width = count
+      ? letters[count - 1].getBoundingClientRect().right - letters[0].getBoundingClientRect().left
+      : 0;
     this.selection.set({ word, count, width });
   }
 
@@ -237,7 +250,10 @@ export class HeroDemo {
     const card = this.card().nativeElement;
     const pad = parseFloat(getComputedStyle(card).paddingLeft) || 0;
     const margin = 12;
-    const left = Math.max(margin, Math.min(word.left - pad, scene.clientWidth - card.offsetWidth - margin));
+    const left = Math.max(
+      margin,
+      Math.min(word.left - pad, scene.clientWidth - card.offsetWidth - margin),
+    );
     const over = word.top - 6 - card.offsetHeight;
     let top = word.bottom + 6;
     if (top + card.offsetHeight > scene.clientHeight - margin && over >= margin) top = over;
