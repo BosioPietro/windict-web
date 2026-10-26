@@ -20,14 +20,14 @@ export type ShotName = keyof typeof HEIGHTS;
     <picture>
       <source
         media="(prefers-color-scheme: dark)"
-        [attr.srcset]="srcset('dark')"
+        [attr.srcset]="darkSrcset()"
         [attr.sizes]="sizes()"
         type="image/webp"
       />
       <img
         class="block h-auto w-full"
-        [attr.src]="'images/' + name() + '-light-1600.webp'"
-        [attr.srcset]="srcset('light')"
+        [attr.src]="src()"
+        [attr.srcset]="lightSrcset()"
         [attr.sizes]="sizes()"
         [attr.alt]="alt()"
         width="1600"
@@ -46,9 +46,12 @@ export class Shot {
   readonly sizes = input('(min-width: 1024px) 50vw, 100vw');
 
   protected readonly height = computed(() => HEIGHTS[this.name()]);
+  protected readonly src = computed(() => `images/${this.name()}-light-1600.webp`);
+  protected readonly lightSrcset = computed(() => srcset(this.name(), 'light'));
+  protected readonly darkSrcset = computed(() => srcset(this.name(), 'dark'));
+}
 
-  protected srcset(theme: 'light' | 'dark'): string {
-    const base = `images/${this.name()}-${theme}`;
-    return `${base}-960.webp 960w, ${base}-1600.webp 1600w`;
-  }
+function srcset(name: ShotName, theme: 'light' | 'dark'): string {
+  const base = `images/${name}-${theme}`;
+  return `${base}-960.webp 960w, ${base}-1600.webp 1600w`;
 }
