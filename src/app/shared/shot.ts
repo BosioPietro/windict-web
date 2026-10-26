@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
+import { Component, computed, input } from '@angular/core';
 
 /** The screenshots in public/images, each in light and dark, and their height at 1600px wide. */
 const HEIGHTS = {
@@ -15,7 +15,6 @@ export type ShotName = keyof typeof HEIGHTS;
 /** A screenshot of WinDict on the Windows desktop, in the visitor's theme. */
 @Component({
   selector: 'app-shot',
-  changeDetection: ChangeDetectionStrategy.OnPush,
   host: { class: 'block' },
   template: `
     <picture>

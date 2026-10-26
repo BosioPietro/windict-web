@@ -1,10 +1,9 @@
-import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
+import { Component, computed, input } from '@angular/core';
 import { ICONS, IconName } from './icons';
 
 /** A Fluent System Icon, drawn in the text's color. Size it with classes. */
 @Component({
   selector: 'app-icon',
-  changeDetection: ChangeDetectionStrategy.OnPush,
   host: { class: 'inline-block shrink-0', 'aria-hidden': 'true' },
   template: `
     <svg viewBox="0 0 24 24" fill="currentColor" class="block size-full">
