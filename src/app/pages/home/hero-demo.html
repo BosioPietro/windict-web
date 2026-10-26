@@ -76,7 +76,7 @@
         {{ demo.before }}<span
           #word
           class="word"
-          [style.background-size]="selected()[0].width + 'px 100%'"
+          [style.background-size]="selected()[0].size"
           >@for (letter of letters[0]; track $index) {<span
             class="letter"
             [class.picked]="$index < selected()[0].count"
@@ -85,7 +85,7 @@
         >{{ demo.between }}<span
           #foreign
           class="word italic"
-          [style.background-size]="selected()[1].width + 'px 100%'"
+          [style.background-size]="selected()[1].size"
           >@for (letter of letters[1]; track $index) {<span
             class="letter"
             [class.picked]="$index < selected()[1].count"
@@ -112,16 +112,16 @@
     <div class="mb-1 flex items-center justify-between gap-3">
       <div class="flex min-w-0 items-center gap-1.5">
         <span class="heading truncate font-semibold capitalize"
-          >{{ mode() === 'define' ? demo.heading : demo.foreign }}</span
+          >{{ heading() }}</span
         >
-        @if (mode() === 'define') {
+        @if (defining()) {
         <span class="tool secondary size-6!" [title]="demo.tips.speak"
           ><app-icon name="speaker" class="size-3.5"
         /></span>
         }
       </div>
       <div class="flex shrink-0 items-center gap-0.5">
-        @if (mode() === 'define') {
+        @if (defining()) {
         <span class="tool" [title]="demo.tips.translate"
           ><app-icon name="translate" class="size-4"
         /></span>
@@ -136,8 +136,8 @@
       <!-- The definition -->
       <div
         class="side"
-        [class.shown]="mode() === 'define'"
-        [attr.aria-hidden]="mode() !== 'define'"
+        [class.shown]="defining()"
+        [attr.aria-hidden]="!defining()"
       >
         <p class="pos">{{ demo.pos }}</p>
         <ol class="senses space-y-2">
@@ -169,8 +169,8 @@
       <!-- The translation -->
       <div
         class="side"
-        [class.shown]="mode() === 'translate'"
-        [attr.aria-hidden]="mode() !== 'translate'"
+        [class.shown]="!defining()"
+        [attr.aria-hidden]="defining()"
       >
         <div class="mb-3 flex items-center gap-2 text-[13px]">
           <span class="picker">
@@ -213,7 +213,7 @@
   <svg
     class="pointer"
     [class.shown]="pointer().shown"
-    [style.transform]="'translate(' + pointer().x + 'px, ' + pointer().y + 'px)'"
+    [style.transform]="pointerTransform()"
     [style.transition-duration.ms]="pointer().ms"
     [style.transition-timing-function]="pointer().ease"
     viewBox="0 0 11 20"
