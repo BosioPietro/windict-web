@@ -64,7 +64,7 @@ export class AboveStart extends DocPage {}
 @Component({ imports: [RouterLink, Keys], templateUrl: './settings.html' })
 export class Settings extends DocPage {}
 
-@Component({ templateUrl: './dictionaries.html' })
+@Component({ imports: [Shot], templateUrl: './dictionaries.html' })
 export class Dictionaries extends DocPage {}
 
 @Component({ templateUrl: './building.html' })

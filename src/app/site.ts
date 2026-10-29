@@ -6,8 +6,24 @@ export const RELEASES_URL = `${REPO_URL}/releases/latest`;
 export const ISSUES_URL = `${REPO_URL}/issues`;
 export const WINGET_ID = 'BosioPietro.WinDict';
 
-export const LOCALES = ['en', 'it'] as const;
+export const LOCALES = ['en', 'it', 'es', 'fr'] as const;
 export type Locale = (typeof LOCALES)[number];
+
+/** Each language the site is in, named in itself, as WinDict names them. */
+export const LANGUAGE_NAMES: Record<Locale, string> = {
+  en: 'English',
+  it: 'Italiano',
+  es: 'Español',
+  fr: 'Français',
+};
+
+/** Each language's Open Graph locale. */
+export const OG_LOCALES: Record<Locale, string> = {
+  en: 'en_US',
+  it: 'it_IT',
+  es: 'es_ES',
+  fr: 'fr_FR',
+};
 
 export interface DocPage {
   slug: string;

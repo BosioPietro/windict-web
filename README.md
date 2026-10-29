@@ -2,7 +2,7 @@
 
 The website of [WinDict](https://github.com/BosioPietro/WinDict), live at
 [windict.bosio.zip](https://windict.bosio.zip): a landing page and the docs,
-in English and Italian.
+in English, Italian, Spanish and French.
 
 ## WinDict
 
@@ -13,9 +13,10 @@ selection instead, a word, a phrase or up to 500 characters, into any of 22
 languages.
 
 - **Offline and instant.** Over 150,000 English words and phrases from Open
-  English WordNet are built into the executable; about 67,000 Italian words
-  from Wikizionario are a one-time 8 MB download. An online dictionary
-  (Wiktionary) covers pronunciations and the words neither has.
+  English WordNet are built into the executable. Italian, Spanish and French
+  dictionaries, from each language's Wiktionary, are a one-time download, and
+  more languages are on the way. An online dictionary (Wiktionary) covers
+  pronunciations and the words none of them has.
 - **Above the Start menu.** Installed with its setup, WinDict has UI access and
   can show its card on top of Start and Search.
 - **Light.** Written in Rust against the native Windows APIs, it uses about
@@ -30,17 +31,17 @@ winget install BosioPietro.WinDict
 
 ## The site
 
-| Page                              | What's on it                                                                  |
-| --------------------------------- | ----------------------------------------------------------------------------- |
-| `/{en,it}/`                       | The landing page: a live demo of the card, the features, the setup steps      |
-| `/{en,it}/docs/getting-started/`  | Installing, with the setup, WinGet or the single executable; the first lookup |
-| `/{en,it}/docs/looking-up-words/` | The definition card                                                           |
-| `/{en,it}/docs/translating/`      | Translations and their languages                                              |
-| `/{en,it}/docs/shortcuts/`        | Every key WinDict listens for                                                 |
-| `/{en,it}/docs/above-start/`      | UI access, and showing the card above Start                                   |
-| `/{en,it}/docs/settings/`         | The settings window and `config.json`                                         |
-| `/{en,it}/docs/dictionaries/`     | Where definitions come from, and what goes over the network                   |
-| `/{en,it}/docs/building/`         | Building WinDict and its setup from source                                    |
+| Page                                    | What's on it                                                                  |
+| --------------------------------------- | ----------------------------------------------------------------------------- |
+| `/{en,it,es,fr}/`                       | The landing page: a live demo of the card, the features, the setup steps      |
+| `/{en,it,es,fr}/docs/getting-started/`  | Installing, with the setup, WinGet or the single executable; the first lookup |
+| `/{en,it,es,fr}/docs/looking-up-words/` | The definition card                                                           |
+| `/{en,it,es,fr}/docs/translating/`      | Translations and their languages                                              |
+| `/{en,it,es,fr}/docs/shortcuts/`        | Every key WinDict listens for                                                 |
+| `/{en,it,es,fr}/docs/above-start/`      | UI access, and showing the card above Start                                   |
+| `/{en,it,es,fr}/docs/settings/`         | The settings window and `config.json`                                         |
+| `/{en,it,es,fr}/docs/dictionaries/`     | Where definitions come from, and what goes over the network                   |
+| `/{en,it,es,fr}/docs/building/`         | Building WinDict and its setup from source                                    |
 
 It's an [Angular](https://angular.dev) 22 app, styled with
 [Tailwind CSS](https://tailwindcss.com) 4 after Microsoft's Fluent 2 design,
@@ -59,11 +60,11 @@ src/
 │   │   ├── home/        # the landing page, and the hero's animated card
 │   │   └── docs/        # one template per docs page, and their sidebar layout
 │   └── shared/          # icons, key caps, screenshots, the WinGet command
-├── locale/              # messages.json (English) and messages.it.json
+├── locale/              # messages.json (English), and .it, .es, .fr
 └── styles.css           # Tailwind, and the Fluent colors for light and dark
 scripts/
 ├── postbuild.mjs        # finishes the static site for Cloudflare Pages
-└── check-i18n.mjs       # checks the Italian against the English
+└── check-i18n.mjs       # checks the translations against the English
 public/                  # favicon, Open Graph image, screenshots
 ```
 
@@ -75,9 +76,11 @@ Needs Node.js 22.22.3 or newer (`.node-version` asks for 24).
 npm install
 npm start          # http://localhost:4200, in English
 npm run start:it   # the same, in Italian
+npm run start:es   # in Spanish
+npm run start:fr   # in French
 ```
 
-The dev server serves one language at a time; the build has both.
+The dev server serves one language at a time; the build has all four.
 
 TypeScript is strict, templates included. Format with the project's Prettier
 config before committing:
@@ -93,10 +96,10 @@ npm run build      # dist/windict-web/browser
 npm run preview    # serves that folder
 ```
 
-`ng build` prerenders every page once per language, into `en/` and `it/`.
+`ng build` prerenders every page once per language, into `en/`, `it/`, `es/` and `fr/`.
 `scripts/postbuild.mjs` then adds what the root of the site needs:
 
-- `index.html`, which sends visitors to `/it/` or `/en/` by their browser's
+- `index.html`, which sends visitors to `/it/`, `/es/`, `/fr/` or `/en/` by their browser's
   language (English without JavaScript);
 - `404.html`, the prerendered "not found" page;
 - `_redirects`, for paths without a language, like `/docs`;
@@ -117,7 +120,8 @@ under the project's **Custom domains**.
 ## Translating
 
 Every text is marked with `i18n` and an id (`i18n="@@home.hero.title"`), or
-written with `$localize`. The Italian is in `src/locale/messages.it.json`.
+written with `$localize`. The translations are in `src/locale/messages.<locale>.json`: `it`, `es` and
+`fr`.
 
 After changing or adding text:
 
@@ -126,10 +130,10 @@ npm run extract-i18n
 ```
 
 It writes the English messages to `src/locale/messages.json` and checks that
-`messages.it.json` translates each of them, with the same placeholders, and
+each translation file translates each of them, with the same placeholders, and
 nothing that's no longer used. It also flags messages whose English changed
-since they were translated: `messages.it.json` keeps that English under
-`source`. Once their Italian is updated, record the new English with
+since they were translated: each file keeps that English under `source`. Once
+their translations are updated, record the new English with
 `node scripts/check-i18n.mjs --accept`.
 
 The card in the home page's hero isn't translated this way: what it shows on

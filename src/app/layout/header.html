@@ -1,33 +1,108 @@
-<div class="absolute inset-0 -z-10" [class.acrylic]="!menuOpen()" [class.bg-bg]="menuOpen()" aria-hidden="true"></div>
+<div
+  class="absolute inset-0 -z-10"
+  [class.acrylic]="!menuOpen()"
+  [class.bg-bg]="menuOpen()"
+  aria-hidden="true"
+></div>
 <div class="mx-auto flex h-14 max-w-7xl items-center gap-6 px-4 sm:px-6">
-  <a routerLink="/" class="flex items-center gap-2.5 font-display text-[17px] font-semibold" (click)="menuOpen.set(false)">
+  <a
+    routerLink="/"
+    class="flex items-center gap-2.5 font-display text-[17px] font-semibold"
+    (click)="menuOpen.set(false)"
+  >
     <img src="windict-64.webp" alt="" width="28" height="28" class="size-7" />
     WinDict
   </a>
 
-  <nav class="hidden items-center gap-1 text-[14px] md:flex" i18n-aria-label="@@nav.label" aria-label="Main">
-    <a routerLink="/" fragment="features" class="rounded-ctl px-3 py-1.5 text-muted transition-colors hover:bg-surface-hover hover:text-fg" i18n="@@nav.features">Features</a>
+  <nav
+    class="hidden items-center gap-1 text-[14px] md:flex"
+    i18n-aria-label="@@nav.label"
+    aria-label="Main"
+  >
+    <a
+      routerLink="/"
+      fragment="features"
+      class="rounded-ctl px-3 py-1.5 text-muted transition-colors hover:bg-surface-hover hover:text-fg"
+      i18n="@@nav.features"
+      >Features</a
+    >
     <a
       routerLink="/docs"
       routerLinkActive="text-fg! font-semibold"
       class="rounded-ctl px-3 py-1.5 text-muted transition-colors hover:bg-surface-hover hover:text-fg"
       i18n="@@nav.docs"
-    >Docs</a>
-    <a routerLink="/docs/shortcuts" class="rounded-ctl px-3 py-1.5 text-muted transition-colors hover:bg-surface-hover hover:text-fg" i18n="@@nav.shortcuts">Shortcuts</a>
-    <a [href]="repoUrl" class="rounded-ctl px-3 py-1.5 text-muted transition-colors hover:bg-surface-hover hover:text-fg">GitHub</a>
+      >Docs</a
+    >
+    <a
+      routerLink="/docs/shortcuts"
+      class="rounded-ctl px-3 py-1.5 text-muted transition-colors hover:bg-surface-hover hover:text-fg"
+      i18n="@@nav.shortcuts"
+      >Shortcuts</a
+    >
+    <a
+      [href]="repoUrl"
+      class="rounded-ctl px-3 py-1.5 text-muted transition-colors hover:bg-surface-hover hover:text-fg"
+      >GitHub</a
+    >
   </nav>
 
   <div class="ml-auto flex items-center gap-2">
+    <!-- The languages, in a Fluent flyout under their button -->
+    <div #picker class="relative hidden sm:block" (focusout)="focusedAway($event)">
+      <button
+        #pickerButton
+        type="button"
+        class="flex items-center gap-1.5 rounded-ctl px-3 py-1.5 text-[14px] text-muted transition-colors hover:bg-surface-hover hover:text-fg"
+        [class.bg-surface-hover]="languagesOpen()"
+        [class.text-fg]="languagesOpen()"
+        [attr.aria-expanded]="languagesOpen()"
+        aria-controls="languages"
+        i18n-aria-label="@@nav.language"
+        aria-label="Language: {{ localeName }}"
+        (click)="languagesOpen.set(!languagesOpen())"
+      >
+        <app-icon name="localLanguage" class="size-4.5" />
+        {{ localeName }}
+        <app-icon
+          name="chevronDown"
+          class="size-3.5 transition-transform duration-200"
+          [class.rotate-180]="languagesOpen()"
+        />
+      </button>
+      @if (languagesOpen()) {
+        <ul
+          id="languages"
+          class="flyout absolute top-full right-0 mt-1.5 w-48 rounded-card border border-stroke bg-bg p-1 text-[14px] shadow-float"
+        >
+          @for (language of languages; track language.code) {
+            <li>
+              @if (language.code === locale) {
+                <span
+                  class="flex items-center justify-between rounded-ctl bg-surface-hover px-3 py-2 font-semibold"
+                  aria-current="true"
+                >
+                  {{ language.name }}
+                  <app-icon name="checkmark" class="size-4 text-accent" />
+                </span>
+              } @else {
+                <a
+                  [href]="hrefs()[language.code]"
+                  [attr.hreflang]="language.code"
+                  [attr.lang]="language.code"
+                  class="flex rounded-ctl px-3 py-2 text-muted transition-colors hover:bg-surface-hover hover:text-fg"
+                  >{{ language.name }}</a
+                >
+              }
+            </li>
+          }
+        </ul>
+      }
+    </div>
     <a
-      [href]="otherHref()"
-      [attr.hreflang]="other"
-      [attr.lang]="other"
-      class="hidden items-center gap-1.5 rounded-ctl px-3 py-1.5 text-[14px] text-muted transition-colors hover:bg-surface-hover hover:text-fg sm:flex"
+      [href]="releasesUrl"
+      class="btn-accent px-3.5! py-1.5! text-[14px]!"
+      [style.display]="menuOpen() ? 'none' : null"
     >
-      <app-icon name="localLanguage" class="size-4.5" />
-      {{ otherName }}
-    </a>
-    <a [href]="releasesUrl" class="btn-accent px-3.5! py-1.5! text-[14px]!" [style.display]="menuOpen() ? 'none' : null">
       <app-icon name="download" class="size-4" />
       <span i18n="@@nav.download">Download</span>
     </a>
@@ -55,13 +130,20 @@
   >
     <ul class="px-4 pt-4 font-display text-[26px] font-semibold" (click)="menuOpen.set(false)">
       <li>
-        <a routerLink="/" fragment="features" class="flex items-center justify-between border-b border-stroke py-4">
+        <a
+          routerLink="/"
+          fragment="features"
+          class="flex items-center justify-between border-b border-stroke py-4"
+        >
           <span i18n="@@nav.features">Features</span>
           <app-icon name="chevronRight" class="size-5 text-subtle" />
         </a>
       </li>
       <li>
-        <a routerLink="/docs/shortcuts" class="flex items-center justify-between border-b border-stroke py-4">
+        <a
+          routerLink="/docs/shortcuts"
+          class="flex items-center justify-between border-b border-stroke py-4"
+        >
           <span i18n="@@nav.shortcuts">Shortcuts</span>
           <app-icon name="chevronRight" class="size-5 text-subtle" />
         </a>
@@ -74,26 +156,46 @@
       </li>
     </ul>
 
-    <p class="mt-8 px-4 text-[13px] font-semibold tracking-wide text-subtle uppercase" i18n="@@nav.docs">Docs</p>
-    <ul class="mt-2 grid grid-cols-1 px-2 text-[16px] min-[420px]:grid-cols-2" (click)="menuOpen.set(false)">
+    <p
+      class="mt-8 px-4 text-[13px] font-semibold tracking-wide text-subtle uppercase"
+      i18n="@@nav.docs"
+    >
+      Docs
+    </p>
+    <ul
+      class="mt-2 grid grid-cols-1 px-2 text-[16px] min-[420px]:grid-cols-2"
+      (click)="menuOpen.set(false)"
+    >
       @for (page of docs; track page.slug) {
         <li>
           <a
             [routerLink]="['/docs', page.slug]"
             routerLinkActive="text-fg! font-semibold"
             class="block rounded-ctl px-2 py-2.5 text-muted active:bg-surface-hover"
-          >{{ page.title }}</a>
+            >{{ page.title }}</a
+          >
         </li>
       }
     </ul>
 
     <div class="mt-auto space-y-3 border-t border-stroke p-4">
-      <div class="grid grid-cols-2 rounded-card border border-stroke bg-surface p-1 text-[15px]">
+      <div
+        class="grid grid-cols-2 rounded-card border border-stroke bg-surface p-1 text-[15px] min-[420px]:grid-cols-4"
+      >
         @for (language of languages; track language.code) {
           @if (language.code === locale) {
-            <span class="rounded-ctl bg-accent-soft py-2 text-center font-semibold" aria-current="true">{{ language.name }}</span>
+            <span
+              class="rounded-ctl bg-accent-soft py-2 text-center font-semibold"
+              aria-current="true"
+              >{{ language.name }}</span
+            >
           } @else {
-            <a [href]="hrefs()[language.code]" [attr.hreflang]="language.code" [attr.lang]="language.code" class="rounded-ctl py-2 text-center text-muted">
+            <a
+              [href]="hrefs()[language.code]"
+              [attr.hreflang]="language.code"
+              [attr.lang]="language.code"
+              class="rounded-ctl py-2 text-center text-muted"
+            >
               {{ language.name }}
             </a>
           }

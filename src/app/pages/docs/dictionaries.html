@@ -1,30 +1,125 @@
 <h1 i18n="@@docs.dicts.title">Dictionaries and network use</h1>
-<p class="lead" i18n="@@docs.dicts.lead">Where definitions and translations come from, and what WinDict sends over the network.</p>
+<p class="lead" i18n="@@docs.dicts.lead">
+  Where definitions and translations come from, and what WinDict sends over the network.
+</p>
 
 <h2 i18n="@@docs.dicts.sources.title">The dictionaries</h2>
-<ul>
-  <li i18n="@@docs.dicts.english"><strong>English</strong> comes from Open English WordNet, over 150,000 words and phrases, which is built into the executable. Lookups in it don't use the network and take under a millisecond.</li>
-  <li i18n="@@docs.dicts.italian"><strong>Italian</strong> comes from Wikizionario, about 67,000 words. It's downloaded once, about 8 MB, when it's chosen under <strong>Languages</strong> in the settings, and kept in <code>%LOCALAPPDATA%\WinDict\dicts</code>.</li>
-  <li i18n="@@docs.dicts.online">The <strong>online dictionary</strong> is used for pronunciations and for words the built-in ones don't have: Wiktionary, through dictionaryapi.dev, and Wikizionario for Italian.</li>
-</ul>
-<p i18n="@@docs.dicts.order">With both languages chosen, a word is looked up in them in the order they're listed, English first.</p>
+<p i18n="@@docs.dicts.sources.text">
+  WinDict looks words up in as many languages as you like, offline. English is built in; every other
+  language is a dictionary of its own, downloaded once when you choose it, in the introduction or
+  under <strong>Languages</strong> in the settings, and kept in
+  <code>%LOCALAPPDATA%\WinDict\dicts</code>.
+</p>
+<table>
+  <thead>
+    <tr>
+      <th i18n="@@docs.dicts.table.language">Language</th>
+      <th i18n="@@docs.dicts.table.source">From</th>
+      <th i18n="@@docs.dicts.table.words">Words</th>
+      <th i18n="@@docs.dicts.table.download">Download</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong lang="en">English</strong></td>
+      <td>Open English WordNet</td>
+      <td i18n="@@docs.dicts.table.en.words">Over 150,000</td>
+      <td i18n="@@docs.dicts.table.en.download">Built in</td>
+    </tr>
+    <tr>
+      <td><strong lang="it">Italiano</strong></td>
+      <td>Wikizionario</td>
+      <td i18n="@@docs.dicts.table.it.words">About 75,000</td>
+      <td i18n="@@docs.dicts.table.it.download">About 8 MB</td>
+    </tr>
+    <tr>
+      <td><strong lang="es">Español</strong></td>
+      <td>Wikcionario</td>
+      <td i18n="@@docs.dicts.table.es.words">About 135,000</td>
+      <td i18n="@@docs.dicts.table.es.download">About 17 MB</td>
+    </tr>
+    <tr>
+      <td><strong lang="fr">Français</strong></td>
+      <td>Wiktionnaire</td>
+      <td i18n="@@docs.dicts.table.fr.words">About 490,000</td>
+      <td i18n="@@docs.dicts.table.fr.download">About 89 MB</td>
+    </tr>
+  </tbody>
+</table>
+<p i18n="@@docs.dicts.more">
+  More languages are coming: each new dictionary arrives with an update, ready to be picked in the
+  settings.
+</p>
+<figure class="framed">
+  <app-shot
+    name="dictionaries"
+    sizes="(min-width: 1024px) 768px, 100vw"
+    i18n-alt="@@docs.dicts.shotAlt"
+    alt="Cards for “gleam”, “bagliore” and “destello”, one in each dictionary, stacked one behind the other"
+  />
+</figure>
+<p i18n="@@docs.dicts.order">
+  With several languages chosen, a word is looked up in each in the order they're listed, English
+  first. Lookups in a dictionary on your PC don't use the network and take under a millisecond.
+</p>
+<p i18n="@@docs.dicts.online">
+  The <strong>online dictionary</strong> is used for pronunciations and for words no dictionary on
+  your PC has: each language's own Wiktionary, and dictionaryapi.dev for English.
+</p>
 
 <h2 i18n="@@docs.dicts.network.title">What goes over the network</h2>
 <ul>
-  <li i18n="@@docs.dicts.network.lookup">A word you look up, to the online dictionary, only when the built-in one doesn't have it or for its pronunciation. Turn off <strong>Online dictionary</strong> in the settings to never send one.</li>
-  <li i18n="@@docs.dicts.network.translate">Text you translate, to Google Translate or MyMemory, only when you ask for a translation.</li>
-  <li i18n="@@docs.dicts.network.update">Once a day, a request to GitHub for the latest version. Turn off <strong>Check for updates</strong> to stop it.</li>
+  <li i18n="@@docs.dicts.network.lookup">
+    A word you look up, to the online dictionary, only when no dictionary on your PC has it, or for
+    its pronunciation. Turn off <strong>Online dictionary</strong> in the settings to never send
+    one.
+  </li>
+  <li i18n="@@docs.dicts.network.translate">
+    Text you translate, to Google Translate or MyMemory, only when you ask for a translation.
+  </li>
+  <li i18n="@@docs.dicts.network.update">
+    Once a day, a request to GitHub for the latest version. Turn off
+    <strong>Check for updates</strong> to stop it.
+  </li>
 </ul>
-<p i18n="@@docs.dicts.network.cache">Answers are kept for a while, so asking again doesn't go over the network a second time.</p>
+<p i18n="@@docs.dicts.network.cache">
+  Answers are kept for a while, so asking again doesn't go over the network a second time.
+</p>
 
 <h2 i18n="@@docs.dicts.memory.title">Memory</h2>
-<p i18n="@@docs.dicts.memory.text">WinDict uses about 4 MB of memory while idle. The dictionaries are read in place: Windows only loads the few parts a lookup touches.</p>
+<p i18n="@@docs.dicts.memory.text">
+  WinDict uses about 4 MB of memory while idle. The dictionaries are read in place: Windows only
+  loads the few parts a lookup touches.
+</p>
 
 <h2 id="credits" i18n="@@docs.dicts.credits.title">Credits</h2>
 <ul>
-  <li i18n="@@docs.dicts.credits.wordnet">English definitions: <a href="https://en-word.net/">Open English WordNet</a> (CC BY 4.0, derived from Princeton WordNet).</li>
-  <li i18n="@@docs.dicts.credits.wiktionary">Online English lookups: <a href="https://www.wiktionary.org/">Wiktionary</a>, through <a href="https://dictionaryapi.dev">dictionaryapi.dev</a>, falling back to Wiktionary directly.</li>
-  <li i18n="@@docs.dicts.credits.wikizionario">Italian dictionary and online lookups: <a href="https://it.wiktionary.org/">Wikizionario</a>, through <a href="https://kaikki.org/itwiktionary/">wiktextract</a>, falling back to Wikizionario's own API (CC BY-SA 4.0).</li>
-  <li i18n="@@docs.dicts.credits.translate">Translations: Google Translate's public web endpoint, which is unofficial and may change, falling back to <a href="https://mymemory.translated.net/">MyMemory</a>.</li>
+  <li i18n="@@docs.dicts.credits.wordnet">
+    English definitions: <a href="https://en-word.net/">Open English WordNet</a> (CC BY 4.0, derived
+    from Princeton WordNet).
+  </li>
+  <li i18n="@@docs.dicts.credits.wiktionary">
+    Online English lookups: <a href="https://www.wiktionary.org/">Wiktionary</a>, through
+    <a href="https://dictionaryapi.dev">dictionaryapi.dev</a>, falling back to Wiktionary directly.
+  </li>
+  <li i18n="@@docs.dicts.credits.wikizionario">
+    Italian dictionary and online lookups: <a href="https://it.wiktionary.org/">Wikizionario</a>,
+    through <a href="https://kaikki.org/itwiktionary/">wiktextract</a>, falling back to
+    Wikizionario's own API (CC BY-SA 4.0).
+  </li>
+  <li i18n="@@docs.dicts.credits.wikcionario">
+    Spanish dictionary and online lookups: <a href="https://es.wiktionary.org/">Wikcionario</a>,
+    through <a href="https://kaikki.org/eswiktionary/">wiktextract</a> (CC BY-SA 4.0).
+  </li>
+  <li i18n="@@docs.dicts.credits.wiktionnaire">
+    French dictionary and online lookups: <a href="https://fr.wiktionary.org/">Wiktionnaire</a>,
+    through <a href="https://kaikki.org/frwiktionary/">wiktextract</a> (CC BY-SA 4.0).
+  </li>
+  <li i18n="@@docs.dicts.credits.translate">
+    Translations: Google Translate's public web endpoint, which is unofficial and may change,
+    falling back to <a href="https://mymemory.translated.net/">MyMemory</a>.
+  </li>
 </ul>
-<p i18n="@@docs.dicts.credits.license">WinDict is <a [href]="repoUrl + '/blob/main/LICENSE'">MIT licensed</a>.</p>
+<p i18n="@@docs.dicts.credits.license">
+  WinDict is <a [href]="repoUrl + '/blob/main/LICENSE'">MIT licensed</a>.
+</p>

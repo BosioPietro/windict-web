@@ -1,8 +1,8 @@
 // Finishes the static site for Cloudflare Pages, after `ng build` has
-// prerendered every page in dist/windict-web/browser/{en,it}:
+// prerendered every page in dist/windict-web/browser/{en,it,es,fr}:
 //
-// - index.html at the root, which sends visitors to /it/ or /en/ by their
-//   browser's language;
+// - index.html at the root, which sends visitors to their browser's
+//   language, or to /en/;
 // - 404.html, the prerendered "not found" page, which Pages serves for any
 //   path that isn't a file;
 // - _redirects, for paths without a language;
@@ -20,7 +20,9 @@ import { join, relative, sep } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const SITE = 'https://windict.bosio.zip';
-const LOCALES = ['en', 'it'];
+const LOCALES = ['en', 'it', 'es', 'fr'];
+/** Each language, named in itself, for the root page's links. */
+const NAMES = { en: 'English', it: 'Italiano', es: 'Español', fr: 'Français' };
 const out = fileURLToPath(new URL('../dist/windict-web/browser/', import.meta.url));
 
 if (!LOCALES.every((l) => existsSync(join(out, l, 'index.html')))) {
@@ -49,22 +51,23 @@ writeFileSync(
 <meta property="og:image" content="${SITE}/en/og.jpg">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="canonical" href="${SITE}/en/">
-<link rel="alternate" hreflang="en" href="${SITE}/en/">
-<link rel="alternate" hreflang="it" href="${SITE}/it/">
+${LOCALES.map((l) => `<link rel="alternate" hreflang="${l}" href="${SITE}/${l}/">`).join('\n')}
 <link rel="alternate" hreflang="x-default" href="${SITE}/en/">
 <link rel="icon" href="/en/favicon.ico">
 <script>
   (function () {
+    var locales = ${JSON.stringify(LOCALES)};
     var langs = navigator.languages || [navigator.language || ''];
-    var it = String(langs[0] || '').toLowerCase().indexOf('it') === 0;
-    location.replace((it ? '/it/' : '/en/') + location.search + location.hash);
+    var first = String(langs[0] || '').toLowerCase().slice(0, 2);
+    var locale = locales.indexOf(first) >= 0 ? first : 'en';
+    location.replace('/' + locale + '/' + location.search + location.hash);
   })();
 </script>
 <noscript><meta http-equiv="refresh" content="0; url=/en/"></noscript>
 <style>body{font-family:"Segoe UI",system-ui,sans-serif;background:#f3f3f3;color:#1b1b1b;display:grid;place-items:center;min-height:100vh;margin:0}@media (prefers-color-scheme:dark){body{background:#1c1c1c;color:#fff}}a{color:inherit}</style>
 </head>
 <body>
-<p><a href="/en/">English</a> · <a href="/it/" lang="it">Italiano</a></p>
+<p>${LOCALES.map((l) => `<a href="/${l}/" lang="${l}">${NAMES[l]}</a>`).join(' · ')}</p>
 </body>
 </html>
 `,
@@ -73,15 +76,14 @@ writeFileSync(
 // Not found: the English page, prerendered at /en/404/.
 copyFileSync(join(out, 'en', '404', 'index.html'), join(out, '404.html'));
 
-// Paths without a language go to the English page; Italian visitors arrive
-// through the root, which picks their language.
+// Paths without a language go to the English page; visitors in the other
+// languages arrive through the root, which picks theirs.
 writeFileSync(
   join(out, '_redirects'),
   [
     '/docs /en/docs/getting-started/ 301',
     '/docs/* /en/docs/:splat 301',
-    '/en/docs /en/docs/getting-started/ 301',
-    '/it/docs /it/docs/getting-started/ 301',
+    ...LOCALES.map((l) => `/${l}/docs /${l}/docs/getting-started/ 301`),
     '',
   ].join('\n'),
 );
@@ -101,7 +103,7 @@ writeFileSync(
 `,
 );
 
-// Sitemap: every prerendered page, with its other-language twin.
+// Sitemap: every prerendered page, with its twins in the other languages.
 const pages = [];
 const walk = (dir) => {
   for (const name of readdirSync(dir)) {
@@ -117,7 +119,7 @@ const walk = (dir) => {
 };
 walk(join(out, 'en'));
 const paths = pages
-  .filter((p) => p !== '404' && existsSync(join(out, 'it', p, 'index.html')))
+  .filter((p) => p !== '404' && LOCALES.every((l) => existsSync(join(out, l, p, 'index.html'))))
   .sort();
 const url = (locale, path) => `${SITE}/${locale}/${path ? `${path}/` : ''}`;
 writeFileSync(

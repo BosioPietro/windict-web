@@ -5,8 +5,16 @@ import { IconName } from '../../shared/icons';
 import { Keys } from '../../shared/keys';
 import { Shot } from '../../shared/shot';
 import { Winget } from '../../shared/winget';
-import { RELEASES_URL, REPO_URL } from '../../site';
+import { LANGUAGE_NAMES, Locale, RELEASES_URL, REPO_URL } from '../../site';
 import { HeroDemo } from './hero-demo';
+
+/** A dictionary WinDict can look words up in. */
+interface Dictionary {
+  code: Locale;
+  name: string;
+  /** Its download, or nothing for English, which is built in. */
+  size?: string;
+}
 
 interface Feature {
   icon: IconName;
@@ -30,8 +38,8 @@ export class Home {
       label: $localize`:@@home.stat.memory.label:of memory while idle`,
     },
     {
-      value: $localize`:@@home.stat.words.value:150,000+`,
-      label: $localize`:@@home.stat.words.label:English words and phrases, offline`,
+      value: $localize`:@@home.stat.words.value:850,000+`,
+      label: $localize`:@@home.stat.words.label:words and phrases offline, in 4 languages`,
     },
     { value: '22', label: $localize`:@@home.stat.languages.label:languages to translate between` },
     {
@@ -39,6 +47,30 @@ export class Home {
       label: $localize`:@@home.stat.speed.label:for an offline lookup`,
     },
   ];
+
+  /** The offline dictionaries, in WinDict's order (dicts.rs), each named in itself. */
+  protected readonly dictionaries: Dictionary[] = [
+    {
+      code: 'en',
+      name: LANGUAGE_NAMES.en,
+    },
+    {
+      code: 'it',
+      name: LANGUAGE_NAMES.it,
+      size: $localize`:@@home.languages.it.size:8 MB`,
+    },
+    {
+      code: 'es',
+      name: LANGUAGE_NAMES.es,
+      size: $localize`:@@home.languages.es.size:17 MB`,
+    },
+    {
+      code: 'fr',
+      name: LANGUAGE_NAMES.fr,
+      size: $localize`:@@home.languages.fr.size:89 MB`,
+    },
+  ];
+  protected readonly builtIn = $localize`:@@home.languages.builtIn:Built in`;
 
   protected readonly features: Feature[] = [
     {
@@ -94,15 +126,15 @@ export class Home {
     },
     {
       q: $localize`:@@home.faq.offline.q:Does it work offline?`,
-      a: $localize`:@@home.faq.offline.a:English definitions are built in and work without a connection. Italian works offline once its dictionary is downloaded. Translations, and words the built-in dictionaries don't have, need the internet.`,
+      a: $localize`:@@home.faq.offline.a:English definitions are built in and work without a connection. Italian, Spanish and French do too, once their dictionaries are downloaded. Translations, and words no downloaded dictionary has, need the internet.`,
     },
     {
       q: $localize`:@@home.faq.network.q:What does it send over the network?`,
       a: $localize`:@@home.faq.network.a:Only what you ask for: the word, when it's looked up online, and the text, when it's translated. WinDict also checks GitHub for a new version once a day. Both the online dictionary, which translations need, and the update check can be turned off in the settings.`,
     },
     {
-      q: $localize`:@@home.faq.languages.q:Which languages does it have?`,
-      a: $localize`:@@home.faq.languages.a:Definitions in English and Italian, translations between 22 languages, and the app itself in English and Italian.`,
+      q: $localize`:@@home.faq.languages.q:Which languages does it speak?`,
+      a: $localize`:@@home.faq.languages.a:Definitions in English, Italian, Spanish and French, with more languages coming soon. Translations between 22 languages. And the app itself is in English, Italian, Spanish and French.`,
     },
     {
       q: $localize`:@@home.faq.windows.q:Which versions of Windows does it run on?`,

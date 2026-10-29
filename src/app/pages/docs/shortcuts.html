@@ -1,89 +1,224 @@
 <h1 i18n="@@docs.keys.title">Keyboard shortcuts</h1>
-<p class="lead" i18n="@@docs.keys.lead">Every key WinDict listens for, from anywhere in Windows and on the card.</p>
+<p class="lead" i18n="@@docs.keys.lead">
+  Every key WinDict listens for, from anywhere in Windows and on the card.
+</p>
 
 <h2 i18n="@@docs.keys.global.title">Anywhere in Windows</h2>
-<p i18n="@@docs.keys.global.text">These two work in every app. To change them, open <strong>Shortcuts</strong> under <strong>General</strong> in the settings, click the one to change and press the new keys; <app-keys keys="Esc" /> keeps the old ones. A shortcut needs <app-keys keys="Ctrl" />, <app-keys keys="Alt" /> or <app-keys keys="Win" /> with its key.</p>
+<p i18n="@@docs.keys.global.text">
+  These two work in every app. To change them, open <strong>Shortcuts</strong> under
+  <strong>General</strong> in the settings, click the one to change and press the new keys;
+  <app-keys keys="Esc" /> keeps the old ones. A shortcut needs <app-keys keys="Ctrl" />,
+  <app-keys keys="Alt" /> or <app-keys keys="Win" /> with its key.
+</p>
 <table>
   <thead>
-    <tr><th i18n="@@docs.keys.col.keys">Keys</th><th i18n="@@docs.keys.col.action">What they do</th></tr>
+    <tr>
+      <th i18n="@@docs.keys.col.keys">Keys</th>
+      <th i18n="@@docs.keys.col.action">What they do</th>
+    </tr>
   </thead>
   <tbody>
-    <tr><td><app-keys keys="Alt+D" /></td><td i18n="@@docs.keys.global.lookup">Looks up the selected word or phrase. With nothing selected, opens a box to type a word into.</td></tr>
-    <tr><td><app-keys keys="Alt+T" /></td><td i18n="@@docs.keys.global.translate">Translates the selected text, up to 500 characters. With nothing selected, opens a box to type text into.</td></tr>
+    <tr>
+      <td><app-keys keys="Alt+D" /></td>
+      <td i18n="@@docs.keys.global.lookup">
+        Looks up the selected word or phrase. With nothing selected, opens a box to type a word
+        into.
+      </td>
+    </tr>
+    <tr>
+      <td><app-keys keys="Alt+T" /></td>
+      <td i18n="@@docs.keys.global.translate">
+        Translates the selected text, up to 500 characters. With nothing selected, opens a box to
+        type text into.
+      </td>
+    </tr>
   </tbody>
 </table>
 
 <h2 i18n="@@docs.keys.card.title">On the card</h2>
-<p i18n="@@docs.keys.card.text">While a card is open, these keys act on it, without having to click it first.</p>
+<p i18n="@@docs.keys.card.text">
+  While a card is open, these keys act on it, without having to click it first.
+</p>
 <table>
   <thead>
-    <tr><th i18n="@@docs.keys.col.keys">Keys</th><th i18n="@@docs.keys.col.action">What they do</th></tr>
+    <tr>
+      <th i18n="@@docs.keys.col.keys">Keys</th>
+      <th i18n="@@docs.keys.col.action">What they do</th>
+    </tr>
   </thead>
   <tbody>
-    <tr><td><app-keys keys="Esc" /></td><td i18n="@@docs.keys.card.esc">Closes the card</td></tr>
-    <tr><td><app-keys keys="Ctrl+T" /></td><td i18n="@@docs.keys.card.translate">Shows the word's translation, or its definition again</td></tr>
-    <tr><td><app-keys keys="Ctrl+C" /></td><td i18n="@@docs.keys.card.copy">Copies the word, the translation, or the similar word picked with Tab</td></tr>
-    <tr><td><app-keys keys="Backspace / Alt+←" /></td><td i18n="@@docs.keys.card.back">Goes back to the word before. The mouse's back button does too.</td></tr>
-    <tr><td><app-keys keys="Tab / Shift+Tab" /></td><td i18n="@@docs.keys.card.tab">Moves between the card's links and buttons</td></tr>
-    <tr><td><app-keys keys="Enter" /></td><td i18n="@@docs.keys.card.enter">Opens the link or presses the button picked with Tab</td></tr>
-    <tr><td><app-keys keys="↑ / ↓" /></td><td i18n="@@docs.keys.card.scroll">Scrolls the card</td></tr>
-    <tr><td><app-keys keys="Ctrl++ / Ctrl+-" /></td><td i18n="@@docs.keys.card.zoom">Makes the text larger or smaller. So does Ctrl with the mouse wheel.</td></tr>
-    <tr><td><app-keys keys="Ctrl+0" /></td><td i18n="@@docs.keys.card.zoomReset">Goes back to the usual text size</td></tr>
+    <tr>
+      <td><app-keys keys="Esc" /></td>
+      <td i18n="@@docs.keys.card.esc">Closes the card</td>
+    </tr>
+    <tr>
+      <td><app-keys keys="Ctrl+T" /></td>
+      <td i18n="@@docs.keys.card.translate">
+        Shows the word's translation, or its definition again
+      </td>
+    </tr>
+    <tr>
+      <td><app-keys keys="Ctrl+C" /></td>
+      <td i18n="@@docs.keys.card.copy">
+        Copies the word, the translation, or the similar word picked with Tab
+      </td>
+    </tr>
+    <tr>
+      <td><app-keys keys="Backspace / Alt+←" /></td>
+      <td i18n="@@docs.keys.card.back">
+        Goes back to the word before. The mouse's back button does too.
+      </td>
+    </tr>
+    <tr>
+      <td><app-keys keys="Tab / Shift+Tab" /></td>
+      <td i18n="@@docs.keys.card.tab">Moves between the card's links and buttons</td>
+    </tr>
+    <tr>
+      <td><app-keys keys="Enter" /></td>
+      <td i18n="@@docs.keys.card.enter">Opens the link or presses the button picked with Tab</td>
+    </tr>
+    <tr>
+      <td><app-keys keys="↑ / ↓" /></td>
+      <td i18n="@@docs.keys.card.scroll">Scrolls the card</td>
+    </tr>
+    <tr>
+      <td><app-keys keys="Ctrl++ / Ctrl+-" /></td>
+      <td i18n="@@docs.keys.card.zoom">
+        Makes the text larger or smaller. So does Ctrl with the mouse wheel.
+      </td>
+    </tr>
+    <tr>
+      <td><app-keys keys="Ctrl+0" /></td>
+      <td i18n="@@docs.keys.card.zoomReset">Goes back to the usual text size</td>
+    </tr>
   </tbody>
 </table>
 
 <h2 i18n="@@docs.keys.pinned.title">On a pinned card</h2>
-<p i18n="@@docs.keys.pinned.text">A pinned card takes the keyboard once you click it, like any other window. The keys above work there too, and:</p>
+<p i18n="@@docs.keys.pinned.text">
+  A pinned card takes the keyboard once you click it, like any other window. The keys above work
+  there too, and:
+</p>
 <table>
   <thead>
-    <tr><th i18n="@@docs.keys.col.keys">Keys</th><th i18n="@@docs.keys.col.action">What they do</th></tr>
+    <tr>
+      <th i18n="@@docs.keys.col.keys">Keys</th>
+      <th i18n="@@docs.keys.col.action">What they do</th>
+    </tr>
   </thead>
   <tbody>
-    <tr><td><app-keys keys="Esc / Ctrl+W" /></td><td i18n="@@docs.keys.pinned.close">Closes the pinned card</td></tr>
-    <tr><td><app-keys keys="Alt+F4" /></td><td i18n="@@docs.keys.pinned.altf4">Closes it, as it closes any window</td></tr>
+    <tr>
+      <td><app-keys keys="Esc / Ctrl+W" /></td>
+      <td i18n="@@docs.keys.pinned.close">Closes the pinned card</td>
+    </tr>
+    <tr>
+      <td><app-keys keys="Alt+F4" /></td>
+      <td i18n="@@docs.keys.pinned.altf4">Closes it, as it closes any window</td>
+    </tr>
   </tbody>
 </table>
 
 <h2 i18n="@@docs.keys.box.title">In the box to type into</h2>
 <table>
   <thead>
-    <tr><th i18n="@@docs.keys.col.keys">Keys</th><th i18n="@@docs.keys.col.action">What they do</th></tr>
+    <tr>
+      <th i18n="@@docs.keys.col.keys">Keys</th>
+      <th i18n="@@docs.keys.col.action">What they do</th>
+    </tr>
   </thead>
   <tbody>
-    <tr><td><app-keys keys="Enter" /></td><td i18n="@@docs.keys.box.enter">Looks up the word, or translates the text</td></tr>
-    <tr><td><app-keys keys="↑ / ↓" /></td><td i18n="@@docs.keys.box.suggestions">Picks one of the suggestions under the box</td></tr>
-    <tr><td><app-keys keys="Tab / Shift+Tab" /></td><td i18n="@@docs.keys.box.tab">Picks the next or the previous suggestion</td></tr>
-    <tr><td><app-keys keys="Ctrl+V" /></td><td i18n="@@docs.keys.box.paste">Pastes</td></tr>
-    <tr><td><app-keys keys="← / →" /></td><td i18n="@@docs.keys.box.caret">Moves the caret, by words with Ctrl</td></tr>
-    <tr><td><app-keys keys="Home / End" /></td><td i18n="@@docs.keys.box.homeEnd">Moves the caret to the start or the end</td></tr>
-    <tr><td><app-keys keys="Backspace / Delete" /></td><td i18n="@@docs.keys.box.delete">Deletes before or after the caret, a word at a time with Ctrl</td></tr>
-    <tr><td><app-keys keys="Esc" /></td><td i18n="@@docs.keys.box.esc">Closes the box</td></tr>
+    <tr>
+      <td><app-keys keys="Enter" /></td>
+      <td i18n="@@docs.keys.box.enter">Looks up the word, or translates the text</td>
+    </tr>
+    <tr>
+      <td><app-keys keys="↑ / ↓" /></td>
+      <td i18n="@@docs.keys.box.suggestions">Picks one of the suggestions under the box</td>
+    </tr>
+    <tr>
+      <td><app-keys keys="Tab / Shift+Tab" /></td>
+      <td i18n="@@docs.keys.box.tab">Picks the next or the previous suggestion</td>
+    </tr>
+    <tr>
+      <td><app-keys keys="Ctrl+V" /></td>
+      <td i18n="@@docs.keys.box.paste">Pastes</td>
+    </tr>
+    <tr>
+      <td><app-keys keys="← / →" /></td>
+      <td i18n="@@docs.keys.box.caret">Moves the caret, by words with Ctrl</td>
+    </tr>
+    <tr>
+      <td><app-keys keys="Home / End" /></td>
+      <td i18n="@@docs.keys.box.homeEnd">Moves the caret to the start or the end</td>
+    </tr>
+    <tr>
+      <td><app-keys keys="Backspace / Delete" /></td>
+      <td i18n="@@docs.keys.box.delete">
+        Deletes before or after the caret, a word at a time with Ctrl
+      </td>
+    </tr>
+    <tr>
+      <td><app-keys keys="Esc" /></td>
+      <td i18n="@@docs.keys.box.esc">Closes the box</td>
+    </tr>
   </tbody>
 </table>
 
 <h2 i18n="@@docs.keys.picker.title">In the list of languages</h2>
-<p i18n="@@docs.keys.picker.text">When you click a language on a translation, type to filter the list.</p>
+<p i18n="@@docs.keys.picker.text">
+  When you click a language on a translation, type to filter the list.
+</p>
 <table>
   <thead>
-    <tr><th i18n="@@docs.keys.col.keys">Keys</th><th i18n="@@docs.keys.col.action">What they do</th></tr>
+    <tr>
+      <th i18n="@@docs.keys.col.keys">Keys</th>
+      <th i18n="@@docs.keys.col.action">What they do</th>
+    </tr>
   </thead>
   <tbody>
-    <tr><td><app-keys keys="↑ / ↓" /></td><td i18n="@@docs.keys.picker.move">Moves through the languages, as Tab and Shift+Tab do</td></tr>
-    <tr><td><app-keys keys="Page Up / Page Down" /></td><td i18n="@@docs.keys.picker.page">Moves a page at a time</td></tr>
-    <tr><td><app-keys keys="Enter" /></td><td i18n="@@docs.keys.picker.enter">Picks the language</td></tr>
-    <tr><td><app-keys keys="Esc" /></td><td i18n="@@docs.keys.picker.esc">Closes the list</td></tr>
+    <tr>
+      <td><app-keys keys="↑ / ↓" /></td>
+      <td i18n="@@docs.keys.picker.move">Moves through the languages, as Tab and Shift+Tab do</td>
+    </tr>
+    <tr>
+      <td><app-keys keys="Page Up / Page Down" /></td>
+      <td i18n="@@docs.keys.picker.page">Moves a page at a time</td>
+    </tr>
+    <tr>
+      <td><app-keys keys="Enter" /></td>
+      <td i18n="@@docs.keys.picker.enter">Picks the language</td>
+    </tr>
+    <tr>
+      <td><app-keys keys="Esc" /></td>
+      <td i18n="@@docs.keys.picker.esc">Closes the list</td>
+    </tr>
   </tbody>
 </table>
 
 <h2 i18n="@@docs.keys.menu.title">In the tray menu</h2>
 <table>
   <thead>
-    <tr><th i18n="@@docs.keys.col.keys">Keys</th><th i18n="@@docs.keys.col.action">What they do</th></tr>
+    <tr>
+      <th i18n="@@docs.keys.col.keys">Keys</th>
+      <th i18n="@@docs.keys.col.action">What they do</th>
+    </tr>
   </thead>
   <tbody>
-    <tr><td><app-keys keys="↑ / ↓" /></td><td i18n="@@docs.keys.menu.move">Moves through the menu</td></tr>
-    <tr><td><app-keys keys="Home / End" /></td><td i18n="@@docs.keys.menu.ends">Goes to the first or the last item</td></tr>
-    <tr><td><app-keys keys="Enter / Space" /></td><td i18n="@@docs.keys.menu.enter">Chooses the item</td></tr>
-    <tr><td><app-keys keys="Esc" /></td><td i18n="@@docs.keys.menu.esc">Closes the menu</td></tr>
+    <tr>
+      <td><app-keys keys="↑ / ↓" /></td>
+      <td i18n="@@docs.keys.menu.move">Moves through the menu</td>
+    </tr>
+    <tr>
+      <td><app-keys keys="Home / End" /></td>
+      <td i18n="@@docs.keys.menu.ends">Goes to the first or the last item</td>
+    </tr>
+    <tr>
+      <td><app-keys keys="Enter / Space" /></td>
+      <td i18n="@@docs.keys.menu.enter">Chooses the item</td>
+    </tr>
+    <tr>
+      <td><app-keys keys="Esc" /></td>
+      <td i18n="@@docs.keys.menu.esc">Closes the menu</td>
+    </tr>
   </tbody>
 </table>

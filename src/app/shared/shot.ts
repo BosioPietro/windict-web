@@ -8,6 +8,8 @@ const HEIGHTS = {
   translate: 1200,
   start: 1102,
   tray: 972,
+  welcome: 1200,
+  dictionaries: 1200,
 } as const;
 
 export type ShotName = keyof typeof HEIGHTS;

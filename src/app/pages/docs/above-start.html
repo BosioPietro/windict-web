@@ -1,26 +1,60 @@
 <h1 i18n="@@docs.above.title">Above the Start menu</h1>
-<p class="lead" i18n="@@docs.above.lead">Look up words in Start and Search, with the card on top of them.</p>
+<p class="lead" i18n="@@docs.above.lead">
+  Look up words in Start and Search, with the card on top of them.
+</p>
 
 <figure>
-  <app-shot name="start" sizes="(min-width: 1024px) 768px, 100vw" i18n-alt="@@home.start.shotAlt" alt="WinDict's “Look up a word” box open above the Windows Start menu" />
+  <app-shot
+    name="start"
+    sizes="(min-width: 1024px) 768px, 100vw"
+    i18n-alt="@@home.start.shotAlt"
+    alt="WinDict's “Look up a word” box open above the Windows Start menu"
+  />
 </figure>
 
-<p i18n="@@docs.above.why">Windows keeps Start and Search above every ordinary window, so by default WinDict closes them before showing a definition. To have the card appear on top of them instead, WinDict needs “UI access”, which Windows only grants to signed apps installed in a protected folder.</p>
+<p i18n="@@docs.above.why">
+  Windows keeps Start and Search above every ordinary window, so by default WinDict closes them
+  before showing a definition. To have the card appear on top of them instead, WinDict needs “UI
+  access”, which Windows only grants to signed apps installed in a protected folder.
+</p>
 
 <h2 i18n="@@docs.above.on.title">Turning it on</h2>
 <ol>
-  <li i18n="@@docs.above.on.1">Install WinDict with <a routerLink="/docs/getting-started">the setup</a>. Only the copy the setup installs can have UI access, so the downloaded <code>WinDict-&lt;version&gt;.exe</code> doesn't show the switch.</li>
-  <li i18n="@@docs.above.on.2">Use the <strong>Show above Start</strong> switch: on the introduction's <strong>Show the card above Start</strong> step, or in the settings under <strong>General</strong>.</li>
-  <li i18n="@@docs.above.on.3">Windows asks for permission, then WinDict restarts with UI access.</li>
+  <li i18n="@@docs.above.on.1">
+    Install WinDict with <a routerLink="/docs/getting-started">the setup</a>. Only the copy the
+    setup installs can have UI access, so the downloaded
+    <code>WinDict-&lt;version&gt;.exe</code> doesn't show the switch.
+  </li>
+  <li i18n="@@docs.above.on.2">
+    Use the <strong>Show above Start</strong> switch: on the introduction's
+    <strong>Show the card above Start</strong> step, or in the settings under
+    <strong>General</strong>.
+  </li>
+  <li i18n="@@docs.above.on.3">
+    Windows asks for permission, then WinDict restarts with UI access.
+  </li>
 </ol>
 <p i18n="@@docs.above.off">Turn the switch off to go back.</p>
 
 <h2 i18n="@@docs.above.how.title">How it works</h2>
-<p i18n="@@docs.above.how.1">The setup installs a second build of WinDict that asks for UI access, but leaves it unsigned. The switch runs <code>uiaccess.ps1</code>, which creates a certificate that's trusted on this machine only, signs that build with it and restarts WinDict.</p>
-<p i18n="@@docs.above.how.2">The certificate's private key is deleted right after signing, so it can't be used to sign anything else. Updates sign the new version the same way. Turning UI access off removes the certificate, and uninstalling WinDict does that too.</p>
-<p i18n="@@docs.above.how.3">The script can also be run by hand, from an administrator PowerShell:</p>
+<p i18n="@@docs.above.how.1">
+  The setup installs a second build of WinDict that asks for UI access, but leaves it unsigned. The
+  switch runs <code>uiaccess.ps1</code>, which creates a certificate that's trusted on this machine
+  only, signs that build with it and restarts WinDict.
+</p>
+<p i18n="@@docs.above.how.2">
+  The certificate's private key is deleted right after signing, so it can't be used to sign anything
+  else. Updates sign the new version the same way. Turning UI access off removes the certificate,
+  and uninstalling WinDict does that too.
+</p>
+<p i18n="@@docs.above.how.3">
+  The script can also be run by hand, from an administrator PowerShell:
+</p>
 <pre><code>powershell -ExecutionPolicy Bypass -File "C:\Program Files\WinDict\uiaccess.ps1" -Enable -Restart</code></pre>
 <p i18n="@@docs.above.how.4">Use <code>-Disable -Restart</code> instead to turn UI access off.</p>
 
 <h2 i18n="@@docs.above.snip.title">Print Screen</h2>
-<p i18n="@@docs.above.snip.text">With UI access, Windows doesn't hear Print Screen pressed over WinDict's windows, so WinDict opens Snipping Tool itself, as Windows would have, if Print Screen is set to open it.</p>
+<p i18n="@@docs.above.snip.text">
+  With UI access, Windows doesn't hear Print Screen pressed over WinDict's windows, so WinDict opens
+  Snipping Tool itself, as Windows would have, if Print Screen is set to open it.
+</p>

@@ -5,13 +5,13 @@ import { ActivatedRouteSnapshot, NavigationEnd, Router } from '@angular/router';
 import { filter } from 'rxjs';
 import { pathOf } from './shared/current-url';
 import { LANGUAGE } from './shared/language';
-import { DOCS, LOCALES, RELEASES_URL, REPO_URL, SITE_URL } from './site';
+import { DOCS, LOCALES, Locale, OG_LOCALES, RELEASES_URL, REPO_URL, SITE_URL } from './site';
 
 const DEFAULT_DESCRIPTION = $localize`:@@seo.description:WinDict is a free Windows app for looking up and translating words: select a word in any app, press Alt+D, and its definition opens right next to it.`;
 const DOCS_HEADING = $localize`:@@docs.nav.heading:Documentation`;
 
 /**
- * Keeps the head in step with the page: description, canonical link, the other language's link,
+ * Keeps the head in step with the page: description, canonical link, the other languages' links,
  * Open Graph tags, and structured data. Pages with `noindex` in their data get none of the links.
  */
 @Service()
@@ -48,7 +48,7 @@ export class Seo {
     this.meta.updateTag({ property: 'og:site_name', content: 'WinDict' });
     this.meta.updateTag({
       property: 'og:locale',
-      content: this.locale === 'it' ? 'it_IT' : 'en_US',
+      content: OG_LOCALES[this.locale as Locale] ?? OG_LOCALES.en,
     });
     this.meta.updateTag({
       property: 'og:image',
