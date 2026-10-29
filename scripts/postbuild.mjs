@@ -1,5 +1,5 @@
 // Finishes the static site for Cloudflare Pages, after `ng build` has
-// prerendered every page in dist/windict-web/browser/{en,it,es,fr}:
+// prerendered every page in dist/windict-web/browser/{en,it,es,fr,de,pt}:
 //
 // - index.html at the root, which sends visitors to their browser's
 //   language, or to /en/;
@@ -20,9 +20,16 @@ import { join, relative, sep } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const SITE = 'https://windict.bosio.zip';
-const LOCALES = ['en', 'it', 'es', 'fr'];
+const LOCALES = ['en', 'it', 'es', 'fr', 'de', 'pt'];
 /** Each language, named in itself, for the root page's links. */
-const NAMES = { en: 'English', it: 'Italiano', es: 'Español', fr: 'Français' };
+const NAMES = {
+  en: 'English',
+  it: 'Italiano',
+  es: 'Español',
+  fr: 'Français',
+  de: 'Deutsch',
+  pt: 'Português',
+};
 const out = fileURLToPath(new URL('../dist/windict-web/browser/', import.meta.url));
 
 if (!LOCALES.every((l) => existsSync(join(out, l, 'index.html')))) {

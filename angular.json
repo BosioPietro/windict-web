@@ -70,6 +70,18 @@
               "extractLicenses": false,
               "sourceMap": true,
               "localize": ["fr"]
+            },
+            "development-de": {
+              "optimization": false,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "localize": ["de"]
+            },
+            "development-pt": {
+              "optimization": false,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "localize": ["pt"]
             }
           },
           "defaultConfiguration": "production"
@@ -91,6 +103,12 @@
             },
             "development-fr": {
               "buildTarget": "windict-web:build:development-fr"
+            },
+            "development-de": {
+              "buildTarget": "windict-web:build:development-de"
+            },
+            "development-pt": {
+              "buildTarget": "windict-web:build:development-pt"
             }
           },
           "defaultConfiguration": "development"
@@ -121,6 +139,14 @@
           "fr": {
             "translation": "src/locale/messages.fr.json",
             "subPath": "fr"
+          },
+          "de": {
+            "translation": "src/locale/messages.de.json",
+            "subPath": "de"
+          },
+          "pt": {
+            "translation": "src/locale/messages.pt.json",
+            "subPath": "pt"
           }
         }
       }
