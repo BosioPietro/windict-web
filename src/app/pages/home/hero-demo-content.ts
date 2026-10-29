@@ -85,7 +85,8 @@ export const DEMOS: Record<string, Demo> = {
     },
   },
   it: {
-    label: 'WinDict che definisce “brezza” e traduce “cosy”, selezionate in un articolo di viaggi',
+    label:
+      'WinDict mostra la definizione di “brezza” e la traduzione di “cosy”, entrambe selezionate in un articolo di viaggio',
     page: 'Edimburgo d’inverno, senza fretta',
     site: 'cartoline.example/edimburgo',
     before: 'Quando una ',
@@ -94,7 +95,7 @@ export const DEMOS: Record<string, Demo> = {
     foreign: 'cosy',
     after:
       ' come il salotto di casa: legno scuro, il camino acceso e una pinta che nessuno ha fretta di finire.',
-    next: 'Di giorno, invece, vale la pena salire fino al castello e scendere a piedi lungo il Royal Mile, fermandosi nelle botteghe e nei vicoli che si aprono ai lati.',
+    next: 'Di giorno, invece, vale la pena salire fino al castello e scendere a piedi lungo il Royal Mile, curiosando tra le botteghe e i vicoli che si aprono ai lati.',
     heading: 'Brezza',
     pos: 'Sostantivo',
     senses: [
@@ -125,17 +126,17 @@ export const DEMOS: Record<string, Demo> = {
   },
   es: {
     label:
-      'WinDict definiendo “apacible” y traduciendo “cosy”, seleccionadas en un artículo de viajes',
+      'WinDict muestra la definición de «apacible» y la traducción de «cosy», dos palabras seleccionadas en un artículo de viajes',
     page: 'Los Cotswolds en otoño, a paso lento',
     site: 'postales.example/cotswolds',
     before: 'Al caer la tarde, el pueblo recupera su ritmo ',
     word: 'apacible',
     between:
-      ': las casas de piedra dorada se encienden una a una y el pub junto al río se vuelve tan ',
+      ': las casas de piedra dorada se iluminan una a una y el pub junto al río se vuelve tan ',
     foreign: 'cosy',
     after:
-      ' como un salón de casa, con la chimenea encendida y una pinta que nadie tiene prisa por terminar.',
-    next: 'Por la mañana merece la pena seguir el sendero entre Bourton-on-the-Water y los Slaughters, cruzando prados y puentecillos de piedra, sin más plan que llegar a tiempo para el té.',
+      ' como el salón de casa, con la chimenea encendida y una pinta que nadie tiene prisa por terminar.',
+    next: 'Por la mañana, merece la pena seguir el sendero entre Bourton-on-the-Water y los Slaughters, a través de prados y puentecillos de piedra, sin más plan que llegar a tiempo a la hora del té.',
     heading: 'Apacible',
     pos: 'Adjetivo',
     senses: [
@@ -166,7 +167,7 @@ export const DEMOS: Record<string, Demo> = {
   },
   fr: {
     label:
-      'WinDict définissant « flâner » et traduisant « quaint », sélectionnés dans un article de voyage',
+      'WinDict affiche la définition de « flâner » et la traduction de « quaint », deux mots sélectionnés dans un article de voyage',
     page: 'Un week-end à York, au fil des ruelles',
     site: 'cartes-postales.example/york',
     before: 'Le dimanche matin, rien de tel que de ',
@@ -174,8 +175,8 @@ export const DEMOS: Record<string, Demo> = {
     between: ' dans les Shambles, une ruelle médiévale bordée de boutiques ',
     foreign: 'quaint',
     after:
-      ' aux façades de bois penchées, où l’on s’arrête pour un scone encore tiède ou une vitrine de vieux livres.',
-    next: 'L’après-midi, faites le tour des remparts à pied : en une heure à peine, la ville entière défile sous vos yeux, de la cathédrale aux jardins qui bordent la rivière.',
+      ' aux façades de bois penchées, où l’on s’arrête pour un scone encore tiède ou devant une vitrine de vieux livres.',
+    next: 'L’après-midi, faites le tour des remparts à pied : en une heure à peine, la ville entière défile sous vos yeux, de la cathédrale aux jardins qui bordent la rivière.',
     heading: 'Flâner',
     pos: 'Verbe',
     senses: [
@@ -205,8 +206,7 @@ export const DEMOS: Record<string, Demo> = {
     },
   },
   de: {
-    label:
-      'WinDict definiert „bummeln“ und übersetzt „quaint“, beide markiert in einem Reiseartikel',
+    label: 'WinDict erklärt „bummeln“ und übersetzt „quaint“, beide in einem Reiseartikel markiert',
     page: 'Ein Wochenende in Bath, ganz ohne Eile',
     site: 'postkarten.example/bath',
     before: 'Am Samstagvormittag lässt es sich herrlich durch die Gassen der Altstadt ',
