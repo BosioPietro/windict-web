@@ -23,7 +23,7 @@ export class GettingStarted extends DocPage {}
 })
 export class LookingUpWords extends DocPage {}
 
-@Component({ imports: [Keys, Shot], templateUrl: './translating.html' })
+@Component({ imports: [RouterLink, Keys, Shot], templateUrl: './translating.html' })
 export class Translating extends DocPage {
   /** As the card lists them, each in itself (translate.rs). */
   protected readonly languages = [

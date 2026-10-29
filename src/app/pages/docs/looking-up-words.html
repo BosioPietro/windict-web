@@ -60,6 +60,7 @@
   </li>
   <li i18n="@@docs.lookup.type.esc"><app-keys keys="Esc" /> closes the box.</li>
 </ul>
+
 <figure>
   <app-shot
     name="start"
@@ -68,6 +69,18 @@
     alt="WinDict's “Look up a word” box open above the Windows Start menu"
   />
 </figure>
+
+<h2 id="scan" i18n="@@docs.lookup.scan.title">Reading text off the screen</h2>
+<p i18n="@@docs.lookup.scan.text">
+  For text that can't be selected or is too long to type, the scan button by the box's heading reads
+  it off the screen. The card steps aside: drag over the text, and the box comes back beside it with
+  the text typed in. <app-keys keys="Esc" /> cancels.
+</p>
+<p i18n="@@docs.lookup.scan.languages">
+  WinDict reads with the text recognition Windows installs with each language, and in the box to
+  translate, it picks the language it found the text in. The button shows only when Windows has text
+  recognition for at least one language.
+</p>
 
 <h2 i18n="@@docs.lookup.pin.title">Pinning a card</h2>
 <p i18n="@@docs.lookup.pin.text">
@@ -81,10 +94,15 @@
   usual. The pin button unpins it again.
 </p>
 
-<h2 i18n="@@docs.lookup.copy.title">Copying</h2>
+<h2 i18n="@@docs.lookup.copy.title">Selecting and copying</h2>
+<p i18n="@@docs.lookup.copy.select">
+  The card's text can be selected like a page's: drag over it, or double-click a word.
+  <app-keys keys="Ctrl+C" /> copies what's selected.
+</p>
 <p i18n="@@docs.lookup.copy.text">
-  <app-keys keys="Ctrl+C" /> on a card copies the word, or the translation when it shows one. With a
-  similar word picked with <app-keys keys="Tab" />, it copies that word instead.
+  With nothing selected, <app-keys keys="Ctrl+C" /> copies the word, or the translation when the
+  card shows one. With a similar word picked with <app-keys keys="Tab" />, it copies that word
+  instead.
 </p>
 
 <h2 i18n="@@docs.lookup.size.title">Text size</h2>

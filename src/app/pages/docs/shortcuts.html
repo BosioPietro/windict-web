@@ -60,7 +60,14 @@
     <tr>
       <td><app-keys keys="Ctrl+C" /></td>
       <td i18n="@@docs.keys.card.copy">
-        Copies the word, the translation, or the similar word picked with Tab
+        Copies the text selected, or else the word, the translation, or the similar word picked with
+        Tab
+      </td>
+    </tr>
+    <tr>
+      <td><app-keys keys="Ctrl+Enter" /></td>
+      <td i18n="@@docs.keys.card.replace">
+        On the translation of a selection, types it over the selection and closes the card
       </td>
     </tr>
     <tr>
@@ -137,24 +144,36 @@
     </tr>
     <tr>
       <td><app-keys keys="Tab / Shift+Tab" /></td>
-      <td i18n="@@docs.keys.box.tab">Picks the next or the previous suggestion</td>
+      <td i18n="@@docs.keys.box.tab">
+        Picks the next or the previous suggestion, or the button that reads the screen
+      </td>
     </tr>
     <tr>
       <td><app-keys keys="Ctrl+V" /></td>
       <td i18n="@@docs.keys.box.paste">Pastes</td>
     </tr>
     <tr>
+      <td><app-keys keys="Ctrl+A" /></td>
+      <td i18n="@@docs.keys.box.selectAll">
+        Selects all the text, for what's typed next to replace
+      </td>
+    </tr>
+    <tr>
       <td><app-keys keys="← / →" /></td>
-      <td i18n="@@docs.keys.box.caret">Moves the caret, by words with Ctrl</td>
+      <td i18n="@@docs.keys.box.caret">
+        Moves the caret, by words with Ctrl, selecting what it passes with Shift
+      </td>
     </tr>
     <tr>
       <td><app-keys keys="Home / End" /></td>
-      <td i18n="@@docs.keys.box.homeEnd">Moves the caret to the start or the end</td>
+      <td i18n="@@docs.keys.box.homeEnd">
+        Moves the caret to the start or the end, selecting up to there with Shift
+      </td>
     </tr>
     <tr>
       <td><app-keys keys="Backspace / Delete" /></td>
       <td i18n="@@docs.keys.box.delete">
-        Deletes before or after the caret, a word at a time with Ctrl
+        Deletes what's selected, or before or after the caret, a word at a time with Ctrl
       </td>
     </tr>
     <tr>
