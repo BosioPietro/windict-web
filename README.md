@@ -2,7 +2,7 @@
 
 The website of [WinDict](https://github.com/BosioPietro/WinDict), live at
 [windict.bosio.zip](https://windict.bosio.zip): a landing page and the docs,
-in English, Italian, Spanish and French.
+in English, Italian, Spanish, French, German and Portuguese.
 
 ## WinDict
 
@@ -60,7 +60,7 @@ src/
 │   │   ├── home/        # the landing page, and the hero's animated card
 │   │   └── docs/        # one template per docs page, and their sidebar layout
 │   └── shared/          # icons, key caps, screenshots, the WinGet command
-├── locale/              # messages.json (English), and .it, .es, .fr
+├── locale/              # messages.json (English), and .it, .es, .fr, .de, .pt
 └── styles.css           # Tailwind, and the Fluent colors for light and dark
 scripts/
 ├── postbuild.mjs        # finishes the static site for Cloudflare Pages
@@ -78,6 +78,8 @@ npm start          # http://localhost:4200, in English
 npm run start:it   # the same, in Italian
 npm run start:es   # in Spanish
 npm run start:fr   # in French
+npm run start:de   # in German
+npm run start:pt   # in Portuguese
 ```
 
 The dev server serves one language at a time; the build has all four.
@@ -120,8 +122,8 @@ under the project's **Custom domains**.
 ## Translating
 
 Every text is marked with `i18n` and an id (`i18n="@@home.hero.title"`), or
-written with `$localize`. The translations are in `src/locale/messages.<locale>.json`: `it`, `es` and
-`fr`.
+written with `$localize`. The translations are in
+`src/locale/messages.<locale>.json`: `it`, `es`, `fr`, `de` and `pt`.
 
 After changing or adding text:
 

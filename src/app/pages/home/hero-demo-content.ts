@@ -8,7 +8,7 @@ interface Term {
   back: string;
 }
 
-type Flag = 'gb' | 'it' | 'es' | 'fr';
+type Flag = 'gb' | 'it' | 'es' | 'fr' | 'de' | 'br';
 
 /** What the card shows on one language's page, as WinDict would show it. */
 interface Demo {
@@ -42,8 +42,9 @@ interface Demo {
 /**
  * The definitions are the very ones WinDict's dictionaries have: Open English
  * WordNet's for "serene", Wikizionario's for "brezza", Wikcionario's for
- * "apacible" and Wiktionnaire's for "flâner". The translations are what Google
- * Translate gives for "passeggiata", "cosy" and "quaint".
+ * "apacible", Wiktionnaire's for "flâner", the German Wiktionary's for
+ * "bummeln" and Wikcionário's for "passear". The translations are what Google
+ * Translate gives for "passeggiata", "cosy", "quaint" and "charming".
  */
 export const DEMOS: Record<string, Demo> = {
   en: {
@@ -201,6 +202,75 @@ export const DEMOS: Record<string, Demo> = {
       translate: 'Traduire (Ctrl+T)',
       pin: 'Épingler la fenêtre',
       swap: 'Inverser les langues',
+    },
+  },
+  de: {
+    label:
+      'WinDict definiert „bummeln“ und übersetzt „quaint“, beide markiert in einem Reiseartikel',
+    page: 'Ein Wochenende in Bath, ganz ohne Eile',
+    site: 'postkarten.example/bath',
+    before: 'Am Samstagvormittag lässt es sich herrlich durch die Gassen der Altstadt ',
+    word: 'bummeln',
+    between: ', vorbei an Teestuben und kleinen Läden, so ',
+    foreign: 'quaint',
+    after:
+      ', wie man sie aus alten Romanen kennt: Sprossenfenster, knarrende Dielen und Scones, die noch warm aus dem Ofen kommen.',
+    next: 'Am Nachmittag lohnt ein Abstecher zu den Römischen Bädern, und wer danach noch Lust hat, spaziert am Royal Crescent entlang bis in den Park, wo die halbe Stadt in der Sonne sitzt.',
+    heading: 'Bummeln',
+    pos: 'Verb',
+    senses: [
+      { text: 'Langsam spazieren gehen.', example: 'Wir bummeln ohne Ziel durch die Stadt.' },
+      { text: 'Nichts weiterbringen, nichts tun.' },
+    ],
+    similarLabel: 'Ähnlich',
+    similar: ['flanieren', 'promenieren', 'schlendern'],
+    source: 'Deutsches Wiktionary',
+    from: { name: 'English', flag: 'gb' },
+    to: { name: 'Deutsch', flag: 'de' },
+    translation: 'Malerisch',
+    foreignPos: 'Adjektiv',
+    terms: [
+      { text: 'Malerisch', back: 'Picturesque, quaint, scenic, pictorial' },
+      { text: 'Urig', back: 'Quaint, ethnic, earthly' },
+      { text: 'Idyllisch', back: 'Idyllic, quaint, pastoral' },
+    ],
+    tips: {
+      speak: 'Anhören',
+      translate: 'Übersetzen (Strg+T)',
+      pin: 'Fenster anheften',
+      swap: 'Sprachen tauschen',
+    },
+  },
+  pt: {
+    label: 'WinDict definindo “passear” e traduzindo “charming”, selecionadas num artigo de viagem',
+    page: 'Um fim de semana em Cambridge, sem pressa',
+    site: 'cartoes-postais.example/cambridge',
+    before: 'No domingo de manhã, o melhor programa é ',
+    word: 'passear',
+    between: ' à beira do rio Cam, entre faculdades antigas e pontes de pedra, e parar num café ',
+    foreign: 'charming',
+    after: ' de janelas pequenas, onde os scones chegam ainda quentes, com geleia e creme.',
+    next: 'À tarde, vale a pena alugar um barco e descer o rio devagar: em pouco mais de uma hora, a cidade inteira passa diante dos seus olhos, dos jardins às torres das capelas.',
+    heading: 'Passear',
+    pos: 'Verbo',
+    senses: [{ text: 'Andar.' }, { text: 'Caminhar ou viajar a passeio.' }],
+    similarLabel: 'Sinônimos',
+    similar: ['flanar', 'excursionar'],
+    source: 'Wikcionário',
+    from: { name: 'English', flag: 'gb' },
+    to: { name: 'Português', flag: 'br' },
+    translation: 'Encantador',
+    foreignPos: 'Adjetivo',
+    terms: [
+      { text: 'Encantador', back: 'Lovely, charming, enchanting, delightful' },
+      { text: 'Charmoso', back: 'Charming, charmer, good-looking' },
+      { text: 'Fascinante', back: 'Fascinating, glamorous, charming, lovely' },
+    ],
+    tips: {
+      speak: 'Ouvir',
+      translate: 'Traduzir (Ctrl+T)',
+      pin: 'Fixar janela',
+      swap: 'Inverter idiomas',
     },
   },
 };

@@ -7,6 +7,8 @@
     "start:it": "ng serve --configuration development-it",
     "start:es": "ng serve --configuration development-es",
     "start:fr": "ng serve --configuration development-fr",
+    "start:de": "ng serve --configuration development-de",
+    "start:pt": "ng serve --configuration development-pt",
     "build": "ng build && node scripts/postbuild.mjs",
     "extract-i18n": "ng extract-i18n && node scripts/check-i18n.mjs",
     "preview": "bun run build && wrangler dev",

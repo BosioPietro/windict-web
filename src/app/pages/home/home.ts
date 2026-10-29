@@ -5,12 +5,12 @@ import { IconName } from '../../shared/icons';
 import { Keys } from '../../shared/keys';
 import { Shot } from '../../shared/shot';
 import { Winget } from '../../shared/winget';
-import { LANGUAGE_NAMES, RELEASES_URL, REPO_URL } from '../../site';
+import { LANGUAGE_NAMES, Locale, RELEASES_URL, REPO_URL } from '../../site';
 import { HeroDemo } from './hero-demo';
 
 /** A dictionary WinDict can look words up in. */
 interface Dictionary {
-  code: string;
+  code: Locale;
   name: string;
   /** Its download, or nothing for English, which is built in. */
   size?: string;
@@ -71,12 +71,12 @@ export class Home {
     },
     {
       code: 'de',
-      name: 'Deutsch',
+      name: LANGUAGE_NAMES.de,
       size: $localize`:@@home.languages.de.size:45 MB`,
     },
     {
       code: 'pt',
-      name: 'Português',
+      name: LANGUAGE_NAMES.pt,
       size: $localize`:@@home.languages.pt.size:8 MB`,
     },
   ];
