@@ -5,12 +5,12 @@ import { IconName } from '../../shared/icons';
 import { Keys } from '../../shared/keys';
 import { Shot } from '../../shared/shot';
 import { Winget } from '../../shared/winget';
-import { LANGUAGE_NAMES, Locale, RELEASES_URL, REPO_URL } from '../../site';
+import { LANGUAGE_NAMES, RELEASES_URL, REPO_URL } from '../../site';
 import { HeroDemo } from './hero-demo';
 
 /** A dictionary WinDict can look words up in. */
 interface Dictionary {
-  code: Locale;
+  code: string;
   name: string;
   /** Its download, or nothing for English, which is built in. */
   size?: string;
@@ -38,8 +38,8 @@ export class Home {
       label: $localize`:@@home.stat.memory.label:of memory while idle`,
     },
     {
-      value: $localize`:@@home.stat.words.value:850,000+`,
-      label: $localize`:@@home.stat.words.label:words and phrases offline, in 4 languages`,
+      value: $localize`:@@home.stat.words.value:1,100,000+`,
+      label: $localize`:@@home.stat.words.label:words and phrases offline, in 6 languages`,
     },
     { value: '22', label: $localize`:@@home.stat.languages.label:languages to translate between` },
     {
@@ -69,6 +69,16 @@ export class Home {
       name: LANGUAGE_NAMES.fr,
       size: $localize`:@@home.languages.fr.size:89 MB`,
     },
+    {
+      code: 'de',
+      name: 'Deutsch',
+      size: $localize`:@@home.languages.de.size:45 MB`,
+    },
+    {
+      code: 'pt',
+      name: 'Português',
+      size: $localize`:@@home.languages.pt.size:8 MB`,
+    },
   ];
   protected readonly builtIn = $localize`:@@home.languages.builtIn:Built in`;
 
@@ -90,8 +100,8 @@ export class Home {
     },
     {
       icon: 'search',
-      title: $localize`:@@home.feature.type.title:Type a word`,
-      text: $localize`:@@home.feature.type.text:With nothing selected, the shortcut opens a box to type into, with suggestions from the offline dictionary as you type.`,
+      title: $localize`:@@home.feature.type.title:Type it, or read it off the screen`,
+      text: $localize`:@@home.feature.type.text:With nothing selected, the shortcut opens a box to type into, with suggestions as you type. Its scan button reads text off the screen, even from a picture.`,
     },
     {
       icon: 'bookSearch',
@@ -126,7 +136,7 @@ export class Home {
     },
     {
       q: $localize`:@@home.faq.offline.q:Does it work offline?`,
-      a: $localize`:@@home.faq.offline.a:English definitions are built in and work without a connection. Italian, Spanish and French do too, once their dictionaries are downloaded. Translations, and words no downloaded dictionary has, need the internet.`,
+      a: $localize`:@@home.faq.offline.a:English definitions are built in and work without a connection. Italian, Spanish, French, German and Portuguese do too, once their dictionaries are downloaded. Translations, and words no downloaded dictionary has, need the internet.`,
     },
     {
       q: $localize`:@@home.faq.network.q:What does it send over the network?`,
@@ -134,7 +144,7 @@ export class Home {
     },
     {
       q: $localize`:@@home.faq.languages.q:Which languages does it speak?`,
-      a: $localize`:@@home.faq.languages.a:Definitions in English, Italian, Spanish and French, with more languages coming soon. Translations between 22 languages. And the app itself is in English, Italian, Spanish and French.`,
+      a: $localize`:@@home.faq.languages.a:Definitions in English, Italian, Spanish, French, German and Portuguese, with more languages coming soon. Translations between 22 languages. And the app itself is in all six of them.`,
     },
     {
       q: $localize`:@@home.faq.windows.q:Which versions of Windows does it run on?`,

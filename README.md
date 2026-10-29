@@ -13,10 +13,10 @@ selection instead, a word, a phrase or up to 500 characters, into any of 22
 languages.
 
 - **Offline and instant.** Over 150,000 English words and phrases from Open
-  English WordNet are built into the executable. Italian, Spanish and French
-  dictionaries, from each language's Wiktionary, are a one-time download, and
-  more languages are on the way. An online dictionary (Wiktionary) covers
-  pronunciations and the words none of them has.
+  English WordNet are built into the executable. Italian, Spanish, French,
+  German and Portuguese dictionaries, from each language's Wiktionary, are a
+  one-time download, and more languages are on the way. An online dictionary
+  (Wiktionary) covers pronunciations and the words none of them has.
 - **Above the Start menu.** Installed with its setup, WinDict has UI access and
   can show its card on top of Start and Search.
 - **Light.** Written in Rust against the native Windows APIs, it uses about
