@@ -17,7 +17,7 @@
 <p i18n="@@docs.lookup.card.text">
   The card lists the word's senses under each part of speech it can be, each with an example
   sentence where the dictionary has one. You can select a word or a short phrase, of up to four
-  words.
+  words, or a whole passage to <a routerLink="/docs/looking-up-words" fragment="gloss">gloss</a>.
 </p>
 <ul>
   <li i18n="@@docs.lookup.card.forms">
@@ -34,6 +34,39 @@
   </li>
   <li i18n="@@docs.lookup.card.spelling">
     When a word isn't in the dictionary, the card suggests the closest one it has: “Did you mean…?”
+  </li>
+</ul>
+
+<h2 id="wikipedia" i18n="@@docs.lookup.wikipedia.title">People, places and brands</h2>
+<p i18n="@@docs.lookup.wikipedia.text">
+  Names the dictionaries skip, like “Ada Lovelace”, “Kyoto” or “Spotify”, are answered from
+  Wikipedia: the card shows what the article is about, its first few sentences and its picture, with
+  a link to read the rest. When a name could be several things, the card says Wikipedia has several
+  articles by it.
+</p>
+<p i18n="@@docs.lookup.wikipedia.button">
+  When a word you look up has an article of its own, a <strong>W</strong> button fades in between
+  the translate and pin buttons, and opens it in your browser. Wikipedia is asked in the languages
+  you look words up in, and only while the online dictionary is on; turn off
+  <strong>Wikipedia</strong> in the <a routerLink="/docs/settings" fragment="lookup">settings</a> to
+  leave it out.
+</p>
+
+<h2 id="gloss" i18n="@@docs.lookup.gloss.title">Glossing a passage</h2>
+<p i18n="@@docs.lookup.gloss.text">
+  Select a whole passage instead, of up to 500 characters, and <app-keys keys="Alt+D" /> glosses it:
+  the card shows the passage with its uncommon words underlined. Click one, or move to it with
+  <app-keys keys="Tab" /> and press <app-keys keys="Enter" />, to open its definition in the same
+  card; Back comes back to the passage.
+</p>
+<ul>
+  <li i18n="@@docs.lookup.gloss.language">
+    WinDict tells the passage's language from its words, in any of the 22 it translates, with a list
+    of each one's common words built in. Names, numbers and words in capitals are left alone.
+  </li>
+  <li i18n="@@docs.lookup.gloss.translate">
+    The translate button translates the whole passage, and <app-keys keys="Ctrl+Enter" /> puts the
+    translation in place of the selection.
   </li>
 </ul>
 
@@ -117,8 +150,8 @@
 <h2 i18n="@@docs.lookup.reading.title">How WinDict reads the selection</h2>
 <p i18n="@@docs.lookup.reading.text">
   WinDict reads the selection through UI Automation, the way screen readers do, so nothing is copied
-  and the clipboard isn't touched. Some apps don't share their text that way: for those, choose
-  <strong>Automatic</strong> under <strong>Read selections</strong> in the settings, and WinDict
-  copies the selection there instead, then puts back what was on the clipboard. See
-  <a routerLink="/docs/settings" fragment="lookup">Settings</a>.
+  and the clipboard isn't touched. Some apps don't share their text that way: in those, WinDict
+  copies the selection instead, then puts back what was on the clipboard. How it reads is under
+  <strong>Read selections</strong> in the
+  <a routerLink="/docs/settings" fragment="lookup">settings</a>.
 </p>

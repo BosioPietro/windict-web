@@ -76,7 +76,9 @@
 </p>
 <p i18n="@@docs.dicts.online">
   The <strong>online dictionary</strong> is used for pronunciations and for words no dictionary on
-  your PC has: each language's own Wiktionary, and dictionaryapi.dev for English.
+  your PC has: each language's own Wiktionary, and dictionaryapi.dev for English. Names they all
+  skip, of people, places and brands, are looked up on
+  <a routerLink="/docs/looking-up-words" fragment="wikipedia">Wikipedia</a>.
 </p>
 
 <h2 i18n="@@docs.dicts.network.title">What goes over the network</h2>
@@ -85,6 +87,10 @@
     A word you look up, to the online dictionary, only when no dictionary on your PC has it, or for
     its pronunciation. Turn off <strong>Online dictionary</strong> in the settings to never send
     one.
+  </li>
+  <li i18n="@@docs.dicts.network.wikipedia">
+    A word you look up, to Wikipedia, to find its article, while the online dictionary is on. Turn
+    off <strong>Wikipedia</strong> in the settings to never send one there.
   </li>
   <li i18n="@@docs.dicts.network.translate">
     Text you translate, to Google Translate or MyMemory, only when you ask for a translation.
@@ -134,6 +140,14 @@
   <li i18n="@@docs.dicts.credits.wikcionario-pt">
     Portuguese dictionary and online lookups: <a href="https://pt.wiktionary.org/">Wikcionário</a>,
     through <a href="https://kaikki.org/ptwiktionary/">wiktextract</a> (CC BY-SA 4.0).
+  </li>
+  <li i18n="@@docs.dicts.credits.wikipedia">
+    People, places and brands: <a href="https://www.wikipedia.org/">Wikipedia</a>, through its
+    <a href="https://en.wikipedia.org/api/rest_v1/">REST API</a> (CC BY-SA 4.0).
+  </li>
+  <li i18n="@@docs.dicts.credits.wordfreq">
+    Common words, for glossing: <a href="https://github.com/rspeer/wordfreq">wordfreq</a> by Robyn
+    Speer (CC BY-SA 4.0).
   </li>
   <li i18n="@@docs.dicts.credits.translate">
     Translations: Google Translate's public web endpoint, which is unofficial and may change,

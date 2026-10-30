@@ -277,40 +277,35 @@
   </div>
 </section>
 
-<!-- Above Start -->
+<!-- Wikipedia -->
 <section class="mx-auto max-w-7xl px-4 py-20 sm:px-6 sm:py-28 lg:py-32">
   <div class="grid grid-cols-1 items-center gap-12 lg:grid-cols-2 lg:gap-24">
     <div class="max-w-xl">
-      <p class="eyebrow" i18n="@@home.start.eyebrow">Above Start</p>
+      <p class="eyebrow" i18n="@@home.wikipedia.eyebrow">People, places and brands</p>
       <h2
         class="mt-3 font-display text-[2.1rem] leading-tight font-semibold tracking-tight sm:text-5xl"
-        i18n="@@home.start.title"
+        i18n="@@home.wikipedia.title"
       >
-        Right on top of Start and Search
+        Straight from Wikipedia
       </h2>
       <p
         class="mt-5 text-[17px] leading-relaxed text-muted sm:mt-6 sm:text-lg"
-        i18n="@@home.start.text"
+        i18n="@@home.wikipedia.text"
       >
-        Windows keeps Start and Search above every other window. Installed with its setup, WinDict
-        can show the card on top of them too, so you can look up a word without leaving the Start
-        menu.
+        Dictionaries leave names out. Look up a person, a place or a brand, and WinDict asks
+        Wikipedia instead: the card shows what it is, its picture and the article's first few
+        sentences. A word with an article of its own gets a W button that opens it.
       </p>
       <a
-        routerLink="/docs/above-start"
+        routerLink="/docs/looking-up-words"
+        fragment="wikipedia"
         class="link mt-7 inline-flex items-center gap-1.5 font-semibold"
       >
-        <span i18n="@@home.start.more">How it works</span>
+        <span i18n="@@home.wikipedia.more">How it works</span>
         <app-icon name="chevronRight" class="size-4" />
       </a>
     </div>
-    <div class="overflow-hidden rounded-window border border-stroke shadow-float">
-      <app-shot
-        name="start"
-        i18n-alt="@@home.start.shotAlt"
-        alt="WinDict's “Look up a word” box open above the Windows Start menu"
-      />
-    </div>
+    <app-wiki-card />
   </div>
 </section>
 
