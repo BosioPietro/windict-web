@@ -1,7 +1,7 @@
 <h1 i18n="@@docs.cli.title">On the command line</h1>
 <p class="lead" i18n="@@docs.cli.lead">
-  Look up and translate words in a terminal with <code>wd</code>, which prints what the card would
-  show.
+  Look up, translate and gloss words in a terminal with <code>wd</code>, which prints what the card
+  would show.
 </p>
 <p i18n="@@docs.cli.install">
   The setup puts <code>wd</code> on the PATH, so it can be run from any folder in PowerShell, the
@@ -12,14 +12,15 @@
 <pre><code>wd serendipity                   # or: wd define serendipity
 wd translate good morning        # or: wd t good morning
 wd t buongiorno --to German
-Get-Clipboard | wd t</code></pre>
+Get-Clipboard | wd t
+Get-Clipboard | wd gloss         # or: wd g</code></pre>
 
 <h2 id="define" i18n="@@docs.cli.define.title">Looking up</h2>
 <p i18n="@@docs.cli.define.text">
   <code>wd define</code>, or <code>wd d</code>, looks up a word or a short phrase, in the built-in
   dictionaries and then online, as <app-keys keys="Alt+D" /> does. It's also what
-  <code>wd</code> does with a word and no command. When the word isn't found, it says what it was
-  likely a typo of.
+  <code>wd</code> does with a word and no command. When the dictionaries don't have it, it prints
+  the opening of its Wikipedia article, if there's one, or else what it was likely a typo of.
 </p>
 <table>
   <thead>
@@ -85,7 +86,31 @@ Get-Clipboard | wd t</code></pre>
   default language if it's that one already.
 </p>
 
-<h2 id="both" i18n="@@docs.cli.both.title">For both</h2>
+<h2 id="gloss" i18n="@@docs.cli.gloss.title">Glossing</h2>
+<p i18n="@@docs.cli.gloss.text">
+  <code>wd gloss</code>, or <code>wd g</code>, picks out the uncommon words of a passage of up to
+  500 characters, as <app-keys keys="Alt+D" /> does: it prints the passage with them underlined, and
+  then each of them with its first sense, from the dictionaries on your PC and then online.
+</p>
+<table>
+  <thead>
+    <tr>
+      <th i18n="@@docs.cli.col.option">Option</th>
+      <th i18n="@@docs.cli.col.action">What it does</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>-l</code>, <code>--lang &lt;language&gt;</code></td>
+      <td i18n="@@docs.cli.gloss.lang">
+        The language the passage is in, given as a code like <code>de</code> or a name like
+        <code>German</code>. Without it, it's told from the passage's words.
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="both" i18n="@@docs.cli.both.title">For every command</h2>
 <table>
   <thead>
     <tr>
@@ -145,7 +170,8 @@ Get-Clipboard | wd t</code></pre>
     <tr>
       <td><code>1</code></td>
       <td i18n="@@docs.cli.scripts.none">
-        No answer: the word wasn't found, or the lookup or translation failed
+        No answer: the word wasn't found, the lookup or translation failed, or the passage's
+        language couldn't be told
       </td>
     </tr>
     <tr>

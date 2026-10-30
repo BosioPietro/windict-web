@@ -97,6 +97,14 @@
       </td>
     </tr>
     <tr>
+      <td><strong i18n="@@docs.settings.wikipedia">Wikipedia</strong></td>
+      <td i18n="@@docs.settings.wikipedia.text">
+        For people, places and brands the dictionaries skip, and a button to a word's article. Needs
+        the online dictionary on. See
+        <a routerLink="/docs/looking-up-words" fragment="wikipedia">People, places and brands</a>.
+      </td>
+    </tr>
+    <tr>
       <td><strong i18n="@@docs.settings.languages">Languages</strong></td>
       <td i18n="@@docs.settings.languages.text">
         The dictionaries words are looked up in. English is built in; choosing any other language
@@ -108,14 +116,14 @@
 <h3 i18n="@@docs.settings.reading.title">Read selections</h3>
 <p i18n="@@docs.settings.reading.text">How WinDict reads what's selected:</p>
 <ul>
-  <li i18n="@@docs.settings.reading.direct">
-    <strong>Direct only</strong>, the default: reads the selection directly, through UI Automation.
-    It opens faster, but misses selections in apps that can't be read that way. Switch to Automatic
-    if words go missing.
-  </li>
   <li i18n="@@docs.settings.reading.automatic">
-    <strong>Automatic</strong>: reads the selection directly, and copies it in apps where that isn't
-    possible, putting back what was on the clipboard. Works in every app.
+    <strong>Automatic</strong>, the default: reads the selection directly, and copies it in apps
+    where that isn't possible, putting back what was on the clipboard. Works in every app.
+  </li>
+  <li i18n="@@docs.settings.reading.direct">
+    <strong>Direct only</strong>: reads the selection directly, through UI Automation, and never
+    touches the clipboard. It can open faster, but misses selections in apps that can't be read that
+    way.
   </li>
   <li i18n="@@docs.settings.reading.clipboard">
     <strong>Clipboard only</strong>: always copies the selection, which is slower. Try it if an app
@@ -156,8 +164,9 @@
   "max_synonyms": 6,
   "show_examples": true,
   "zoom": 100,
-  "selection": "direct",
+  "selection": "automatic",
   "online_lookup": true,
+  "wikipedia": true,
   "languages": ["en"],
   "translate_from": "en",
   "translate_to": "it",

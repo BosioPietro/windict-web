@@ -7,6 +7,7 @@ import { Shot } from '../../shared/shot';
 import { Winget } from '../../shared/winget';
 import { LANGUAGE_NAMES, Locale, RELEASES_URL, REPO_URL } from '../../site';
 import { HeroDemo } from './hero-demo';
+import { WikiCard } from './wiki-card';
 
 /** A dictionary WinDict can look words up in. */
 interface Dictionary {
@@ -24,7 +25,7 @@ interface Feature {
 
 @Component({
   selector: 'app-home',
-  imports: [RouterLink, Icon, Keys, Shot, Winget, HeroDemo],
+  imports: [RouterLink, Icon, Keys, Shot, Winget, HeroDemo, WikiCard],
   templateUrl: './home.html',
   styleUrl: './home.css',
 })
@@ -140,7 +141,7 @@ export class Home {
     },
     {
       q: $localize`:@@home.faq.network.q:What does it send over the network?`,
-      a: $localize`:@@home.faq.network.a:Only what you ask for: the word, when it's looked up online, and the text, when it's translated. WinDict also checks GitHub for a new version once a day. Both the online dictionary, which translations need, and the update check can be turned off in the settings.`,
+      a: $localize`:@@home.faq.network.a:Only what you ask for: the word, when it's looked up online or on Wikipedia, and the text, when it's translated. WinDict also checks GitHub for a new version once a day. The online dictionary, which translations and Wikipedia need, Wikipedia itself and the update check can each be turned off in the settings.`,
     },
     {
       q: $localize`:@@home.faq.languages.q:Which languages does it speak?`,

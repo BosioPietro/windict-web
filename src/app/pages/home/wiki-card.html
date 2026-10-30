@@ -1,0 +1,37 @@
+<div
+  class="wallpaper flex items-center justify-center overflow-hidden rounded-window border border-stroke px-4 py-10 shadow-float sm:px-10 sm:py-14"
+>
+  <!-- As WinDict lays out an article (render/body.rs): what it is, its
+       picture, its opening, then the link to the rest. -->
+  <div class="card relative">
+    <div class="mb-2 flex items-center justify-between gap-3">
+      <div class="flex min-w-0 items-center gap-2">
+        <app-icon name="arrowLeft" class="size-4 shrink-0 opacity-80" />
+        <span class="heading truncate font-semibold">{{ article.title }}</span>
+      </div>
+      <span class="tool secondary shrink-0" [title]="pinTip" aria-hidden="true"
+        ><app-icon name="pin" class="size-4"
+      /></span>
+    </div>
+    <p class="example">{{ article.description }}</p>
+    <img
+      src="images/kyoto.webp"
+      width="660"
+      height="436"
+      alt=""
+      loading="lazy"
+      decoding="async"
+      class="picture mt-3"
+    />
+    <p class="mt-3">{{ article.extract }}</p>
+    <p class="mt-2 text-[12.5px]">
+      <span class="accent-link">{{ article.link }}</span>
+      <app-icon name="open" class="accent ml-0.5 size-3 align-[-1px]" />
+    </p>
+  </div>
+</div>
+<p class="mt-3 text-center text-xs text-subtle">
+  {{ article.textFrom }} <a class="underline" [href]="article.url">{{ article.title }}</a
+  >, CC BY-SA 4.0 · {{ article.photoBy }}
+  <a class="underline" [href]="photoUrl">Martin Falbisoner</a>, CC BY-SA 4.0
+</p>
