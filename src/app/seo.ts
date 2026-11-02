@@ -7,8 +7,12 @@ import { pathOf } from './shared/current-url';
 import { LANGUAGE } from './shared/language';
 import { DOCS, LOCALES, Locale, OG_LOCALES, RELEASES_URL, REPO_URL, SITE_URL } from './site';
 
-const DEFAULT_DESCRIPTION = $localize`:@@seo.description:WinDict is a free Windows app for looking up and translating words: select a word in any app, press Alt+D, and its definition opens right next to it.`;
+const DEFAULT_DESCRIPTION = $localize`:@@seo.description:WinDict is a free dictionary and translator for Windows: select a word in any app, press Alt+D for its definition, even offline, or Alt+T to translate it.`;
+/** What og.jpg shows, for those who can't see it. */
+const OG_IMAGE_ALT = $localize`:@@seo.ogImageAlt:WinDict’s card beside a word selected in a book, with its definitions`;
 const DOCS_HEADING = $localize`:@@docs.nav.heading:Documentation`;
+/** One for every language, at the root (scripts/postbuild.mjs). */
+const OG_IMAGE = `${SITE_URL}/og.jpg`;
 
 /**
  * Keeps the head in step with the page: description, canonical link, the other languages' links,
@@ -46,14 +50,25 @@ export class Seo {
     this.meta.updateTag({ property: 'og:url', content: canonical });
     this.meta.updateTag({ property: 'og:type', content: 'website' });
     this.meta.updateTag({ property: 'og:site_name', content: 'WinDict' });
-    this.meta.updateTag({
-      property: 'og:locale',
-      content: OG_LOCALES[this.locale as Locale] ?? OG_LOCALES.en,
-    });
-    this.meta.updateTag({
-      property: 'og:image',
-      content: `${SITE_URL}/${this.locale}/og.jpg`,
-    });
+    const locale = (LOCALES as readonly string[]).includes(this.locale)
+      ? (this.locale as Locale)
+      : 'en';
+    this.meta.updateTag({ property: 'og:locale', content: OG_LOCALES[locale] });
+    // The same tag once for each other language: written once, on the server.
+    if (!this.meta.getTag('property="og:locale:alternate"')) {
+      this.meta.addTags(
+        LOCALES.filter((l) => l !== locale).map((l) => ({
+          property: 'og:locale:alternate',
+          content: OG_LOCALES[l],
+        })),
+      );
+    }
+    this.meta.updateTag({ property: 'og:image', content: OG_IMAGE });
+    this.meta.updateTag({ property: 'og:image:type', content: 'image/jpeg' });
+    this.meta.updateTag({ property: 'og:image:width', content: '1200' });
+    this.meta.updateTag({ property: 'og:image:height', content: '630' });
+    this.meta.updateTag({ property: 'og:image:alt', content: OG_IMAGE_ALT });
+    this.meta.updateTag({ name: 'twitter:image:alt', content: OG_IMAGE_ALT });
     this.meta.updateTag({ name: 'twitter:card', content: 'summary_large_image' });
 
     const head = this.document.head;
@@ -68,7 +83,13 @@ export class Seo {
     for (const locale of LOCALES) {
       this.link({ rel: 'alternate', hreflang: locale, href: `${SITE_URL}/${locale}${path}/` });
     }
-    this.link({ rel: 'alternate', hreflang: 'x-default', href: `${SITE_URL}/en${path}/` });
+    // For the home page, the root, which picks the visitor's language; the
+    // other pages have no such page, so English stands in.
+    this.link({
+      rel: 'alternate',
+      hreflang: 'x-default',
+      href: path === '' ? `${SITE_URL}/` : `${SITE_URL}/en${path}/`,
+    });
 
     const data = this.structuredData(path, description);
     if (data) {
@@ -97,7 +118,7 @@ export class Seo {
             name: 'WinDict',
             description,
             url: home,
-            image: `${SITE_URL}/${this.locale}/og.jpg`,
+            image: OG_IMAGE,
             applicationCategory: 'UtilitiesApplication',
             operatingSystem: 'Windows 10, Windows 11',
             downloadUrl: RELEASES_URL,

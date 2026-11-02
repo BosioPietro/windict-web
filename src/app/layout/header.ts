@@ -52,8 +52,13 @@ export class Header {
    * page, whose base is /en/, or under ng serve, which serves one language
    * at /. Without dropping it, every switch would add another.
    */
+  private readonly path = computed(() => pathOf(this.url()).replace(LANGUAGE_PREFIX, ''));
+
+  /** Whether this is a docs page: the Docs link goes to the first one, but stands for them all. */
+  protected readonly inDocs = computed(() => /^\/docs(\/|$)/.test(this.path()));
+
   protected readonly hrefs = computed(() => {
-    const path = pathOf(this.url()).replace(LANGUAGE_PREFIX, '');
+    const path = this.path();
     return Object.fromEntries(LOCALES.map((l) => [l, `/${l}${path}/`])) as Record<Locale, string>;
   });
 

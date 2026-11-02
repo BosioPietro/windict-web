@@ -1,18 +1,23 @@
 // Finishes the static site for Cloudflare Pages, after `ng build` has
 // prerendered every page in dist/windict-web/browser/{en,it,es,fr,de,pt}:
 //
+// - one copy of the files in public/ (images, favicon, Open Graph image) at
+//   the root, rather than one in each language;
 // - index.html at the root, which sends visitors to their browser's
-//   language, or to /en/;
+//   language, or to /en/, and is the home page's x-default;
 // - 404.html, the prerendered "not found" page, which Pages serves for any
 //   path that isn't a file;
-// - _redirects, for paths without a language;
+// - _redirects, for paths without a language, and the old ones of the files;
 // - _headers, for caching;
 // - sitemap.xml and robots.txt.
+import { execFileSync } from 'node:child_process';
 import {
   copyFileSync,
   existsSync,
   readFileSync,
   readdirSync,
+  renameSync,
+  rmSync,
   statSync,
   writeFileSync,
 } from 'node:fs';
@@ -30,37 +35,66 @@ const NAMES = {
   de: 'Deutsch',
   pt: 'Português',
 };
-const out = fileURLToPath(new URL('../dist/windict-web/browser/', import.meta.url));
+const root = fileURLToPath(new URL('../', import.meta.url));
+const out = join(root, 'dist', 'windict-web', 'browser');
 
 if (!LOCALES.every((l) => existsSync(join(out, l, 'index.html')))) {
   console.error(`postbuild: no prerendered pages in ${out}; run ng build first.`);
   process.exit(1);
 }
 
-// Root: pick the language. Without JavaScript, English. Its tags are for
-// link previews of the bare domain, which don't follow the redirect.
-const DESCRIPTION =
-  'WinDict is a free Windows app for looking up and translating words: select a word in any app, press Alt+D, and its definition opens right next to it.';
+// The files in public/, which Angular copies into every language: one copy
+// at the root instead, where the pages ask for them (/images/..., /og.jpg).
+const PUBLIC = readdirSync(join(root, 'public'));
+for (const name of PUBLIC) {
+  rmSync(join(out, name), { recursive: true, force: true });
+  renameSync(join(out, 'en', name), join(out, name));
+  for (const l of LOCALES) rmSync(join(out, l, name), { recursive: true, force: true });
+}
+const FILES = PUBLIC.filter((name) => statSync(join(out, name)).isFile());
+const FOLDERS = PUBLIC.filter((name) => !FILES.includes(name));
+
+// Root: pick the language. Without JavaScript, English. It's the home
+// page's x-default, as Google suggests for a page that picks the language,
+// so it's canonical itself; its other tags are for link previews of the
+// bare domain, which don't follow the redirect. Its words are the English
+// home page's, as the build wrote them (escaped already).
+const home = readFileSync(join(out, 'en', 'index.html'), 'utf8').split('</head>')[0];
+const tag = (pattern) => {
+  const found = home.match(pattern)?.[1];
+  if (!found) throw new Error(`postbuild: no ${pattern} in en/index.html`);
+  return found;
+};
+const TITLE = tag(/<title>([^<]*)<\/title>/);
+const DESCRIPTION = tag(/<meta name="description" content="([^"]*)"/);
+const IMAGE_ALT = tag(/<meta property="og:image:alt" content="([^"]*)"/);
 writeFileSync(
   join(out, 'index.html'),
   `<!doctype html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<title>WinDict</title>
+<title>${TITLE}</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="${DESCRIPTION}">
-<meta property="og:title" content="WinDict · Look up and translate any word on Windows">
+<meta property="og:title" content="${TITLE}">
 <meta property="og:description" content="${DESCRIPTION}">
 <meta property="og:url" content="${SITE}/">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="WinDict">
-<meta property="og:image" content="${SITE}/en/og.jpg">
+<meta property="og:image" content="${SITE}/og.jpg">
+<meta property="og:image:type" content="image/jpeg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="${IMAGE_ALT}">
+<meta property="og:locale" content="en_US">
 <meta name="twitter:card" content="summary_large_image">
-<link rel="canonical" href="${SITE}/en/">
+<meta name="twitter:image:alt" content="${IMAGE_ALT}">
+<link rel="canonical" href="${SITE}/">
 ${LOCALES.map((l) => `<link rel="alternate" hreflang="${l}" href="${SITE}/${l}/">`).join('\n')}
-<link rel="alternate" hreflang="x-default" href="${SITE}/en/">
-<link rel="icon" href="/en/favicon.ico">
+<link rel="alternate" hreflang="x-default" href="${SITE}/">
+<link rel="icon" type="image/x-icon" href="/favicon.ico">
+<link rel="icon" type="image/png" href="/windict-180.png">
 <script>
   (function () {
     var locales = ${JSON.stringify(LOCALES)};
@@ -84,26 +118,37 @@ ${LOCALES.map((l) => `<link rel="alternate" hreflang="${l}" href="${SITE}/${l}/"
 copyFileSync(join(out, 'en', '404', 'index.html'), join(out, '404.html'));
 
 // Paths without a language go to the English page; visitors in the other
-// languages arrive through the root, which picks theirs.
+// languages arrive through the root, which picks theirs. The docs have no
+// index: their first page stands in for it, without the page Angular writes
+// for that redirect. And the files once in each language's folder go to
+// their one copy at the root.
 writeFileSync(
   join(out, '_redirects'),
   [
     '/docs /en/docs/getting-started/ 301',
-    '/docs/* /en/docs/:splat 301',
-    ...LOCALES.map((l) => `/${l}/docs /${l}/docs/getting-started/ 301`),
+    '/docs/ /en/docs/getting-started/ 301',
+    '/docs/:page /en/docs/:page/ 301',
+    '/docs/:page/ /en/docs/:page/ 301',
+    ...LOCALES.flatMap((l) => [
+      `/${l}/docs /${l}/docs/getting-started/ 301`,
+      `/${l}/docs/ /${l}/docs/getting-started/ 301`,
+      ...FILES.map((name) => `/${l}/${name} /${name} 301`),
+      ...FOLDERS.map((name) => `/${l}/${name}/* /${name}/:splat 301`),
+    ]),
     '',
   ].join('\n'),
 );
 
-// Hashed bundles never change; pages and images may.
+// Hashed bundles never change; images and icons rarely do; pages may.
 writeFileSync(
   join(out, '_headers'),
   `/*.js
   Cache-Control: public, max-age=31536000, immutable
 /*.css
   Cache-Control: public, max-age=31536000, immutable
-/*/images/*
-  Cache-Control: public, max-age=604800
+${[...FOLDERS.map((name) => `/${name}/*`), ...FILES.map((name) => `/${name}`)]
+  .map((path) => `${path}\n  Cache-Control: public, max-age=604800`)
+  .join('\n')}
 /*
   X-Content-Type-Options: nosniff
   Referrer-Policy: strict-origin-when-cross-origin
@@ -129,19 +174,44 @@ const paths = pages
   .filter((p) => p !== '404' && LOCALES.every((l) => existsSync(join(out, l, p, 'index.html'))))
   .sort();
 const url = (locale, path) => `${SITE}/${locale}/${path ? `${path}/` : ''}`;
+
+/**
+ * When a page last changed: the last commit to its source, as git has it.
+ * Nothing when git isn't there to ask, as in a copy of the files alone.
+ */
+const lastmod = (path) => {
+  const source = path === '' ? 'src/app/pages/home' : `src/app/pages/${path}.html`;
+  try {
+    const date = execFileSync('git', ['log', '-1', '--format=%cI', '--', source], {
+      cwd: root,
+      encoding: 'utf8',
+      stdio: ['ignore', 'pipe', 'ignore'],
+    }).trim();
+    return date ? `\n    <lastmod>${date}</lastmod>` : '';
+  } catch {
+    return '';
+  }
+};
+
+const entry = (loc, path, xDefault, modified) => `  <url>
+    <loc>${loc}</loc>${modified}
+${LOCALES.map((l) => `    <xhtml:link rel="alternate" hreflang="${l}" href="${url(l, path)}"/>`).join('\n')}
+    <xhtml:link rel="alternate" hreflang="x-default" href="${xDefault}"/>
+  </url>`;
 writeFileSync(
   join(out, 'sitemap.xml'),
   `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
 ${paths
-  .flatMap((path) =>
-    LOCALES.map(
-      (locale) => `  <url>
-    <loc>${url(locale, path)}</loc>
-${LOCALES.map((l) => `    <xhtml:link rel="alternate" hreflang="${l}" href="${url(l, path)}"/>`).join('\n')}
-  </url>`,
-    ),
-  )
+  .flatMap((path) => {
+    // The home page's x-default is the root, which is in the sitemap too.
+    const xDefault = path === '' ? `${SITE}/` : url('en', path);
+    const modified = lastmod(path);
+    return [
+      ...(path === '' ? [entry(`${SITE}/`, path, xDefault, modified)] : []),
+      ...LOCALES.map((locale) => entry(url(locale, path), path, xDefault, modified)),
+    ];
+  })
   .join('\n')}
 </urlset>
 `,

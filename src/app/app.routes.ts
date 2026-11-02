@@ -11,7 +11,7 @@ export const routes: Routes = [
   {
     path: '',
     component: Home,
-    title: $localize`:@@title.home:WinDict · Look up and translate any word on Windows`,
+    title: $localize`:@@title.home:Free dictionary and translator for Windows · WinDict`,
   },
   {
     path: 'docs',
@@ -72,7 +72,7 @@ export const routes: Routes = [
           component: m.Settings,
           ...docs(
             $localize`:@@docs.nav.settings:Settings`,
-            $localize`:@@desc.settings:Every setting in WinDict, and its settings file.`,
+            $localize`:@@desc.settings:Every setting in WinDict, the dictionary and translator for Windows: general, card, lookup and translation, and the settings file that keeps them.`,
           ),
         },
         {

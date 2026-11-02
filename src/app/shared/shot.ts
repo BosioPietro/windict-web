@@ -1,6 +1,9 @@
 import { Component, computed, input } from '@angular/core';
 
-/** The screenshots in public/images, each in light and dark, and their height at 1600px wide. */
+/**
+ * The screenshots in public/images, each in light and dark, and their height at 1600px wide.
+ * One copy for every language, at /images (scripts/postbuild.mjs).
+ */
 const HEIGHTS = {
   lookup: 1024,
   'lookup-full': 1421,
@@ -48,12 +51,12 @@ export class Shot {
   readonly sizes = input('(min-width: 1024px) 50vw, 100vw');
 
   protected readonly height = computed(() => HEIGHTS[this.name()]);
-  protected readonly src = computed(() => `images/${this.name()}-light-1600.webp`);
+  protected readonly src = computed(() => `/images/${this.name()}-light-1600.webp`);
   protected readonly lightSrcset = computed(() => srcset(this.name(), 'light'));
   protected readonly darkSrcset = computed(() => srcset(this.name(), 'dark'));
 }
 
 function srcset(name: ShotName, theme: 'light' | 'dark'): string {
-  const base = `images/${name}-${theme}`;
+  const base = `/images/${name}-${theme}`;
   return `${base}-960.webp 960w, ${base}-1600.webp 1600w`;
 }

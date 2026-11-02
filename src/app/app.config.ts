@@ -1,12 +1,18 @@
 import { ApplicationConfig, provideBrowserGlobalErrorListeners } from '@angular/core';
-import { provideClientHydration, withEventReplay } from '@angular/platform-browser';
+import {
+  provideClientHydration,
+  withEventReplay,
+  withI18nSupport,
+} from '@angular/platform-browser';
 import {
   ActivatedRouteSnapshot,
+  UrlSerializer,
   provideRouter,
   withInMemoryScrolling,
   withViewTransitions,
 } from '@angular/router';
 import { routes } from './app.routes';
+import { TrailingSlashSerializer } from './shared/trailing-slash';
 
 /** The route a snapshot of the whole tree ends in: the page. */
 function pageOf(root: ActivatedRouteSnapshot) {
@@ -36,6 +42,9 @@ export const appConfig: ApplicationConfig = {
         },
       }),
     ),
-    provideClientHydration(withEventReplay()),
+    // Without i18n support, every component with translated text skips
+    // hydration and is rendered again from scratch, which moves the page.
+    provideClientHydration(withEventReplay(), withI18nSupport()),
+    { provide: UrlSerializer, useClass: TrailingSlashSerializer },
   ],
 };

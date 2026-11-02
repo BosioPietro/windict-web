@@ -98,15 +98,23 @@ npm run build      # dist/windict-web/browser
 npm run preview    # serves that folder
 ```
 
-`ng build` prerenders every page once per language, into `en/`, `it/`, `es/` and `fr/`.
-`scripts/postbuild.mjs` then adds what the root of the site needs:
+`ng build` prerenders every page once per language, into `en/`, `it/`, `es/`, `fr/`, `de/`
+and `pt/`. `scripts/postbuild.mjs` then finishes the site:
 
-- `index.html`, which sends visitors to `/it/`, `/es/`, `/fr/` or `/en/` by their browser's
-  language (English without JavaScript);
+- the files in `public/` move to the root, one copy for every language (the pages ask for
+  `/images/...`, `/og.jpg`, `/favicon.ico`);
+- `index.html`, which sends visitors to their browser's language, or to `/en/` (English without
+  JavaScript); it's also the home page's `x-default`;
 - `404.html`, the prerendered "not found" page;
-- `_redirects`, for paths without a language, like `/docs`;
-- `_headers`, so hashed bundles are cached for good and pages are not;
-- `sitemap.xml` and `robots.txt`.
+- `_redirects`, for paths without a language, like `/docs`, the docs' missing index, and the
+  files' old addresses in each language's folder;
+- `_headers`, so hashed bundles are cached for good, images and icons for a week, and pages not
+  at all;
+- `sitemap.xml`, with each page's languages and when its source last changed in git, and
+  `robots.txt`.
+
+Every link the router writes ends in `/`, as the pages are served (`shared/trailing-slash.ts`):
+without it, Cloudflare answers with a redirect.
 
 ## Deploying on Cloudflare Pages
 
@@ -151,7 +159,8 @@ a route in `app.routes.ts`.
 
 The screenshots in `public/images` are cropped from WinDict's
 `assets/intro/staging/reference`, in light and dark and at 960 and 1600 px
-wide, and the page shows the one for the visitor's theme.
+wide, and the page shows the one for the visitor's theme. Point to them, and
+to anything else in `public/`, from the root: `/images/...`.
 
 What the docs say should match WinDict itself: its shortcuts, settings and
 numbers come from the app's source, so check them there when it changes.

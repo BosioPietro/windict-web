@@ -1,7 +1,7 @@
 {
   "locale": "pt",
   "translations": {
-    "title.home": "WinDict · Consulte e traduza qualquer palavra no Windows",
+    "title.home": "Dicionário e tradutor gratuito para Windows · WinDict",
     "docs.nav.gettingStarted": "Primeiros passos",
     "desc.start": "Instale o WinDict no Windows, ou use-o sem instalar, e consulte sua primeira palavra.",
     "docs.nav.lookingUp": "Consultar palavras",
@@ -15,7 +15,7 @@
     "docs.nav.aboveStart": "Por cima do menu Iniciar",
     "desc.above": "Como o WinDict mostra o cartão por cima do menu Iniciar e da Pesquisa do Windows, com o acesso à interface.",
     "docs.nav.settings": "Configurações",
-    "desc.settings": "Todas as configurações do WinDict e o arquivo em que elas ficam salvas.",
+    "desc.settings": "Todas as configurações do WinDict, o dicionário e tradutor para Windows: geral, cartão, pesquisa e tradução, e o arquivo onde ficam salvas.",
     "docs.nav.dictionaries": "Dicionários e rede",
     "desc.dicts": "De onde vêm as definições e traduções do WinDict e o que ele envia pela rede.",
     "docs.nav.building": "Compilar a partir do código-fonte",
@@ -326,7 +326,7 @@
     "docs.translate.services.title": "De onde vêm as traduções",
     "docs.translate.services.text": "As traduções vêm do endpoint web público do Google Tradutor ou, quando ele não consegue responder, do {$START_LINK}MyMemory{$CLOSE_LINK}. Elas exigem o dicionário online ativado nas configurações e só são buscadas quando você pede uma.",
     "docs.translate.services.email": "O MyMemory tem um limite diário de traduções gratuitas. Um endereço de e-mail em {$START_TAG_STRONG}Tradução → E-mail do MyMemory{$CLOSE_TAG_STRONG}, nas configurações, aumenta esse limite; ele só é enviado ao MyMemory, junto com o texto traduzido.",
-    "home.hero.title": "Qualquer palavra, explicada ali mesmo.",
+    "home.hero.title": "O dicionário e tradutor para Windows.",
     "home.hero.lead": "Selecione uma palavra em qualquer app e pressione {$START_TAG_APP_KEYS}{$CLOSE_TAG_APP_KEYS}: a definição (ou a tradução) abre bem ao lado.",
     "home.hero.learn": "Primeiros passos",
     "home.hero.note": "Gratuito e de código aberto · Windows 10 e 11",
@@ -430,12 +430,13 @@
     "notFound.text": "Esta página não está no dicionário. Que tal conferir a grafia?",
     "notFound.home": "Voltar ao início",
     "notFound.docs": "Ler a documentação",
-    "seo.description": "O WinDict é um app gratuito para Windows que consulta e traduz palavras: selecione uma palavra em qualquer app, pressione Alt+D e a definição abre bem ao lado.",
+    "seo.description": "Dicionário e tradutor gratuito para Windows: selecione uma palavra em qualquer app e pressione Alt+D para a definição, mesmo offline, ou Alt+T para traduzi-la.",
     "winget.copied": "Copiado",
-    "winget.copy": "Copiar"
+    "winget.copy": "Copiar",
+    "seo.ogImageAlt": "O cartão do WinDict ao lado de uma palavra selecionada em um livro, com as definições dela"
   },
   "source": {
-    "title.home": "WinDict · Look up and translate any word on Windows",
+    "title.home": "Free dictionary and translator for Windows · WinDict",
     "docs.nav.gettingStarted": "Getting started",
     "desc.start": "How to install WinDict on Windows, or run it without installing, and look up your first word.",
     "docs.nav.lookingUp": "Looking up words",
@@ -449,7 +450,7 @@
     "docs.nav.aboveStart": "Above the Start menu",
     "desc.above": "How WinDict shows its card on top of the Windows Start menu and Search, with UI access.",
     "docs.nav.settings": "Settings",
-    "desc.settings": "Every setting in WinDict, and its settings file.",
+    "desc.settings": "Every setting in WinDict, the dictionary and translator for Windows: general, card, lookup and translation, and the settings file that keeps them.",
     "docs.nav.dictionaries": "Dictionaries and network use",
     "desc.dicts": "Where WinDict's definitions and translations come from, and what it sends over the network.",
     "docs.nav.building": "Building from source",
@@ -760,7 +761,7 @@
     "docs.translate.services.title": "Where translations come from",
     "docs.translate.services.text": " Translations come from Google Translate's public web endpoint, falling back to {$START_LINK}MyMemory{$CLOSE_LINK} when it can't answer. They need the online dictionary to be on, in the settings, and are fetched only when you ask for one.\n",
     "docs.translate.services.email": " MyMemory has a daily limit on free translations. An e-mail address under {$START_TAG_STRONG}Translation → MyMemory email{$CLOSE_TAG_STRONG} in the settings raises it; it's sent only to MyMemory, with the text translated.\n",
-    "home.hero.title": " Any word, explained in place. ",
+    "home.hero.title": "The dictionary and translator for Windows.",
     "home.hero.lead": " Select a word in any app and press {$START_TAG_APP_KEYS}{$CLOSE_TAG_APP_KEYS}: its definition, or its translation, opens right beside it. ",
     "home.hero.learn": "Get started",
     "home.hero.note": " Free and open source · Windows 10 and 11 ",
@@ -864,8 +865,9 @@
     "notFound.text": " This page isn't in the dictionary. Check the spelling? ",
     "notFound.home": "Go to the home page",
     "notFound.docs": "Read the docs",
-    "seo.description": "WinDict is a free Windows app for looking up and translating words: select a word in any app, press Alt+D, and its definition opens right next to it.",
+    "seo.description": "WinDict is a free dictionary and translator for Windows: select a word in any app, press Alt+D for its definition, even offline, or Alt+T to translate it.",
     "winget.copied": "Copied",
-    "winget.copy": "Copy"
+    "winget.copy": "Copy",
+    "seo.ogImageAlt": "WinDict’s card beside a word selected in a book, with its definitions"
   }
 }

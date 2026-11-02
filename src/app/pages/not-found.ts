@@ -15,7 +15,9 @@ import { RouterLink } from '@angular/router';
       </p>
       <div class="mt-8 flex justify-center gap-3">
         <a routerLink="/" class="btn-accent" i18n="@@notFound.home">Go to the home page</a>
-        <a routerLink="/docs" class="btn-standard" i18n="@@notFound.docs">Read the docs</a>
+        <a routerLink="/docs/getting-started" class="btn-standard" i18n="@@notFound.docs"
+          >Read the docs</a
+        >
       </div>
     </section>
   `,
