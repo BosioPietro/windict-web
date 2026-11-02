@@ -103,11 +103,11 @@ and `pt/`. `scripts/postbuild.mjs` then finishes the site:
 
 - the files in `public/` move to the root, one copy for every language (the pages ask for
   `/images/...`, `/og.jpg`, `/favicon.ico`);
-- `index.html`, which sends visitors to their browser's language, or to `/en/` (English without
-  JavaScript); it's also the home page's `x-default`;
 - `404.html`, the prerendered "not found" page;
-- `_redirects`, for paths without a language, like `/docs`, the docs' missing index, and the
-  files' old addresses in each language's folder;
+- `_redirects`, all permanent: paths without a language, the root included, go to English (the
+  `x-default` too), not to a language guessed from the browser, as Google advises; pages asked
+  for without their trailing slash get it; the docs' missing index goes to their first page; and
+  the files' old addresses in each language's folder go to the root;
 - `_headers`, so hashed bundles are cached for good, images and icons for a week, and pages not
   at all;
 - `sitemap.xml`, with each page's languages and when its source last changed in git, and

@@ -83,13 +83,8 @@ export class Seo {
     for (const locale of LOCALES) {
       this.link({ rel: 'alternate', hreflang: locale, href: `${SITE_URL}/${locale}${path}/` });
     }
-    // For the home page, the root, which picks the visitor's language; the
-    // other pages have no such page, so English stands in.
-    this.link({
-      rel: 'alternate',
-      hreflang: 'x-default',
-      href: path === '' ? `${SITE_URL}/` : `${SITE_URL}/en${path}/`,
-    });
+    // English, for every other language; the root redirects there too.
+    this.link({ rel: 'alternate', hreflang: 'x-default', href: `${SITE_URL}/en${path}/` });
 
     const data = this.structuredData(path, description);
     if (data) {

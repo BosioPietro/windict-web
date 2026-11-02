@@ -128,6 +128,10 @@
 @utility link {
   @apply text-link underline-offset-2 hover:underline;
 }
+/* A link within a sentence: underlined, as its colour alone is too close to the text's. */
+@utility link-inline {
+  @apply link underline hover:decoration-2;
+}
 
 @layer components {
   /* A key, as the card draws its hints. */
@@ -171,7 +175,7 @@
     @apply text-subtle;
   }
   .prose-doc a:not(.btn) {
-    @apply link;
+    @apply link-inline;
   }
   .prose-doc strong {
     @apply font-semibold;
