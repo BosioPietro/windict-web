@@ -15,6 +15,8 @@ interface Article {
   /** The credits under the card. */
   textFrom: string;
   photoBy: string;
+  /** The picture's alt text: what it shows. */
+  photoAlt: string;
 }
 
 const ARTICLES: Record<string, Article> = {
@@ -27,6 +29,7 @@ const ARTICLES: Record<string, Article> = {
     link: 'Wikipedia',
     textFrom: 'Text from Wikipedia:',
     photoBy: 'Photo by',
+    photoAlt: 'Kiyomizu-dera, a temple in Kyoto, among autumn leaves',
   },
   it: {
     title: 'Kyoto',
@@ -37,6 +40,7 @@ const ARTICLES: Record<string, Article> = {
     link: 'Wikipedia',
     textFrom: 'Testo da Wikipedia:',
     photoBy: 'Foto di',
+    photoAlt: 'Il Kiyomizu-dera, un tempio di Kyoto, tra le foglie d’autunno',
   },
   es: {
     title: 'Kioto',
@@ -47,6 +51,7 @@ const ARTICLES: Record<string, Article> = {
     link: 'Wikipedia',
     textFrom: 'Texto de Wikipedia:',
     photoBy: 'Foto de',
+    photoAlt: 'Kiyomizu-dera, un templo de Kioto, entre hojas de otoño',
   },
   fr: {
     title: 'Kyoto',
@@ -57,6 +62,7 @@ const ARTICLES: Record<string, Article> = {
     link: 'Wikipédia',
     textFrom: 'Texte de Wikipédia :',
     photoBy: 'Photo de',
+    photoAlt: 'Le Kiyomizu-dera, un temple de Kyoto, parmi les feuilles d’automne',
   },
   de: {
     title: 'Kyōto',
@@ -67,6 +73,7 @@ const ARTICLES: Record<string, Article> = {
     link: 'Wikipedia',
     textFrom: 'Text aus Wikipedia:',
     photoBy: 'Foto von',
+    photoAlt: 'Kiyomizu-dera, ein Tempel in Kyōto, im Herbstlaub',
   },
   pt: {
     title: 'Quioto',
@@ -77,6 +84,7 @@ const ARTICLES: Record<string, Article> = {
     link: 'Wikipédia',
     textFrom: 'Texto da Wikipédia:',
     photoBy: 'Foto de',
+    photoAlt: 'Kiyomizu-dera, um templo em Quioto, entre folhas de outono',
   },
 };
 

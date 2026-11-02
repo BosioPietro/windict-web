@@ -272,7 +272,12 @@
     <div
       class="mx-auto w-full max-w-xl overflow-hidden rounded-window border border-stroke shadow-float lg:max-w-none"
     >
-      <app-shot name="welcome" sizes="(min-width: 1024px) 42vw, 36rem" alt="" />
+      <app-shot
+        name="welcome"
+        sizes="(min-width: 1024px) 42vw, 36rem"
+        i18n-alt="@@docs.start.welcomeAlt"
+        alt="The introduction's welcome: WinDict's book among letters from many alphabets"
+      />
     </div>
   </div>
 </section>
@@ -520,7 +525,8 @@
   <div class="relative mx-auto max-w-3xl px-4 py-20 text-center sm:px-6 sm:py-28">
     <img
       src="/windict-144.webp"
-      alt=""
+      alt="WinDict"
+      aria-hidden="true"
       width="72"
       height="72"
       class="mx-auto size-16 drop-shadow-md sm:size-18"
