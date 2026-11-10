@@ -102,10 +102,13 @@ export class Seo {
       return {
         '@context': 'https://schema.org',
         '@graph': [
+          // The site name Google shows: it reads it from the root home page only,
+          // which redirects here, so the url is the root, the same in every language.
           {
             '@type': 'WebSite',
             name: 'WinDict',
-            url: home,
+            alternateName: ['windict.bosio.zip'],
+            url: `${SITE_URL}/`,
             inLanguage: this.locale,
           },
           {
