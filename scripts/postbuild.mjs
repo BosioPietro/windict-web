@@ -3,12 +3,14 @@
 //
 // - one copy of the files in public/ (images, favicon, Open Graph image) at
 //   the root, rather than one in each language;
-// - 404.html, the prerendered "not found" page, which Pages serves for any
-//   path that isn't a file;
+// - 404.html in each language's folder, and the English one at the root: the
+//   prerendered "not found" page, which Cloudflare serves for any path that
+//   isn't a file;
 // - _redirects, for paths without a language or a trailing slash, and the
 //   old ones of the files;
 // - _headers, for caching;
-// - sitemap.xml and robots.txt.
+// - sitemap.xml and robots.txt;
+// - and no index.csr.html, the client-side shells.
 import { execFileSync } from 'node:child_process';
 import {
   copyFileSync,
@@ -44,8 +46,18 @@ for (const name of PUBLIC) {
 const FILES = PUBLIC.filter((name) => statSync(join(out, name)).isFile());
 const FOLDERS = PUBLIC.filter((name) => !FILES.includes(name));
 
-// Not found: the English page, prerendered at /en/404/.
+// Not found: each language's page, prerendered at /<locale>/404/, as
+// <locale>/404.html, which Cloudflare serves for the paths in that language
+// that aren't files; and the English one at the root, for the rest.
 copyFileSync(join(out, 'en', '404', 'index.html'), join(out, '404.html'));
+for (const l of LOCALES) {
+  copyFileSync(join(out, l, '404', 'index.html'), join(out, l, '404.html'));
+}
+
+// The client-side shells Angular writes beside the prerendered pages: every
+// page is prerendered, so nothing asks for them, and they'd be served as
+// empty pages at /<locale>/index.csr.
+for (const l of LOCALES) rmSync(join(out, l, 'index.csr.html'), { force: true });
 
 // Paths without a language, the root among them, go to the English page:
 // not to one guessed from the browser, as Google advises; the header's menu
